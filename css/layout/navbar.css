@@ -1,0 +1,27 @@
+/* Navbar styles */
+.header-nav {
+  background: var(--color-surface);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.header-nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.header-nav .brand {
+  font-weight: 600;
+  font-size: var(--fs-lg);
+  color: var(--color-primary);
+}
+
+.header-nav .nav-links {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.header-nav .nav-links a { color: inherit; padding: 8px 12px; border-radius: 4px; }
+.header-nav .nav-links a:hover { background: rgba(0,0,0,0.03); }

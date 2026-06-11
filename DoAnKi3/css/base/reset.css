@@ -1,0 +1,39 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--pc-font-body);
+    color: var(--pc-text);
+    background-color: var(--pc-bg);
+    line-height: 1.65;
+    transition: background-color .3s, color .3s;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: var(--pc-primary);
+    text-decoration: none;
+    transition: var(--pc-transition);
+}
+
+    a:hover {
+        color: var(--pc-primary-dark);
+    }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--pc-font-display);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--pc-text);
+}

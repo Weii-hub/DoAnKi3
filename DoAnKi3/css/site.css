@@ -1,0 +1,35 @@
+﻿:root {
+    --primary: #FF914D;
+    --secondary: #FFF3E6;
+    --text: #333;
+    --radius: 15px;
+}
+
+body {
+    font-family: 'Segoe UI',sans-serif;
+    background: #f8f9fa;
+    color: var(--text);
+}
+
+/* NAVBAR */
+.pc-navbar {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+    .pc-navbar .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary);
+    }
+
+/* HERO */
+.pc-hero {
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient( rgba(0,0,0,.35), rgba(0,0,0,.35) ), url('/css/images/petbg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}

@@ -1,0 +1,5 @@
+/* Pet listing and detail pages */
+.pet-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-md); }
+.pet-card { background: var(--color-background); border: 1px solid rgba(0,0,0,0.04); border-radius: 8px; overflow: hidden; }
+.pet-card img { width: 100%; height: 180px; object-fit: cover; }
+.pet-card .body { padding: var(--space-md); }

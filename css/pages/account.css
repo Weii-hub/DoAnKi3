@@ -1,0 +1,3 @@
+/* Account pages (profile, orders) */
+.account-wrapper { max-width: 900px; margin: 0 auto; padding: var(--space-lg); }
+.profile-card { padding: var(--space-md); background: var(--color-background); border-radius: 6px; }

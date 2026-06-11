@@ -1,0 +1,3 @@
+/* Booking page styles */
+.booking-form { max-width: 720px; margin: 0 auto; background: var(--color-background); padding: var(--space-lg); border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,0.04); }
+.booking-summary { margin-top: var(--space-md); }

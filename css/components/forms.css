@@ -1,0 +1,8 @@
+/* Form elements styles */
+.form-group { margin-bottom: var(--space-md); }
+label { display: block; margin-bottom: var(--space-xs); font-size: var(--fs-sm); }
+input[type="text"], input[type="email"], input[type="password"], select, textarea {
+  width: 100%; padding: 10px 12px; border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; background: #fff; }
+
+.input-error { border-color: var(--color-danger); }
+.help-text { font-size: 0.85rem; color: #6c757d; }

@@ -1,0 +1,7 @@
+/* Reusable button styles */
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; }
+.btn-primary { background: var(--color-primary); color: var(--text-on-primary); }
+.btn-secondary { background: var(--color-secondary); color: #fff; }
+.btn-ghost { background: transparent; color: inherit; border: 1px solid rgba(0,0,0,0.06); }
+
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }

@@ -1,0 +1,5 @@
+/* Card component */
+.card { background: var(--color-background); border: 1px solid rgba(0,0,0,0.04); border-radius: 8px; overflow: hidden; }
+.card .card-header { padding: var(--space-md); border-bottom: 1px solid rgba(0,0,0,0.03); font-weight: 600; }
+.card .card-body { padding: var(--space-md); }
+.card .card-footer { padding: var(--space-sm); border-top: 1px solid rgba(0,0,0,0.03); background: rgba(0,0,0,0.01); }

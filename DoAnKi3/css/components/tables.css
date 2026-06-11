@@ -1,0 +1,5 @@
+/* Table styles */
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 12px; border-bottom: 1px solid rgba(0,0,0,0.04); text-align: left; }
+.table thead th { background: rgba(0,0,0,0.02); font-weight: 600; }
+.table tr:hover { background: rgba(0,0,0,0.01); }

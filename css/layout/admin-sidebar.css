@@ -1,0 +1,16 @@
+/* Admin sidebar styles */
+.admin-wrapper { display: flex; }
+
+.admin-sidebar {
+  width: 240px;
+  background: var(--color-surface);
+  border-right: 1px solid rgba(0,0,0,0.05);
+  min-height: 100vh;
+  padding: var(--space-md);
+}
+
+.admin-content { flex: 1; padding: var(--space-lg); }
+
+.admin-sidebar .nav { display: flex; flex-direction: column; gap: var(--space-sm); }
+.admin-sidebar .nav a { padding: 8px 10px; border-radius: 4px; color: inherit; }
+.admin-sidebar .nav a.active { background: rgba(13,110,253,0.08); color: var(--color-primary); }

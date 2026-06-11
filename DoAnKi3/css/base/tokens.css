@@ -1,0 +1,36 @@
+:root {
+    --pc-primary: #FF914D;
+    --pc-primary-dark: #E07430;
+    --pc-primary-light: #FFB380;
+    --pc-secondary: #FFF3E6;
+    --pc-accent: #4CAF50;
+    --pc-accent-dark: #388E3C;
+    --pc-text: #333333;
+    --pc-text-muted: #777777;
+    --pc-bg: #FFFFFF;
+    --pc-bg-soft: #FAFAFA;
+    --pc-border: #F0E6DA;
+    --pc-shadow-sm: 0 2px 12px rgba(255,145,77,.10);
+    --pc-shadow-md: 0 8px 32px rgba(255,145,77,.15);
+    --pc-shadow-lg: 0 16px 48px rgba(255,145,77,.20);
+    --pc-radius-sm: 8px;
+    --pc-radius-md: 15px;
+    --pc-radius-lg: 24px;
+    --pc-radius-pill: 50px;
+    --pc-transition: all .3s cubic-bezier(.4,0,.2,1);
+    --pc-font-display: 'Playfair Display', Georgia, serif;
+    --pc-font-body: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* Dark Mode tokens */
+[data-theme="dark"] {
+    --pc-text: #F0EDE8;
+    --pc-text-muted: #B0A898;
+    --pc-bg: #1A1612;
+    --pc-bg-soft: #231E18;
+    --pc-border: #3A3028;
+    --pc-secondary: #2A2018;
+    --pc-shadow-sm: 0 2px 12px rgba(0,0,0,.30);
+    --pc-shadow-md: 0 8px 32px rgba(0,0,0,.40);
+    --pc-shadow-lg: 0 16px 48px rgba(0,0,0,.50);
+}

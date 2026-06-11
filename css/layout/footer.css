@@ -1,0 +1,10 @@
+/* Footer styles */
+.site-footer {
+  background: var(--color-surface);
+  border-top: 1px solid rgba(0,0,0,0.05);
+  padding: var(--space-lg) 0;
+  color: #495057;
+}
+
+.site-footer .container { display: flex; justify-content: space-between; align-items: center; }
+.site-footer small { color: #6c757d; }

@@ -1,0 +1,4 @@
+/* Cart page styles */
+.cart-list { width: 100%; border-collapse: collapse; }
+.cart-list th, .cart-list td { padding: 12px; border-bottom: 1px solid rgba(0,0,0,0.04); }
+.cart-actions { display: flex; gap: var(--space-sm); justify-content: flex-end; margin-top: var(--space-md); }
