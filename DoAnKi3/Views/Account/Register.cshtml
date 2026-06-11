@@ -1,0 +1,94 @@
+﻿@model DoAnKi3.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Đăng ký tài khoản - PetCare Premium";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="auth-page">
+    <div class="container py-4">
+        <div class="auth-card">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <div class="auth-form-wrap" style="max-height: 85vh; overflow-y: auto;">
+                        <h3>Tạo tài khoản mới</h3>
+                        <p class="sub">Trở thành thành viên của gia đình PetCare ngay hôm nay</p>
+
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            if (!ViewData.ModelState.IsValid)
+                            {
+                                <div class="alert alert-danger p-2 small pc-radius-sm">
+                                    @Html.ValidationSummary(true, "")
+                                </div>
+                            }
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold pc-text-main">Tên đăng nhập </label>
+                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control pc-form-control", placeholder = "Nhập tên đăng nhập...", required = "required" })
+                                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger small" })
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 mb-3">
+                                    <label class="form-label small fw-bold pc-text-main">Mật khẩu</label>
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control pc-form-control", placeholder = "Mật khẩu...", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <label class="form-label small fw-bold pc-text-main">Xác nhận mật khẩu</label>
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control pc-form-control", placeholder = "Nhập lại...", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger small" })
+                                </div>
+                            </div>
+
+                            <hr class="my-3 pc-border-line">
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold pc-text-main">Họ và tên chủ nuôi</label>
+                                @Html.TextBoxFor(m => m.HoTen, new { @class = "form-control pc-form-control", placeholder = "Nguyễn Văn A...", required = "required" })
+                                @Html.ValidationMessageFor(m => m.HoTen, "", new { @class = "text-danger small" })
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 mb-3">
+                                    <label class="form-label small fw-bold pc-text-main">Số điện thoại</label>
+                                    @Html.TextBoxFor(m => m.Sdt, new { @class = "form-control pc-form-control", placeholder = "09xxxxxxx...", required = "required", type = "tel" })
+                                    @Html.ValidationMessageFor(m => m.Sdt, "", new { @class = "text-danger small" })
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <label class="form-label small fw-bold pc-text-main">Địa chỉ Email</label>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control pc-form-control", placeholder = "name@gmail.com", required = "required", type = "email" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label small fw-bold pc-text-main">Địa chỉ thường trú</label>
+                                @Html.TextBoxFor(m => m.DiaChi, new { @class = "form-control pc-form-control", placeholder = "Số nhà, tên đường, quận/huyện...", required = "required" })
+                                @Html.ValidationMessageFor(m => m.DiaChi, "", new { @class = "text-danger small" })
+                            </div>
+
+                            <button type="submit" class="btn btn-pc-primary w-100 fw-bold text-white mb-3 shadow-sm">
+                                Đăng Ký Ngay
+                            </button>
+                        }
+
+                        <div class="text-center mt-2">
+                            <span class="small pc-text-muted">Bạn đã có tài khoản rồi?</span>
+                            <a href="@Url.Action("Login", "Account")" class="small fw-bold text-decoration-none pc-link-primary">Đăng nhập</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 d-none d-md-flex auth-banner">
+                    <div class="auth-paw-deco">🐾</div>
+                    <h2>Dịch vụ chăm sóc thú cưng chuẩn 5 sao</h2>
+                    <p>Đăng ký thành viên mở ra đặc quyền tích lũy điểm thưởng thành viên, quản lý thông tin tiêm phòng định kỳ toàn diện cho từng bé Pet yêu của bạn.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

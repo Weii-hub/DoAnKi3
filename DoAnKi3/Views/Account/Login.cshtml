@@ -1,0 +1,71 @@
+﻿@model DoAnKi3.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Đăng nhập hệ thống - PetCare Premium";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="auth-page">
+    <div class="container">
+        <div class="auth-card">
+            <div class="row g-0">
+                <div class="col-md-6 d-none d-md-flex auth-banner">
+                    <div class="auth-paw-deco">🐾</div>
+                    <h2>Chào mừng bạn quay trở lại!</h2>
+                    <p>Đăng nhập để theo dõi lịch trình chăm sóc, hồ sơ bệnh án tiêm chủng và dịch vụ đặt lịch Spa nhanh chóng dành riêng cho thú cưng của bạn.</p>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="auth-form-wrap">
+                        <h3>Đăng Nhập</h3>
+                        <p class="sub">Vui lòng điền thông tin tài khoản của bạn</p>
+
+                        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            if (!ViewData.ModelState.IsValid)
+                            {
+                                <div class="alert alert-danger p-2 small pc-radius-sm">
+                                    @Html.ValidationSummary(true, "")
+                                </div>
+                            }
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold pc-text-main">Tên đăng nhập</label>
+                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control pc-form-control", placeholder = "Nhập tên đăng nhập hoặc số điện thoại...", required = "required" })
+                                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger small" })
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <label class="form-label small fw-bold pc-text-main mb-0">Mật khẩu</label>
+                                    <a href="#" class="small text-decoration-none pc-link-muted">Quên mật khẩu?</a>
+                                </div>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control pc-form-control", placeholder = "Nhập mật khẩu...", required = "required" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+                            </div>
+
+                            <button type="submit" class="btn btn-pc-primary w-100 fw-bold text-white mb-3 shadow-sm">
+                                Đăng Nhập
+                            </button>
+
+                            <div class="auth-divider">
+                                <span>Hoặc đăng nhập nhanh bằng</span>
+                            </div>
+
+                            <button type="button" class="social-login-btn">
+                                <img src="https://lh3.googleusercontent.com/COxit97ZCH7wOI06RMTgHQBgIFvZ5ihCgd8Y9Wxg1mJqq8E8vY72w51G5gEOCWIFJvU=w300" alt="Google" style="width:18px;height:18px;"> Tiếp tục với Google
+                            </button>
+                        }
+
+                        <div class="text-center mt-4">
+                            <span class="small pc-text-muted">Bạn chưa có tài khoản?</span>
+                            <a href="@Url.Action("Register", "Account")" class="small fw-bold text-decoration-none pc-link-primary">Đăng ký ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
