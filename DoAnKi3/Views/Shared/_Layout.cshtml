@@ -63,7 +63,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="@Url.Action("Index","Pet")">
+                           href="@Url.Action("dv","Dichvu")">
                             Dịch vụ
                         </a>
                     </li>
@@ -77,43 +77,63 @@
 
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="@Url.Action("Index","Cart")">
+                           href="@Url.Action("shop","Product")">
                             Shop
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="@Url.Action("Index","Cart")">
+                           href="@Url.Action("Contact","Home")">
                             Liên hệ
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="@Url.Action("Index","Cart")">
+                           href="@Url.Action("Aboutus","Home")">
                             About us
                         </a>
                     </li>
 
                 </ul>
 
-                <div class="d-flex gap-2">
-
-                    <a href="@Url.Action("Login","Account")"
-                       class="btn btn-outline-primary">
-
-                        Đăng nhập
-
-                    </a>
-
-                    <a href="@Url.Action("Register","Account")"
-                       class="btn btn-primary">
-
-                        Đăng ký
-
-                    </a>
-
+                <div class="d-flex gap-2 align-items-center">
+                    @if (Session["Username"] == null)
+                    {
+                        <a href="@Url.Action("Login", "Account")" class="btn btn-outline-primary">
+                            Đăng nhập
+                        </a>
+                        <a href="@Url.Action("Register", "Account")" class="btn btn-primary">
+                            Đăng ký
+                        </a>
+                    }
+                    else
+                    {
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-regular fa-user me-1"></i>
+                                @(Session["TenNguoiDung"] ?? Session["Username"])
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                @if (Session["VaiTro"]?.ToString() != "KhachHang")
+                                {
+                                    // Nếu là Admin, Bác sĩ, Nhân viên thì hiện thêm nút vào trang quản lý
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("Index", "Home")">
+                                            <i class="fa-solid fa-gauge me-2"></i>Trang quản trị
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-menu-divider"></li>
+                                }
+                                <li>
+                                    <a class="dropdown-item text-danger" href="@Url.Action("Logout", "Account")">
+                                        <i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
                 </div>
 
             </div>
@@ -129,9 +149,6 @@
         @RenderBody()
 
     </main>
-
-    <!-- FOOTER -->
-
     <footer class="pc-footer mt-5">
 
         <div class="container py-5">
@@ -184,4 +201,3 @@
 
 </body>
 </html>
-```
