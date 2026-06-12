@@ -18,7 +18,6 @@ namespace DoAnKi3.Models
         public NHAN_VIEN()
         {
             this.BENH_AN = new HashSet<BENH_AN>();
-            this.LICH_HEN = new HashSet<LICH_HEN>();
         }
     
         public int MaNV { get; set; }
@@ -29,8 +28,6 @@ namespace DoAnKi3.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BENH_AN> BENH_AN { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LICH_HEN> LICH_HEN { get; set; }
         public virtual TAI_KHOAN TAI_KHOAN { get; set; }
     }
 }

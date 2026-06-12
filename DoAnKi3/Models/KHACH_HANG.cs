@@ -18,7 +18,6 @@ namespace DoAnKi3.Models
         public KHACH_HANG()
         {
             this.DON_HANG = new HashSet<DON_HANG>();
-            this.LICH_HEN = new HashSet<LICH_HEN>();
             this.THU_CUNG = new HashSet<THU_CUNG>();
         }
     
@@ -34,8 +33,6 @@ namespace DoAnKi3.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DON_HANG> DON_HANG { get; set; }
         public virtual TAI_KHOAN TAI_KHOAN { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LICH_HEN> LICH_HEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<THU_CUNG> THU_CUNG { get; set; }
     }

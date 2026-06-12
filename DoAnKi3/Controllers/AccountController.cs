@@ -7,7 +7,7 @@ namespace DoAnKi3.Controllers
 {
     public class AccountController : Controller
     {
-        private WebPetCareEntities db = new WebPetCareEntities();
+        private WebPetCareEntities1 db = new WebPetCareEntities1();
 
         // ==========================================
         // ── CHỨC NĂNG ĐĂNG NHẬP (LOGIN)

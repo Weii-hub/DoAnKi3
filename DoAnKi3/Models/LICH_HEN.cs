@@ -14,19 +14,26 @@ namespace DoAnKi3.Models
     
     public partial class LICH_HEN
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LICH_HEN()
+        {
+            this.DICH_VU = new HashSet<DICH_VU>();
+        }
+    
         public int MaLichHen { get; set; }
+        public string HoTen { get; set; }
+        public string SoDienThoai { get; set; }
+        public string Email { get; set; }
+        public string ChiNhanh { get; set; }
         public System.DateTime NgayHen { get; set; }
         public System.TimeSpan GioHen { get; set; }
         public string TrangThai { get; set; }
         public string LyDoTuChoi { get; set; }
-        public int MaKH { get; set; }
-        public int MaPet { get; set; }
-        public int MaDV { get; set; }
+        public Nullable<int> MaKH { get; set; }
+        public Nullable<int> MaPet { get; set; }
         public Nullable<int> MaNV { get; set; }
     
-        public virtual DICH_VU DICH_VU { get; set; }
-        public virtual KHACH_HANG KHACH_HANG { get; set; }
-        public virtual NHAN_VIEN NHAN_VIEN { get; set; }
-        public virtual THU_CUNG THU_CUNG { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DICH_VU> DICH_VU { get; set; }
     }
 }

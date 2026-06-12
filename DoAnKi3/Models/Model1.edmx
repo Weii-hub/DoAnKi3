@@ -29,6 +29,14 @@
           <Property Name="GiaBan" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ThanhTien" Type="decimal" Precision="29" Scale="2" StoreGeneratedPattern="Computed" />
         </EntityType>
+        <EntityType Name="CHI_TIET_LICH_HEN">
+          <Key>
+            <PropertyRef Name="MaLichHen" />
+            <PropertyRef Name="MaDV" />
+          </Key>
+          <Property Name="MaLichHen" Type="int" Nullable="false" />
+          <Property Name="MaDV" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="DICH_VU">
           <Key>
             <PropertyRef Name="MaDV" />
@@ -68,13 +76,16 @@
             <PropertyRef Name="MaLichHen" />
           </Key>
           <Property Name="MaLichHen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SoDienThoai" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="ChiNhanh" Type="nvarchar" MaxLength="100" />
           <Property Name="NgayHen" Type="date" Nullable="false" />
           <Property Name="GioHen" Type="time" Precision="7" Nullable="false" />
           <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
-          <Property Name="LyDoTuChoi" Type="nvarchar" MaxLength="255" />
-          <Property Name="MaKH" Type="int" Nullable="false" />
-          <Property Name="MaPet" Type="int" Nullable="false" />
-          <Property Name="MaDV" Type="int" Nullable="false" />
+          <Property Name="LyDoTuChoi" Type="nvarchar" MaxLength="250" />
+          <Property Name="MaKH" Type="int" />
+          <Property Name="MaPet" Type="int" />
           <Property Name="MaNV" Type="int" />
         </EntityType>
         <EntityType Name="NHAN_VIEN">
@@ -160,6 +171,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__CHI_TIET___MaLic__72C60C4A">
+          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CHI_TIET_LICH_HEN" Type="Self.CHI_TIET_LICH_HEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LICH_HEN">
+              <PropertyRef Name="MaLichHen" />
+            </Principal>
+            <Dependent Role="CHI_TIET_LICH_HEN">
+              <PropertyRef Name="MaLichHen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__CHI_TIET___MaSan__619B8048">
           <End Role="SAN_PHAM" Type="Self.SAN_PHAM" Multiplicity="1" />
           <End Role="CHI_TIET_DON_HANG" Type="Self.CHI_TIET_DON_HANG" Multiplicity="*" />
@@ -169,6 +194,20 @@
             </Principal>
             <Dependent Role="CHI_TIET_DON_HANG">
               <PropertyRef Name="MaSanPham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CHI_TIET_L__MaDV__73BA3083">
+          <End Role="DICH_VU" Type="Self.DICH_VU" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CHI_TIET_LICH_HEN" Type="Self.CHI_TIET_LICH_HEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DICH_VU">
+              <PropertyRef Name="MaDV" />
+            </Principal>
+            <Dependent Role="CHI_TIET_LICH_HEN">
+              <PropertyRef Name="MaDV" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -193,54 +232,6 @@
             </Principal>
             <Dependent Role="KHACH_HANG">
               <PropertyRef Name="MaTaiKhoan" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__LICH_HEN__MaDV__4F7CD00D">
-          <End Role="DICH_VU" Type="Self.DICH_VU" Multiplicity="1" />
-          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DICH_VU">
-              <PropertyRef Name="MaDV" />
-            </Principal>
-            <Dependent Role="LICH_HEN">
-              <PropertyRef Name="MaDV" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__LICH_HEN__MaKH__4D94879B">
-          <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="1" />
-          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KHACH_HANG">
-              <PropertyRef Name="MaKH" />
-            </Principal>
-            <Dependent Role="LICH_HEN">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__LICH_HEN__MaNV__5070F446">
-          <End Role="NHAN_VIEN" Type="Self.NHAN_VIEN" Multiplicity="0..1" />
-          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NHAN_VIEN">
-              <PropertyRef Name="MaNV" />
-            </Principal>
-            <Dependent Role="LICH_HEN">
-              <PropertyRef Name="MaNV" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__LICH_HEN__MaPet__4E88ABD4">
-          <End Role="THU_CUNG" Type="Self.THU_CUNG" Multiplicity="1" />
-          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="THU_CUNG">
-              <PropertyRef Name="MaPet" />
-            </Principal>
-            <Dependent Role="LICH_HEN">
-              <PropertyRef Name="MaPet" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -273,6 +264,7 @@
         <EntityContainer Name="WebPetCareModelStoreContainer">
           <EntitySet Name="BENH_AN" EntityType="Self.BENH_AN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHI_TIET_DON_HANG" EntityType="Self.CHI_TIET_DON_HANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHI_TIET_LICH_HEN" EntityType="Self.CHI_TIET_LICH_HEN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DICH_VU" EntityType="Self.DICH_VU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DON_HANG" EntityType="Self.DON_HANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KHACH_HANG" EntityType="Self.KHACH_HANG" Schema="dbo" store:Type="Tables" />
@@ -293,9 +285,17 @@
             <End Role="DON_HANG" EntitySet="DON_HANG" />
             <End Role="CHI_TIET_DON_HANG" EntitySet="CHI_TIET_DON_HANG" />
           </AssociationSet>
+          <AssociationSet Name="FK__CHI_TIET___MaLic__72C60C4A" Association="Self.FK__CHI_TIET___MaLic__72C60C4A">
+            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
+            <End Role="CHI_TIET_LICH_HEN" EntitySet="CHI_TIET_LICH_HEN" />
+          </AssociationSet>
           <AssociationSet Name="FK__CHI_TIET___MaSan__619B8048" Association="Self.FK__CHI_TIET___MaSan__619B8048">
             <End Role="SAN_PHAM" EntitySet="SAN_PHAM" />
             <End Role="CHI_TIET_DON_HANG" EntitySet="CHI_TIET_DON_HANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CHI_TIET_L__MaDV__73BA3083" Association="Self.FK__CHI_TIET_L__MaDV__73BA3083">
+            <End Role="DICH_VU" EntitySet="DICH_VU" />
+            <End Role="CHI_TIET_LICH_HEN" EntitySet="CHI_TIET_LICH_HEN" />
           </AssociationSet>
           <AssociationSet Name="FK__DON_HANG__MaKH__5DCAEF64" Association="Self.FK__DON_HANG__MaKH__5DCAEF64">
             <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
@@ -304,22 +304,6 @@
           <AssociationSet Name="FK__KHACH_HAN__MaTai__403A8C7D" Association="Self.FK__KHACH_HAN__MaTai__403A8C7D">
             <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
             <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
-          </AssociationSet>
-          <AssociationSet Name="FK__LICH_HEN__MaDV__4F7CD00D" Association="Self.FK__LICH_HEN__MaDV__4F7CD00D">
-            <End Role="DICH_VU" EntitySet="DICH_VU" />
-            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
-          </AssociationSet>
-          <AssociationSet Name="FK__LICH_HEN__MaKH__4D94879B" Association="Self.FK__LICH_HEN__MaKH__4D94879B">
-            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
-            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
-          </AssociationSet>
-          <AssociationSet Name="FK__LICH_HEN__MaNV__5070F446" Association="Self.FK__LICH_HEN__MaNV__5070F446">
-            <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
-            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
-          </AssociationSet>
-          <AssociationSet Name="FK__LICH_HEN__MaPet__4E88ABD4" Association="Self.FK__LICH_HEN__MaPet__4E88ABD4">
-            <End Role="THU_CUNG" EntitySet="THU_CUNG" />
-            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
           </AssociationSet>
           <AssociationSet Name="FK__NHAN_VIEN__MaTai__440B1D61" Association="Self.FK__NHAN_VIEN__MaTai__440B1D61">
             <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
@@ -372,7 +356,7 @@
           <Property Name="LoaiDichVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DonGia" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LICH_HEN" Relationship="Self.FK__LICH_HEN__MaDV__4F7CD00D" FromRole="DICH_VU" ToRole="LICH_HEN" />
+          <NavigationProperty Name="LICH_HEN" Relationship="Self.CHI_TIET_LICH_HEN" FromRole="DICH_VU" ToRole="LICH_HEN" />
         </EntityType>
         <EntityType Name="DON_HANG">
           <Key>
@@ -401,7 +385,6 @@
           <Property Name="MaTaiKhoan" Type="Int32" />
           <NavigationProperty Name="DON_HANG" Relationship="Self.FK__DON_HANG__MaKH__5DCAEF64" FromRole="KHACH_HANG" ToRole="DON_HANG" />
           <NavigationProperty Name="TAI_KHOAN" Relationship="Self.FK__KHACH_HAN__MaTai__403A8C7D" FromRole="KHACH_HANG" ToRole="TAI_KHOAN" />
-          <NavigationProperty Name="LICH_HEN" Relationship="Self.FK__LICH_HEN__MaKH__4D94879B" FromRole="KHACH_HANG" ToRole="LICH_HEN" />
           <NavigationProperty Name="THU_CUNG" Relationship="Self.FK__THU_CUNG__MaKH__46E78A0C" FromRole="KHACH_HANG" ToRole="THU_CUNG" />
         </EntityType>
         <EntityType Name="LICH_HEN">
@@ -409,18 +392,18 @@
             <PropertyRef Name="MaLichHen" />
           </Key>
           <Property Name="MaLichHen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ChiNhanh" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="NgayHen" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="GioHen" Type="Time" Nullable="false" Precision="7" />
           <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LyDoTuChoi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="MaKH" Type="Int32" Nullable="false" />
-          <Property Name="MaPet" Type="Int32" Nullable="false" />
-          <Property Name="MaDV" Type="Int32" Nullable="false" />
+          <Property Name="LyDoTuChoi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MaKH" Type="Int32" />
+          <Property Name="MaPet" Type="Int32" />
           <Property Name="MaNV" Type="Int32" />
-          <NavigationProperty Name="DICH_VU" Relationship="Self.FK__LICH_HEN__MaDV__4F7CD00D" FromRole="LICH_HEN" ToRole="DICH_VU" />
-          <NavigationProperty Name="KHACH_HANG" Relationship="Self.FK__LICH_HEN__MaKH__4D94879B" FromRole="LICH_HEN" ToRole="KHACH_HANG" />
-          <NavigationProperty Name="NHAN_VIEN" Relationship="Self.FK__LICH_HEN__MaNV__5070F446" FromRole="LICH_HEN" ToRole="NHAN_VIEN" />
-          <NavigationProperty Name="THU_CUNG" Relationship="Self.FK__LICH_HEN__MaPet__4E88ABD4" FromRole="LICH_HEN" ToRole="THU_CUNG" />
+          <NavigationProperty Name="DICH_VU" Relationship="Self.CHI_TIET_LICH_HEN" FromRole="LICH_HEN" ToRole="DICH_VU" />
         </EntityType>
         <EntityType Name="NHAN_VIEN">
           <Key>
@@ -432,7 +415,6 @@
           <Property Name="ChucVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MaTaiKhoan" Type="Int32" />
           <NavigationProperty Name="BENH_AN" Relationship="Self.FK__BENH_AN__MaBacSi__5535A963" FromRole="NHAN_VIEN" ToRole="BENH_AN" />
-          <NavigationProperty Name="LICH_HEN" Relationship="Self.FK__LICH_HEN__MaNV__5070F446" FromRole="NHAN_VIEN" ToRole="LICH_HEN" />
           <NavigationProperty Name="TAI_KHOAN" Relationship="Self.FK__NHAN_VIEN__MaTai__440B1D61" FromRole="NHAN_VIEN" ToRole="TAI_KHOAN" />
         </EntityType>
         <EntityType Name="SAN_PHAM">
@@ -472,7 +454,6 @@
           <Property Name="MaKH" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BENH_AN" Relationship="Self.FK__BENH_AN__MaPet__5441852A" FromRole="THU_CUNG" ToRole="BENH_AN" />
           <NavigationProperty Name="KHACH_HANG" Relationship="Self.FK__THU_CUNG__MaKH__46E78A0C" FromRole="THU_CUNG" ToRole="KHACH_HANG" />
-          <NavigationProperty Name="LICH_HEN" Relationship="Self.FK__LICH_HEN__MaPet__4E88ABD4" FromRole="THU_CUNG" ToRole="LICH_HEN" />
         </EntityType>
         <Association Name="FK__BENH_AN__MaBacSi__5535A963">
           <End Role="NHAN_VIEN" Type="Self.NHAN_VIEN" Multiplicity="1" />
@@ -526,18 +507,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LICH_HEN__MaDV__4F7CD00D">
-          <End Role="DICH_VU" Type="Self.DICH_VU" Multiplicity="1" />
-          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DICH_VU">
-              <PropertyRef Name="MaDV" />
-            </Principal>
-            <Dependent Role="LICH_HEN">
-              <PropertyRef Name="MaDV" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__DON_HANG__MaKH__5DCAEF64">
           <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="1" />
           <End Role="DON_HANG" Type="Self.DON_HANG" Multiplicity="*" />
@@ -562,18 +531,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LICH_HEN__MaKH__4D94879B">
-          <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="1" />
-          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KHACH_HANG">
-              <PropertyRef Name="MaKH" />
-            </Principal>
-            <Dependent Role="LICH_HEN">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__THU_CUNG__MaKH__46E78A0C">
           <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -585,30 +542,6 @@
             </Principal>
             <Dependent Role="THU_CUNG">
               <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__LICH_HEN__MaNV__5070F446">
-          <End Role="NHAN_VIEN" Type="Self.NHAN_VIEN" Multiplicity="0..1" />
-          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NHAN_VIEN">
-              <PropertyRef Name="MaNV" />
-            </Principal>
-            <Dependent Role="LICH_HEN">
-              <PropertyRef Name="MaNV" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__LICH_HEN__MaPet__4E88ABD4">
-          <End Role="THU_CUNG" Type="Self.THU_CUNG" Multiplicity="1" />
-          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="THU_CUNG">
-              <PropertyRef Name="MaPet" />
-            </Principal>
-            <Dependent Role="LICH_HEN">
-              <PropertyRef Name="MaPet" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -624,7 +557,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="WebPetCareEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="CHI_TIET_LICH_HEN">
+          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="*" />
+          <End Role="DICH_VU" Type="Self.DICH_VU" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="WebPetCareEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BENH_AN" EntityType="Self.BENH_AN" />
           <EntitySet Name="CHI_TIET_DON_HANG" EntityType="Self.CHI_TIET_DON_HANG" />
           <EntitySet Name="DICH_VU" EntityType="Self.DICH_VU" />
@@ -651,10 +588,6 @@
             <End Role="SAN_PHAM" EntitySet="SAN_PHAM" />
             <End Role="CHI_TIET_DON_HANG" EntitySet="CHI_TIET_DON_HANG" />
           </AssociationSet>
-          <AssociationSet Name="FK__LICH_HEN__MaDV__4F7CD00D" Association="Self.FK__LICH_HEN__MaDV__4F7CD00D">
-            <End Role="DICH_VU" EntitySet="DICH_VU" />
-            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
-          </AssociationSet>
           <AssociationSet Name="FK__DON_HANG__MaKH__5DCAEF64" Association="Self.FK__DON_HANG__MaKH__5DCAEF64">
             <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
             <End Role="DON_HANG" EntitySet="DON_HANG" />
@@ -663,25 +596,17 @@
             <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
             <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
           </AssociationSet>
-          <AssociationSet Name="FK__LICH_HEN__MaKH__4D94879B" Association="Self.FK__LICH_HEN__MaKH__4D94879B">
-            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
-            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
-          </AssociationSet>
           <AssociationSet Name="FK__THU_CUNG__MaKH__46E78A0C" Association="Self.FK__THU_CUNG__MaKH__46E78A0C">
             <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
             <End Role="THU_CUNG" EntitySet="THU_CUNG" />
           </AssociationSet>
-          <AssociationSet Name="FK__LICH_HEN__MaNV__5070F446" Association="Self.FK__LICH_HEN__MaNV__5070F446">
-            <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
-            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
-          </AssociationSet>
-          <AssociationSet Name="FK__LICH_HEN__MaPet__4E88ABD4" Association="Self.FK__LICH_HEN__MaPet__4E88ABD4">
-            <End Role="THU_CUNG" EntitySet="THU_CUNG" />
-            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
-          </AssociationSet>
           <AssociationSet Name="FK__NHAN_VIEN__MaTai__440B1D61" Association="Self.FK__NHAN_VIEN__MaTai__440B1D61">
             <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
             <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
+          </AssociationSet>
+          <AssociationSet Name="CHI_TIET_LICH_HEN" Association="Self.CHI_TIET_LICH_HEN">
+            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
+            <End Role="DICH_VU" EntitySet="DICH_VU" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -689,7 +614,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WebPetCareModelStoreContainer" CdmEntityContainer="WebPetCareEntities">
+        <EntityContainerMapping StorageEntityContainer="WebPetCareModelStoreContainer" CdmEntityContainer="WebPetCareEntities1">
           <EntitySetMapping Name="BENH_AN">
             <EntityTypeMapping TypeName="WebPetCareModel.BENH_AN">
               <MappingFragment StoreEntitySet="BENH_AN">
@@ -757,13 +682,16 @@
             <EntityTypeMapping TypeName="WebPetCareModel.LICH_HEN">
               <MappingFragment StoreEntitySet="LICH_HEN">
                 <ScalarProperty Name="MaLichHen" ColumnName="MaLichHen" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ChiNhanh" ColumnName="ChiNhanh" />
                 <ScalarProperty Name="NgayHen" ColumnName="NgayHen" />
                 <ScalarProperty Name="GioHen" ColumnName="GioHen" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="LyDoTuChoi" ColumnName="LyDoTuChoi" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
                 <ScalarProperty Name="MaPet" ColumnName="MaPet" />
-                <ScalarProperty Name="MaDV" ColumnName="MaDV" />
                 <ScalarProperty Name="MaNV" ColumnName="MaNV" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -815,6 +743,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="CHI_TIET_LICH_HEN" TypeName="WebPetCareModel.CHI_TIET_LICH_HEN" StoreEntitySet="CHI_TIET_LICH_HEN">
+            <EndProperty Name="LICH_HEN">
+              <ScalarProperty Name="MaLichHen" ColumnName="MaLichHen" />
+            </EndProperty>
+            <EndProperty Name="DICH_VU">
+              <ScalarProperty Name="MaDV" ColumnName="MaDV" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

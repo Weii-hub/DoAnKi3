@@ -13,10 +13,10 @@ namespace DoAnKi3.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WebPetCareEntities : DbContext
+    public partial class WebPetCareEntities1 : DbContext
     {
-        public WebPetCareEntities()
-            : base("name=WebPetCareEntities")
+        public WebPetCareEntities1()
+            : base("name=WebPetCareEntities1")
         {
         }
     

@@ -1,18 +1,316 @@
-﻿@{
-    ViewBag.Title = "About us";
+﻿
+@{
+    ViewData["Title"] = "Giới thiệu về PetCare";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div class="container py-5">
-        <h2>Giới thiệu về PetCare</h2>
-        <p>Chào mừng bạn đến với hệ thống chăm sóc thú cưng PetCare...</p>
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════ -->
+<section class="about-hero">
+    <div class="container">
+        <div class="about-hero__inner">
+
+            <!-- Left: Text -->
+            <div class="about-hero__content">
+                <span class="about-hero__label">
+                    <!-- paw icon -->
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm-6.5 3a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm13 0a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm16 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 1c-3.87 0-7 2.24-7 5v1h14v-1c0-2.76-3.13-5-7-5z" />
+                    </svg>
+                    Về chúng tôi
+                </span>
+
+                <h1 class="about-hero__heading">
+                    Chăm sóc thú cưng<br>
+                    bằng <em>cả trái tim</em>
+                </h1>
+
+                <p class="about-hero__body">
+                    PetCare ra đời từ tình yêu dành cho những người bạn bốn chân.
+                    Chúng tôi cung cấp dịch vụ chăm sóc toàn diện — từ spa, grooming
+                    đến khách sạn thú cưng — với đội ngũ chuyên nghiệp và tận tâm.
+                </p>
+
+                <a href="/dich-vu" class="about-hero__cta">
+                    Khám phá dịch vụ
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Right: Image + Badge -->
+            <div class="about-hero__visual">
+                <div class="about-hero__image-wrap">
+                    <img src="~/css/images/Doctor Gae.png"
+                         alt="Nhân viên PetCare đang chăm sóc thú cưng"
+                         loading="eager" />
+                </div>
+
+                <div class="about-hero__badge">
+                    <div class="about-hero__badge-icon">🐾</div>
+                    <div>
+                        <div class="about-hero__badge-num js-count" data-target="5000">1000+</div>
+                        <div class="about-hero__badge-label">Thú cưng được chăm sóc</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-</body>
-</html>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     STATS STRIP
+════════════════════════════════════════════════ -->
+<section class="about-stats">
+    <div class="container">
+        <div class="about-stats__grid">
+            <div class="about-stats__item">
+                <div class="about-stats__num js-count" data-target="5" data-suffix="+">5</div>
+                <div class="about-stats__label">Năm kinh nghiệm</div>
+            </div>
+            <div class="about-stats__item">
+                <div class="about-stats__num js-count" data-target="5000" data-suffix="+">1000+</div>
+                <div class="about-stats__label">Thú cưng đã chăm sóc</div>
+            </div>
+            <div class="about-stats__item">
+                <div class="about-stats__num js-count" data-target="20" data-suffix="+">20</div>
+                <div class="about-stats__label">Chuyên gia thú y</div>
+            </div>
+            <div class="about-stats__item">
+                <div class="about-stats__num">4.9★</div>
+                <div class="about-stats__label">Đánh giá trung bình</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     MISSION + VALUES
+════════════════════════════════════════════════ -->
+<section class="about-mission">
+    <div class="container">
+        <div class="about-mission__inner">
+
+            <!-- Left -->
+            <div>
+                <p class="about-mission__eyebrow">Sứ mệnh của chúng tôi</p>
+                <h2 class="about-mission__heading">
+                    Mọi thú cưng đều xứng đáng được yêu thương
+                </h2>
+                <p class="about-mission__body">
+                    Chúng tôi tin rằng thú cưng là thành viên thực sự của gia đình.
+                    PetCare được xây dựng để mang lại sự an tâm cho người nuôi —
+                    biết rằng bé yêu của họ đang được ở trong tay những người thật sự quan tâm.
+                </p>
+                <p class="about-mission__body">
+                    Từ phòng spa tiện nghi đến chương trình nghỉ dưỡng khách sạn,
+                    mỗi dịch vụ đều được thiết kế để mang lại trải nghiệm tốt nhất
+                    cho cả thú cưng lẫn chủ nhân.
+                </p>
+            </div>
+
+            <!-- Right: Value Bento -->
+            <div class="about-mission__values">
+                <div class="value-card">
+                    <div class="value-card__icon">❤️</div>
+                    <div class="value-card__title">Chăm sóc từ tận tâm</div>
+                    <div class="value-card__text">
+                        Mỗi thú cưng đều được đối xử như người thân trong gia đình — không bao giờ chỉ là một con số.
+                    </div>
+                </div>
+                <div class="value-card">
+                    <div class="value-card__icon">🏆</div>
+                    <div class="value-card__title">Tiêu chuẩn chuyên nghiệp</div>
+                    <div class="value-card__text">
+                        Đội ngũ được đào tạo bài bản, quy trình chuẩn hóa đảm bảo an toàn tuyệt đối.
+                    </div>
+                </div>
+                <div class="value-card">
+                    <div class="value-card__icon">🔍</div>
+                    <div class="value-card__title">Minh bạch & tin tưởng</div>
+                    <div class="value-card__text">
+                        Cập nhật thường xuyên qua ảnh và video — chủ nhân luôn biết bé đang làm gì.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SERVICES OVERVIEW
+════════════════════════════════════════════════ -->
+<section class="about-services">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-header__eyebrow">Dịch vụ của chúng tôi</p>
+            <h2 class="section-header__heading">Mọi thứ bé cần, chúng tôi có</h2>
+            <p class="section-header__sub">
+                Hệ sinh thái chăm sóc toàn diện được thiết kế riêng cho thú cưng của bạn.
+            </p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-card__icon">✂️</div>
+                <h3 class="service-card__title">Grooming</h3>
+                <p class="service-card__text">
+                    Cắt tỉa, tắm gội và chăm sóc lông chuyên nghiệp.
+                    Bé ra về sạch thơm, tươi tắn và tự tin hơn bao giờ hết.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-card__icon">💆</div>
+                <h3 class="service-card__title">Spa thú cưng</h3>
+                <p class="service-card__text">
+                    Liệu pháp thư giãn, massage và chăm sóc da lông cao cấp —
+                    trải nghiệm spa đích thực dành cho bé yêu.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-card__icon">🏨</div>
+                <h3 class="service-card__title">Khách sạn thú cưng</h3>
+                <p class="service-card__text">
+                    Không gian nghỉ dưỡng thoải mái, an toàn khi bạn vắng nhà.
+                    Bé được chăm sóc 24/7 bởi đội ngũ tận tâm.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     TEAM
+════════════════════════════════════════════════ -->
+<section class="about-team">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-header__eyebrow">Đội ngũ của chúng tôi</p>
+            <h2 class="section-header__heading">Những người yêu thú cưng như bạn</h2>
+            <p class="section-header__sub">
+                Mỗi thành viên đều được lựa chọn kỹ lưỡng vì niềm đam mê và chuyên môn thực sự.
+            </p>
+        </div>
+
+        <div class="about-team__grid">
+            <div class="team-card">
+                <div class="team-card__photo-placeholder">🧑‍⚕️</div>
+                <div class="team-card__body">
+                    <div class="team-card__name">Đinh Nguyễn Minh Hiếu</div>
+                    <div class="team-card__role">Bác sĩ thú y trưởng</div>
+                    <p class="team-card__bio">10 năm kinh nghiệm, chuyên gia về thú y nội khoa và phẫu thuật nhỏ.</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-card__photo-placeholder">👩‍💼</div>
+                <div class="team-card__body">
+                    <div class="team-card__name">Đào Tuấn Phúc</div>
+                    <div class="team-card__role">Giám đốc vận hành</div>
+                    <p class="team-card__bio">Đảm bảo mọi quy trình vận hành suôn sẻ và trải nghiệm khách hàng hoàn hảo.</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-card__photo-placeholder">🧴</div>
+                <div class="team-card__body">
+                    <div class="team-card__name">Trần Vũ Nhật Nam</div>
+                    <div class="team-card__role">Chuyên gia Grooming</div>
+                    <p class="team-card__bio">Chứng chỉ quốc tế, đã chăm sóc hơn 3.000 bé chó mèo từ nhiều giống khác nhau.</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-card__photo-placeholder">✂️</div>
+                <div class="team-card__body">
+                    <div class="team-card__name">Bình</div>
+                    <div class="team-card__role">Chuyên gia cắt tỉa</div>
+                    <p class="team-card__bio">Chuyên gia cắt tỉa.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CTA BANNER
+════════════════════════════════════════════════ -->
+<section class="about-cta">
+    <div class="container">
+        <h2 class="about-cta__heading">Bắt đầu hành trình<br>cùng PetCare hôm nay</h2>
+        <p class="about-cta__sub">
+            Đặt lịch ngay để bé yêu của bạn được trải nghiệm dịch vụ chăm sóc tốt nhất.
+        </p>
+        <a href="@Url.Action("Create","Booking")" class="btn-white">
+            Đặt lịch ngay
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+        </a>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+/* Animated counter – fires when element enters viewport */
+(function () {
+    const counters = document.querySelectorAll('.js-count');
+    if (!counters.length) return;
+
+    // Hỗ trợ prefers-reduced-motion để tối ưu khả năng tiếp cận (A11y)
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const animateCount = (el: HTMLElement) => {
+        // Phòng thủ null-safety bằng toán tử logic ||
+        const targetAttr = el.dataset.target || "0";
+        const suffix = el.dataset.suffix || "";
+        const target = parseInt(targetAttr, 10);
+
+        if (prefersReduced) {
+            el.textContent = target.toLocaleString('vi-VN') + suffix;
+            return;
+        }
+
+        const duration = 1600;
+        const start = performance.now();
+
+       
+        const step = (now:number) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 3); // hiệu ứng ease-out-cubic
+
+            el.textContent = Math.floor(ease * target).toLocaleString('vi-VN') + suffix;
+
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            }
+        };
+        requestAnimationFrame(step);
+    };
+
+    // Tạo bộ quan sát IntersectionObserver
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+            if (e.isIntersecting) {
+                // Sửa tại đây: Sử dụng kỹ thuật ép kiểu (Type Assertion) của TypeScript
+                const targetElement = e.target as HTMLElement;
+
+                if (targetElement) {
+                    animateCount(targetElement); // Không còn bị báo đỏ nữa!
+                    observer.unobserve(targetElement);
+                }
+            }
+        });
+    }, { threshold: 0.4 });
+
+    // Đăng ký toàn bộ các thẻ đếm số vào bộ quan sát
+    counters.forEach((el) => {
+        if (el) observer.observe(el);
+    });
+})();
+    </script>
+}
