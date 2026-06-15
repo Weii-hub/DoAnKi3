@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="~/css/pages/cart.css" />
     <link rel="stylesheet" href="~/css/pages/account.css" />
     <link rel="stylesheet" href="~/css/pages/about.css" />
+    <link rel="stylesheet" href="~/css/pages/dvu.css" />
 
     @RenderSection("Styles", required: false)
 </head>
@@ -152,51 +153,110 @@
         @RenderBody()
 
     </main>
-    <footer class="pc-footer">
+    <footer class="site-footer">
 
-        <div class="container py-5">
+        @* ---- Newsletter band ---- *@
+        <div class="footer-newsletter">
+            <div class="inner">
+                <div class="newsletter-copy">
+                    <h3>Nhận tips chăm sóc thú cưng 🐾</h3>
+                    <p>Mẹo hữu ích, ưu đãi đặc biệt gửi thẳng đến hộp thư của bạn.</p>
+                </div>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Email của bạn..." aria-label="Email đăng ký nhận tin" />
+                    <button type="button">Đăng ký</button>
+                </div>
+            </div>
+        </div>
 
-            <div class="row">
+        @* ---- Main grid ---- *@
+        <div class="footer-body">
 
-                <div class="col-lg-4">
+            @* -- Col 1: Brand -- *@
+            <div class="footer-col footer-brand">
+                <a href="/" class="brand-name">
+                    <span class="paw-icon">🐾</span>
+                    PetCare
+                </a>
+                <p class="tagline">
+                    Chăm sóc thú cưng bằng cả trái tim —<br />
+                    bởi vì chúng xứng đáng được yêu thương nhất.
+                </p>
 
-                    <h4>PetCare</h4>
-
-                    <p>
-                        Chăm sóc thú cưng bằng cả trái tim.
-                    </p>
-
+                <div class="hours-badge">
+                    <span class="hours-dot"></span>
+                    Mở cửa hôm nay · 08:00 – 20:00
                 </div>
 
-                <div class="col-lg-4">
+                <div class="social-row" style="margin-top: 20px;">
+                    <a href="#" class="social-btn" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="social-btn" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                        </svg>
+                    </a>
+                    <a href="#" class="social-btn" aria-label="TikTok">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="social-btn" aria-label="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+                            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1C1712" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
 
-                    <h5>Dịch vụ</h5>
+  
+            <div class="footer-col footer-contact">
+                <h4>Liên hệ</h4>
 
-                    <ul class="list-unstyled">
-
-                        <li>Grooming</li>
-                        <li>Spa</li>
-                        <li>Khách sạn thú cưng</li>
-
-                    </ul>
-
+                <div class="contact-item">
+                    <span class="icon">📍</span>
+                    <span>123 Nguyễn Văn Linh,<br />Quận 7, TP. Hồ Chí Minh</span>
                 </div>
 
-                <div class="col-lg-4">
-
-                    <h5>Liên hệ</h5>
-
-                    <p>Email: petcare@gmail.com</p>
-
-                    <p>Hotline: 0123 456 789</p>
-
+                <div class="contact-item">
+                    <span class="icon">📞</span>
+                    <a href="tel:0123456789">0123 456 789</a>
                 </div>
 
+                <div class="contact-item">
+                    <span class="icon">✉️</span>
+                    <a href="mailto:petcare@gmail.com">petcare@gmail.com</a>
+                </div>
+
+                <div class="contact-item">
+                    <span class="icon">🕐</span>
+                    <span>Thứ 2 – Chủ nhật<br />08:00 – 20:00</span>
+                </div>
             </div>
 
         </div>
 
+        @* ---- Bottom bar ---- *@
+        <div class="footer-bottom">
+            <div class="inner">
+                <p class="copy">
+                    &copy; @DateTime.Now.Year <span>PetCare</span>. Tất cả quyền được bảo lưu.
+                </p>
+                <nav class="legal-links" aria-label="Legal links">
+                    <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>
+                    <a href="/dieu-khoan">Điều khoản sử dụng</a>
+                </nav>
+            </div>
+        </div>
+
     </footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

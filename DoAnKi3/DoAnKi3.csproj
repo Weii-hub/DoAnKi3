@@ -230,6 +230,7 @@
     <Content Include="css\pages\admin.css" />
     <Content Include="css\pages\booking.css" />
     <Content Include="css\pages\cart.css" />
+    <Content Include="css\pages\dvu.css" />
     <Content Include="css\pages\home.css" />
     <Content Include="css\pages\pet.css" />
     <Content Include="css\pages\staff.css" />

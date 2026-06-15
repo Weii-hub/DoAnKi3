@@ -1,17 +1,98 @@
 ﻿@{
-    ViewBag.Title = "Dich vu";
+    ViewBag.Title = "Dịch vụ";
 }
 
-<!DOCTYPE html>
+<section class="pc-section pc-services-page">
+    <div class="container">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-    
+        <div class="text-center mb-5">
+            <h1 class="services-title">Dịch Vụ</h1>
+            <p class="services-subtitle">Địa Điểm Chăm Sóc Thú Cưng Tiêu Chuẩn Quốc Tế Tại TP.HCM</p>
+            <div class="title-divider"></div>
+        </div>
+
+        <div class="services-grid">
+
+            <a href="@Url.Action("Detail", "Dichvu", new { id = "cap-cuu" })" class="service-card">
+                <div class="card-img-wrapper">
+                    <img src="~/css/images/dv1.png" alt="Cấp cứu 24/7" class="service-img" />
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="service-name">Cấp cứu 24/24</h3>
+                </div>
+            </a>
+
+            <a href="@Url.Action("Detail", "Dichvu", new { id = "triet-san" })" class="service-card">
+                <div class="card-img-wrapper">
+                    <img src="~/css/images/dv2.png" alt="Triệt sản chó mèo" class="service-img" />
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="service-name">Triệt sản chó và mèo</h3>
+                </div>
+            </a>
+
+            <a href="@Url.Action("Detail", "Dichvu", new { id = "kham-benh" })" class="service-card">
+                <div class="card-img-wrapper">
+                    <img src="~/css/images/dv3.png" alt="Khám và điều trị bệnh" class="service-img" />
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="service-name">Khám & Điều trị bệnh</h3>
+                </div>
+            </a>
+
+            <a href="@Url.Action("Detail", "Dichvu", new { id = "phau-thuat" })" class="service-card">
+                <div class="card-img-wrapper">
+                    <img src="~/css/images/dv4.png" alt="Phẫu thuật" class="service-img" />
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="service-name">Phẫu thuật</h3>
+                </div>
+            </a>
+
+            <a href="@Url.Action("Detail", "Dichvu", new { id = "chan-doan" })" class="service-card">
+                <div class="card-img-wrapper">
+                    <img src="~/css/images/dv5.png" alt="Chẩn đoán và xét nghiệm" class="service-img" />
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="service-name">Chẩn đoán & Xét nghiệm</h3>
+                </div>
+            </a>
+
+            <a href="@Url.Action("Detail", "Dichvu", new { id = "spa-grooming" })" class="service-card">
+                <div class="card-img-wrapper">
+                    <img src="~/css/images/dv6.png" alt="Spa và Grooming" class="service-img" />
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="service-name">Spa & Grooming</h3>
+                </div>
+            </a>
+
+            <a href="@Url.Action("Detail", "Dichvu", new { id = "tiem-phong" })" class="service-card">
+                <div class="card-img-wrapper">
+                    <img src="~/css/images/dv7.png" alt="Tiêm phòng bệnh" class="service-img" />
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="service-name">Tiêm phòng bệnh</h3>
+                </div>
+            </a>
+
+            <a href="@Url.Action("Detail", "Dichvu", new { id = "van-chuyen" })" class="service-card">
+                <div class="card-img-wrapper">
+                    <img src="~/css/images/dv8.png" alt="Vận chuyển thú cưng" class="service-img" />
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="service-name">Vận chuyển</h3>
+                </div>
+            </a>
+
+        </div>
     </div>
-</body>
-</html>
+</section>
