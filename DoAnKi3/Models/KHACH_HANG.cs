@@ -17,23 +17,32 @@ namespace DoAnKi3.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KHACH_HANG()
         {
+            this.DANG_KY_GOI = new HashSet<DANG_KY_GOI>();
             this.DON_HANG = new HashSet<DON_HANG>();
+            this.LICH_HEN = new HashSet<LICH_HEN>();
             this.THU_CUNG = new HashSet<THU_CUNG>();
+            this.LICH_HEN1 = new HashSet<LICH_HEN>();
         }
     
-        public int MaKH { get; set; }
+        public string MaKH { get; set; }
         public string HoTen { get; set; }
         public string SDT { get; set; }
         public string Email { get; set; }
         public string DiaChi { get; set; }
         public string HangThanhVien { get; set; }
         public Nullable<int> DiemTichLuy { get; set; }
-        public Nullable<int> MaTaiKhoan { get; set; }
+        public string MaTaiKhoan { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DANG_KY_GOI> DANG_KY_GOI { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DON_HANG> DON_HANG { get; set; }
         public virtual TAI_KHOAN TAI_KHOAN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LICH_HEN> LICH_HEN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<THU_CUNG> THU_CUNG { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LICH_HEN> LICH_HEN1 { get; set; }
     }
 }

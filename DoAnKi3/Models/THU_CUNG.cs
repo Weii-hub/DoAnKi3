@@ -18,18 +18,21 @@ namespace DoAnKi3.Models
         public THU_CUNG()
         {
             this.BENH_AN = new HashSet<BENH_AN>();
+            this.LICH_HEN = new HashSet<LICH_HEN>();
         }
     
-        public int MaPet { get; set; }
+        public string MaPet { get; set; }
         public string TenPet { get; set; }
         public string ChungLoai { get; set; }
         public string GiongPet { get; set; }
         public Nullable<int> Tuoi { get; set; }
         public Nullable<double> CanNang { get; set; }
-        public int MaKH { get; set; }
+        public string MaKH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BENH_AN> BENH_AN { get; set; }
         public virtual KHACH_HANG KHACH_HANG { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LICH_HEN> LICH_HEN { get; set; }
     }
 }

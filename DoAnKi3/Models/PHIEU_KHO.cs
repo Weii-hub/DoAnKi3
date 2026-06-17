@@ -12,25 +12,21 @@ namespace DoAnKi3.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class SAN_PHAM
+    public partial class PHIEU_KHO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SAN_PHAM()
+        public PHIEU_KHO()
         {
-            this.CHI_TIET_DON_HANG = new HashSet<CHI_TIET_DON_HANG>();
             this.CHI_TIET_PHIEU_KHO = new HashSet<CHI_TIET_PHIEU_KHO>();
         }
     
-        public string MaSanPham { get; set; }
-        public string TenSanPham { get; set; }
-        public string DanhMuc { get; set; }
-        public decimal DonGia { get; set; }
-        public Nullable<int> SoLuongTon { get; set; }
-        public string HinhAnh { get; set; }
+        public string MaPhieu { get; set; }
+        public string LoaiPhieu { get; set; }
+        public Nullable<System.DateTime> NgayLap { get; set; }
+        public string MaNV { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHI_TIET_DON_HANG> CHI_TIET_DON_HANG { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHI_TIET_PHIEU_KHO> CHI_TIET_PHIEU_KHO { get; set; }
+        public virtual NHAN_VIEN NHAN_VIEN { get; set; }
     }
 }

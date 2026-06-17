@@ -4,26 +4,51 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5b6f480511ce4dd8b7596911f2556ab9" Name="Diagram1">
-        <EntityTypeShape EntityType="WebPetCareModel.BENH_AN" Width="1.5" PointX="7.5" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebPetCareModel.CHI_TIET_DON_HANG" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebPetCareModel.DICH_VU" Width="1.5" PointX="12" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebPetCareModel.DON_HANG" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebPetCareModel.KHACH_HANG" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebPetCareModel.LICH_HEN" Width="1.5" PointX="9.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebPetCareModel.NHAN_VIEN" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebPetCareModel.SAN_PHAM" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebPetCareModel.TAI_KHOAN" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebPetCareModel.THU_CUNG" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
-        <AssociationConnector Association="WebPetCareModel.FK__BENH_AN__MaBacSi__5535A963" ManuallyRouted="false" />
-        <AssociationConnector Association="WebPetCareModel.FK__BENH_AN__MaPet__5441852A" ManuallyRouted="false" />
-        <AssociationConnector Association="WebPetCareModel.FK__CHI_TIET___MaDon__60A75C0F" ManuallyRouted="false" />
-        <AssociationConnector Association="WebPetCareModel.FK__CHI_TIET___MaSan__619B8048" ManuallyRouted="false" />
-        <AssociationConnector Association="WebPetCareModel.FK__DON_HANG__MaKH__5DCAEF64" ManuallyRouted="false" />
-        <AssociationConnector Association="WebPetCareModel.FK__KHACH_HAN__MaTai__403A8C7D" ManuallyRouted="false" />
-        <AssociationConnector Association="WebPetCareModel.FK__THU_CUNG__MaKH__46E78A0C" ManuallyRouted="false" />
-        <AssociationConnector Association="WebPetCareModel.FK__NHAN_VIEN__MaTai__440B1D61" ManuallyRouted="false" />
-        <AssociationConnector Association="WebPetCareModel.CHI_TIET_LICH_HEN" ManuallyRouted="false" />
+      <Diagram DiagramId="5b6f480511ce4dd8b7596911f2556ab9" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="WebPetCareModel.BENH_AN" Width="1.5" PointX="10.5" PointY="17.125" />
+        <EntityTypeShape EntityType="WebPetCareModel.CHI_TIET_DON_HANG" Width="1.5" PointX="10.5" PointY="13.875" />
+        <EntityTypeShape EntityType="WebPetCareModel.CHI_TIET_LICH_HEN" Width="1.5" PointX="12.75" PointY="17.5" />
+        <EntityTypeShape EntityType="WebPetCareModel.CHI_TIET_PHIEU_KHO" Width="1.5" PointX="7.5" PointY="11.125" />
+        <EntityTypeShape EntityType="WebPetCareModel.DANG_KY_GOI" Width="1.5" PointX="5.25" PointY="18.875" />
+        <EntityTypeShape EntityType="WebPetCareModel.DICH_VU" Width="1.5" PointX="10.5" PointY="21.5" />
+        <EntityTypeShape EntityType="WebPetCareModel.DON_HANG" Width="1.5" PointX="5.25" PointY="14.625" />
+        <EntityTypeShape EntityType="WebPetCareModel.GOI_DINH_KY" Width="1.5" PointX="3" PointY="25.125" />
+        <EntityTypeShape EntityType="WebPetCareModel.KHACH_HANG" Width="1.5" PointX="3" PointY="14.375" />
+        <EntityTypeShape EntityType="WebPetCareModel.LICH_HEN" Width="1.5" PointX="7.5" PointY="16.625" />
+        <EntityTypeShape EntityType="WebPetCareModel.LIEN_HE" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WebPetCareModel.LOG_HOAT_DONG" Width="1.5" PointX="3" PointY="18.625" />
+        <EntityTypeShape EntityType="WebPetCareModel.MA_GIAM_GIA" Width="1.5" PointX="3" PointY="22" />
+        <EntityTypeShape EntityType="WebPetCareModel.NHAN_VIEN" Width="1.5" PointX="3" PointY="10.875" />
+        <EntityTypeShape EntityType="WebPetCareModel.PHIEU_KHO" Width="1.5" PointX="5.25" PointY="11.25" />
+        <EntityTypeShape EntityType="WebPetCareModel.PHONG_LUU_TRU" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WebPetCareModel.SAN_PHAM" Width="1.5" PointX="5.25" PointY="7" />
+        <EntityTypeShape EntityType="WebPetCareModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="WebPetCareModel.TAI_KHOAN" Width="1.5" PointX="0.75" PointY="13" />
+        <EntityTypeShape EntityType="WebPetCareModel.TIN_NHAN_CHAT" Width="1.5" PointX="3" PointY="7.75" />
+        <EntityTypeShape EntityType="WebPetCareModel.THU_CUNG" Width="1.5" PointX="5.25" PointY="23.375" />
+        <AssociationConnector Association="WebPetCareModel.FK_BENHAN_BACSI" />
+        <AssociationConnector Association="WebPetCareModel.FK_BENHAN_THUCUNG" />
+        <AssociationConnector Association="WebPetCareModel.FK_CTDH_DONHANG" />
+        <AssociationConnector Association="WebPetCareModel.FK_CTDH_SANPHAM" />
+        <AssociationConnector Association="WebPetCareModel.FK_CTLH_LICHHEN" />
+        <AssociationConnector Association="WebPetCareModel.FK_ChiTietLH_DichVu" />
+        <AssociationConnector Association="WebPetCareModel.FK_CTKHO_PHIEU" />
+        <AssociationConnector Association="WebPetCareModel.FK_CTKHO_SANPHAM" />
+        <AssociationConnector Association="WebPetCareModel.FK_DKGOI_GOI" />
+        <AssociationConnector Association="WebPetCareModel.FK_DKGOI_KHACHHANG" />
+        <AssociationConnector Association="WebPetCareModel.FK_DONHANG_KHACHHANG" />
+        <AssociationConnector Association="WebPetCareModel.FK_DONHANG_MAGIAMGIA" />
+        <AssociationConnector Association="WebPetCareModel.FK_KH_TAIKHOAN" />
+        <AssociationConnector Association="WebPetCareModel.FK_LICHHEN_KHACHHANG" />
+        <AssociationConnector Association="WebPetCareModel.FK_THUCUNG_KHACHHANG" />
+        <AssociationConnector Association="WebPetCareModel.FK_LICHHEN_NHANVIEN" />
+        <AssociationConnector Association="WebPetCareModel.FK_LICHHEN_THUCUNG" />
+        <AssociationConnector Association="WebPetCareModel.FK_LOG_TAIKHOAN" />
+        <AssociationConnector Association="WebPetCareModel.FK_NV_TAIKHOAN" />
+        <AssociationConnector Association="WebPetCareModel.FK_PHIEUKHO_NHANVIEN" />
+        <AssociationConnector Association="WebPetCareModel.FK_CHAT_TKGUI" />
+        <AssociationConnector Association="WebPetCareModel.FK_CHAT_TKNHAN" />
+        <AssociationConnector Association="WebPetCareModel.FK_LICHHEN_KHACHHANG_BACSI" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -119,19 +119,166 @@
                                 <i class="fa-regular fa-user me-1"></i>
                                 @(Session["TenNguoiDung"] ?? Session["Username"])
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                @if (Session["VaiTro"]?.ToString() != "KhachHang")
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm" style="min-width: 240px;">
+
+                                @* ======================================================================= *@
+                                @* 1. PHÂN HỆ: ADMIN (Quản lý vĩ mô hệ thống)                               *@
+                                @* ======================================================================= *@
+                                @if (Session["VaiTro"]?.ToString() == "Admin")
                                 {
-                                    // Nếu là Admin, Bác sĩ, Nhân viên thì hiện thêm nút vào trang quản lý
+                                    <li class="dropdown-header text-danger fw-bold text-uppercase small"><i class="fa-solid fa-user-shield me-1"></i> Quản trị viên</li>
                                     <li>
-                                        <a class="dropdown-item" href="@Url.Action("Index", "Home")">
-                                            <i class="fa-solid fa-gauge me-2"></i>Trang quản trị
+                                        <a class="dropdown-item" href="@Url.Action("EditProfile", "Account")">
+                                            <i class="fa-solid fa-user-gear me-2 text-secondary"></i>Sửa thông tin cá nhân
                                         </a>
                                     </li>
-                                    <li><hr class="dropdown-menu-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("RevenueReport", "Admin")">
+                                            <i class="fa-solid fa-chart-line me-2 text-secondary"></i>Xem doanh thu
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("ManageEmployees", "Admin")">
+                                            <i class="fa-solid fa-users-gear me-2 text-secondary"></i>Quản lý nhân sự
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("ManageCategories", "Admin")">
+                                            <i class="fa-solid fa-boxes-stacked me-2 text-secondary"></i>Quản lý danh mục
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("ViewLogs", "Admin")">
+                                            <i class="fa-solid fa-clipboard-list me-2 text-secondary"></i>Lưu log hoạt động
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("SystemConfig", "Admin")">
+                                            <i class="fa-solid fa-sliders me-2 text-secondary"></i>Cấu hình hệ thống
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("EmployeePerformance", "Admin")">
+                                            <i class="fa-solid fa-id-card-clip me-2 text-secondary"></i>Hiệu suất nhân viên
+                                        </a>
+                                    </li>
                                 }
+
+                                @* ======================================================================= *@
+                                @* 2. PHÂN HỆ: BÁC SĨ (Điều trị & Quản lý lịch khám bệnh)                    *@
+                                @* ======================================================================= *@
+                                else if (Session["VaiTro"]?.ToString() == "BacSi")
+                                {
+                                    <li class="dropdown-header text-primary fw-bold text-uppercase small"><i class="fa-solid fa-user-doctor me-1"></i> Bác sĩ chuyên khoa</li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("EditProfile", "Account")">
+                                            <i class="fa-solid fa-user-gear me-2 text-secondary"></i>Sửa thông tin cá nhân
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("Index", "AppointmentStaff")">
+                                            <i class="fa-solid fa-clipboard-check me-2 text-secondary"></i>Tiếp nhận lịch hẹn
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("DoctorSchedule", "AppointmentStaff")">
+                                            <i class="fa-solid fa-calendar-check me-2 text-secondary"></i>Quản lý lịch hẹn khám
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("MedicalRecords", "AppointmentStaff")">
+                                            <i class="fa-solid fa-notes-medical me-2 text-secondary"></i>Quản lý hồ sơ bệnh án
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("UpdateStatus", "AppointmentStaff")">
+                                            <i class="fa-solid fa-arrow-rotate-left me-2 text-secondary"></i>Cập nhật trạng thái lịch
+                                        </a>
+                                    </li>
+
+                                }
+
+                                @* ======================================================================= *@
+                                @* 3. PHÂN HỆ: NHÂN VIÊN (Tiếp tân & Vận hành kho StoreStaff)              *@
+                                @* ======================================================================= *@
+                                else if (Session["VaiTro"]?.ToString() == "NhanVien")
+                                {
+                                    <li class="dropdown-header text-warning fw-bold text-uppercase small"><i class="fa-solid fa-user-tie me-1"></i> Nhân viên vận hành</li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("EditProfile", "Account")">
+                                            <i class="fa-solid fa-user-gear me-2 text-secondary"></i>Sửa thông tin cá nhân
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("ProcessOrders", "StoreStaff")">
+                                            <i class="fa-solid fa-truck-ramp-box me-2 text-secondary"></i>Tiếp nhận & Đóng gói đơn
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("Inventory", "StoreStaff")">
+                                            <i class="fa-solid fa-warehouse me-2 text-secondary"></i>Quản lý hàng tồn kho
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("ExportRequest", "StoreStaff")">
+                                            <i class="fa-solid fa-file-invoice me-2 text-secondary"></i>Tạo yêu cầu xuất sản phẩm
+                                        </a>
+                                    </li>
+                                }
+
+                                @* ======================================================================= *@
+                                @* 4. PHÂN HỆ: KHÁCH HÀNG (Mua sắm & Đặt lịch dịch vụ ngoài Client)         *@
+                                @* ======================================================================= *@
+                                else
+                                {
+                                    <li class="dropdown-header text-success fw-bold text-uppercase small"><i class="fa-solid fa-crown me-1"></i> Khách hàng thành viên</li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("Create", "Booking")">
+                                            <i class="fa-solid fa-calendar-plus me-2 text-secondary"></i>Đặt lịch hẹn dịch vụ
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("RoomBooking", "Booking")">
+                                            <i class="fa-solid fa-hotel me-2 text-secondary"></i>Đặt phòng lưu trú thú cưng
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("Shop", "Product")">
+                                            <i class="fa-solid fa-bag-shopping me-2 text-secondary"></i>Mua sắm sản phẩm
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("Index", "Pet")">
+                                            <i class="fa-solid fa-paw me-2 text-secondary"></i>Quản lý thú cưng
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("BookingHistory", "Account")">
+                                            <i class="fa-solid fa-clock-rotate-left me-2 text-secondary"></i>Xem lịch sử đặt lịch
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("MedicalHistory", "Account")">
+                                            <i class="fa-solid fa-heart-pulse me-2 text-secondary"></i>Theo dõi bệnh án
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("SubscribedPackages", "Account")">
+                                            <i class="fa-solid fa-cubes me-2 text-secondary"></i>Gói dịch vụ định kỳ
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("EditProfile", "Account")">
+                                            <i class="fa-solid fa-user-gear me-2 text-secondary"></i>Sửa thông tin cá nhân
+                                        </a>
+                                    </li>
+                                }
+
+                                <li><hr class="dropdown-divider"></li>
+
+                                @* ĐĂNG XUẤT CHUNG *@
                                 <li>
-                                    <a class="dropdown-item text-danger" href="@Url.Action("Logout", "Account")">
+                                    <a class="dropdown-item text-danger fw-bold" href="@Url.Action("Logout", "Account")">
                                         <i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất
                                     </a>
                                 </li>

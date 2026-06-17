@@ -1,234 +1,147 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
-
-/* ---------- Reset ---------- */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* Thiết lập không gian nền nền nã */
+.booking-section-wrapper {
+    background: radial-gradient(circle at 10% 20%, rgba(242, 247, 246, 1) 0%, rgba(228, 239, 237, 1) 90%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-h- [100dvh];
 }
 
-:root {
-    --orange: #E8640A;
-    --orange-light: #FFF0E6;
-    --orange-glow: rgba(232,100,10,.22);
-    --ink: #1C1917;
-    --ink-soft: #44403C;
-    --muted: #78716C;
-    --border: #E7E5E4;
-    --bg: #FFF7F2;
-    --card-bg: #FFFFFF;
-    --radius: 12px;
-    --radius-pill: 9999px;
-    --shadow: 0 4px 32px rgba(28,25,23,.10), 0 1px 4px rgba(28,25,23,.06);
-    --font: 'DM Sans', system-ui, sans-serif;
+/* Khối Card kính mờ tinh tế */
+.custom-booking-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 24px;
+    padding: 3.5rem;
+    box-shadow: 0 20px 40px rgba(165, 191, 186, 0.25);
 }
 
-body {
-    font-family: var(--font);
-    background: var(--bg);
-    color: var(--ink);
-    -webkit-font-smoothing: antialiased;
+/* Header khu vực */
+.badge-icon-clinic {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    animation: pulse 2s infinite;
 }
 
-/* ---------- Page wrapper ---------- */
-.booking-wrapper {
-    min-height: 100dvh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: clamp(40px, 6vw, 72px) clamp(16px, 4vw, 24px);
-    background: radial-gradient(ellipse 60% 40% at 80% 10%, rgba(232,100,10,.08) 0%, transparent 70%), radial-gradient(ellipse 40% 30% at 10% 90%, rgba(232,100,10,.05) 0%, transparent 60%), var(--bg);
-}
-
-/* ---------- Card ---------- */
-.booking-card {
-    width: 100%;
-    max-width: 760px;
-    background: var(--card-bg);
-    border-radius: 20px;
-    box-shadow: var(--shadow);
-    overflow: hidden;
-}
-
-/* ---------- Title ---------- */
-.booking-title {
-    font-size: clamp(20px, 3vw, 26px);
+.main-booking-title {
+    color: #1a433e;
     font-weight: 800;
-    letter-spacing: -.01em;
-    color: #fff;
-    background: var(--orange);
-    padding: 28px 40px;
-    position: relative;
-    overflow: hidden;
-    margin: 0 !important;
-    text-align: center;
+    letter-spacing: -0.5px;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
 }
 
-    .booking-title::before {
-        content: '';
-        position: absolute;
-        width: 240px;
-        height: 240px;
-        border-radius: 50%;
-        background: rgba(255,255,255,.08);
-        top: -100px;
-        right: -60px;
-        pointer-events: none;
-    }
-
-/* ---------- Form area ---------- */
-.booking-form {
-    padding: 36px 40px 40px;
+.sub-booking-desc {
+    color: #627d79;
+    font-size: 0.95rem;
+    max-width: 500px;
+    margin: 0 auto 3rem auto;
 }
 
-    /* Bootstrap row override */
-    .booking-form .row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0 24px;
-        margin: 0 !important;
-    }
-
-    /* Bootstrap col override */
-    .booking-form .col-md-6 {
-        padding: 0 !important;
-        margin-bottom: 20px !important;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    /* ---------- Labels ---------- */
-    .form-group-label,
-    .booking-form label {
-        font-size: 12px !important;
-        font-weight: 700 !important;
-        letter-spacing: .07em !important;
-        text-transform: uppercase !important;
-        color: var(--ink-soft) !important;
-        margin-bottom: 0 !important;
-    }
-
-    /* ---------- Inputs ---------- */
-    .booking-input,
-    .booking-form input.booking-input,
-    .booking-form select.booking-input {
-        font-family: var(--font) !important;
-        font-size: 15px !important;
-        color: var(--ink) !important;
-        background: var(--card-bg) !important;
-        border: 1.5px solid var(--border) !important;
-        border-radius: var(--radius) !important;
-        padding: 11px 14px !important;
-        width: 100% !important;
-        transition: border-color .18s, box-shadow .18s !important;
-        outline: none !important;
-        appearance: none !important;
-        -webkit-appearance: none !important;
-        box-shadow: none !important;
-    }
-
-        .booking-input::placeholder {
-            color: var(--muted) !important;
-        }
-
-        .booking-input:focus {
-            border-color: var(--orange) !important;
-            box-shadow: 0 0 0 3px var(--orange-glow) !important;
-        }
-
-    /* Select arrow */
-    .booking-form .col-md-6:has(select) {
-        position: relative;
-    }
-
-select.booking-input {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2378716C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") !important;
-    background-repeat: no-repeat !important;
-    background-position: right 14px center !important;
-    padding-right: 36px !important;
-    cursor: pointer !important;
+/* Phân mảnh Form Layout */
+.grid-section {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+    border: 1px solid #f0f4f3;
 }
 
-/* Date & Time */
-input[type="date"].booking-input,
-input[type="time"].booking-input {
-    cursor: pointer !important;
+.section-form-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e4d47;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e4edea;
+    padding-bottom: 0.5rem;
 }
 
-/* Validation */
-.text-danger.small {
-    font-size: 12px !important;
-    margin-top: 3px !important;
+/* Form Controls thế hệ mới */
+.creative-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #435b57;
+    margin-bottom: 0.5rem;
+    display: block;
 }
 
-.input-validation-error.booking-input {
-    border-color: #DC2626 !important;
+.creative-form-control {
+    width: 100%;
+    padding: 0.75rem 1.2rem;
+    font-size: 0.95rem;
+    color: #2b3d3a;
+    background-color: #f7faf9;
+    border: 1px solid #d1dedb;
+    border-radius: 12px;
+    transition: all 0.25s ease-in-out;
 }
 
-/* ---------- Submit button ---------- */
-.btn-submit-booking {
+    .creative-form-control:focus {
+        background-color: #ffffff;
+        border-color: #3b9c8f;
+        box-shadow: 0 0 0 4px rgba(59, 156, 143, 0.15);
+        outline: none;
+    }
+
+.creative-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%233b9c8f' viewBox='0 0 256 256'%3E%3Cpath d='M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80a8,8,0,0,1,11.32-11.32L128,164.69l74.34-74.34a8,8,0,0,1,11.32,11.32Z'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.2rem center;
+    background-size: 16px;
+    padding-right: 2.5rem;
+}
+
+.creative-textarea {
+    resize: none;
+}
+
+/* Nút đặt lịch Premium */
+.premium-booking-btn {
+    background: linear-gradient(135deg, #2d7d72 0%, #1e5c53 100%);
+    border: none;
+    color: #ffffff;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(30, 92, 83, 0.3);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    background: var(--orange);
-    color: #fff;
-    font-family: var(--font);
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: .04em;
-    padding: 14px 40px;
-    border: none;
-    border-radius: var(--radius-pill);
-    cursor: pointer;
-    box-shadow: 0 4px 18px var(--orange-glow);
-    transition: background .2s, transform .2s, box-shadow .2s;
-    text-transform: uppercase;
+    gap: 0.75rem;
 }
 
-    .btn-submit-booking:hover {
-        background: #C8540A;
+    .premium-booking-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 28px rgba(232,100,10,.38);
+        box-shadow: 0 12px 28px rgba(30, 92, 83, 0.45);
+        background: linear-gradient(135deg, #359487 0%, #226b60 100%);
     }
 
-    .btn-submit-booking:active {
-        transform: translateY(0);
+    .premium-booking-btn:active {
+        transform: translateY(1px);
     }
 
-.arrow-icon {
-    font-size: 16px;
-}
-
-/* ---------- Alerts ---------- */
-.text-danger.mb-3 {
-    background: #FEF2F2;
-    border: 1px solid #FECACA;
-    color: #DC2626;
-    border-radius: var(--radius);
-    padding: 12px 16px;
-    font-size: 14px;
-    margin-bottom: 20px !important;
-}
-
-/* ---------- Responsive ---------- */
-@media (max-width: 640px) {
-    .booking-title {
-        padding: 22px 24px;
+    .premium-booking-btn .btn-icon {
+        transition: transform 0.3s ease;
     }
 
-    .booking-form {
-        padding: 24px 20px 28px;
+    .premium-booking-btn:hover .btn-icon {
+        transform: translateX(4px);
     }
 
-        .booking-form .row {
-            grid-template-columns: 1fr;
-            gap: 0;
-        }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        transition-duration: .01ms !important;
-    }
+/* Custom Alert thành công */
+.alert-creative-success {
+    background-color: #e6f6f3;
+    border: 1px solid #a3e0d3;
+    color: #165246;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
 }

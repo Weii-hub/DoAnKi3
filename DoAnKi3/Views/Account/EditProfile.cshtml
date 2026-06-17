@@ -1,0 +1,67 @@
+﻿@model DoAnKi3.Models.KHACH_HANG
+@{
+    ViewBag.Title = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Hoặc _AdminLayout.cshtml tùy Session
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm border-0 max-w-2xl mx-auto">
+        <div class="card-header bg-dark text-white py-3">
+            <h5 class="mb-0"><i class="fa-solid fa-user-check me-2"></i>Hồ sơ cá nhân của bạn</h5>
+        </div>
+        <div class="card-body p-4">
+            @using (Html.BeginForm("EditProfile", "Account", FormMethod.Post, new { enctype = "multipart/form-file" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.MaKH)
+                @Html.HiddenFor(m => m.MaTaiKhoan)
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label fw-bold text-secondary">Họ và tên</label>
+                        @Html.TextBoxFor(m => m.HoTen, new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold text-secondary">Số điện thoại</label>
+                        @Html.TextBoxFor(m => m.SDT, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold text-secondary">Email</label>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-12 mb-4">
+                        <label class="form-label fw-bold text-secondary">Địa chỉ liên hệ</label>
+                        @Html.TextBoxFor(m => m.DiaChi, new { @class = "form-control" })
+                    </div>
+
+                    <hr class="text-muted" />
+
+                    <div class="bg-light p-3 rounded mb-4 row mx-0">
+                        <div class="col-6 mb-2">
+                            <label class="form-label small text-muted mb-1">Bậc vai trò hiện tại</label>
+                            <input type="text" class="form-control form-control-sm bg-white" value="@Session["VaiTro"]" readonly />
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label class="form-label small text-muted mb-1">Hạng thành viên</label>
+                            @Html.TextBoxFor(m => m.HangThanhVien, new { @class = "form-control form-control-sm bg-white", @readonly = "readonly" })
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Điểm tích lũy lũy kế</label>
+                            @Html.TextBoxFor(m => m.DiemTichLuy, new { @class = "form-control form-control-sm bg-white", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="submit" class="btn btn-dark px-4">
+                        <i class="fa-solid fa-floppy-disk me-1"></i> Cập nhật hồ sơ
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

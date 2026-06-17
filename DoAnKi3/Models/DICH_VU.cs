@@ -17,16 +17,16 @@ namespace DoAnKi3.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DICH_VU()
         {
-            this.LICH_HEN = new HashSet<LICH_HEN>();
+            this.CHI_TIET_LICH_HEN = new HashSet<CHI_TIET_LICH_HEN>();
         }
     
-        public int MaDV { get; set; }
+        public string MaDV { get; set; }
         public string TenDichVu { get; set; }
         public string LoaiDichVu { get; set; }
         public decimal DonGia { get; set; }
-        public string TrangThai { get; set; }
+        public Nullable<bool> TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LICH_HEN> LICH_HEN { get; set; }
+        public virtual ICollection<CHI_TIET_LICH_HEN> CHI_TIET_LICH_HEN { get; set; }
     }
 }

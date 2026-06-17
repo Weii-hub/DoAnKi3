@@ -27,13 +27,24 @@ namespace DoAnKi3.Models
     
         public virtual DbSet<BENH_AN> BENH_AN { get; set; }
         public virtual DbSet<CHI_TIET_DON_HANG> CHI_TIET_DON_HANG { get; set; }
+        public virtual DbSet<CHI_TIET_LICH_HEN> CHI_TIET_LICH_HEN { get; set; }
+        public virtual DbSet<CHI_TIET_PHIEU_KHO> CHI_TIET_PHIEU_KHO { get; set; }
+        public virtual DbSet<DANG_KY_GOI> DANG_KY_GOI { get; set; }
         public virtual DbSet<DICH_VU> DICH_VU { get; set; }
         public virtual DbSet<DON_HANG> DON_HANG { get; set; }
+        public virtual DbSet<GOI_DINH_KY> GOI_DINH_KY { get; set; }
         public virtual DbSet<KHACH_HANG> KHACH_HANG { get; set; }
         public virtual DbSet<LICH_HEN> LICH_HEN { get; set; }
+        public virtual DbSet<LIEN_HE> LIEN_HE { get; set; }
+        public virtual DbSet<LOG_HOAT_DONG> LOG_HOAT_DONG { get; set; }
+        public virtual DbSet<MA_GIAM_GIA> MA_GIAM_GIA { get; set; }
         public virtual DbSet<NHAN_VIEN> NHAN_VIEN { get; set; }
+        public virtual DbSet<PHIEU_KHO> PHIEU_KHO { get; set; }
+        public virtual DbSet<PHONG_LUU_TRU> PHONG_LUU_TRU { get; set; }
         public virtual DbSet<SAN_PHAM> SAN_PHAM { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TAI_KHOAN> TAI_KHOAN { get; set; }
+        public virtual DbSet<TIN_NHAN_CHAT> TIN_NHAN_CHAT { get; set; }
         public virtual DbSet<THU_CUNG> THU_CUNG { get; set; }
     }
 }

@@ -17,5 +17,14 @@ namespace DoAnKi3
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        protected void Application_BeginRequest()
+        {
+            // Ép trình duyệt không lưu cache mọi Request để tránh lỗi Back lộ dữ liệu cũ
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
+            Response.Cache.SetNoStore();
+        }
     }
+
+
 }

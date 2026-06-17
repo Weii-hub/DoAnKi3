@@ -12,25 +12,22 @@ namespace DoAnKi3.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class SAN_PHAM
+    public partial class MA_GIAM_GIA
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SAN_PHAM()
+        public MA_GIAM_GIA()
         {
-            this.CHI_TIET_DON_HANG = new HashSet<CHI_TIET_DON_HANG>();
-            this.CHI_TIET_PHIEU_KHO = new HashSet<CHI_TIET_PHIEU_KHO>();
+            this.DON_HANG = new HashSet<DON_HANG>();
         }
     
-        public string MaSanPham { get; set; }
-        public string TenSanPham { get; set; }
-        public string DanhMuc { get; set; }
-        public decimal DonGia { get; set; }
-        public Nullable<int> SoLuongTon { get; set; }
-        public string HinhAnh { get; set; }
+        public string MaGiamGia { get; set; }
+        public string TenChuongTrinh { get; set; }
+        public Nullable<int> PhanTramGiam { get; set; }
+        public System.DateTime NgayBatDau { get; set; }
+        public System.DateTime NgayHetHan { get; set; }
+        public Nullable<bool> TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHI_TIET_DON_HANG> CHI_TIET_DON_HANG { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHI_TIET_PHIEU_KHO> CHI_TIET_PHIEU_KHO { get; set; }
+        public virtual ICollection<DON_HANG> DON_HANG { get; set; }
     }
 }

@@ -12,16 +12,12 @@ namespace DoAnKi3.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CHI_TIET_DON_HANG
+    public partial class sysdiagrams
     {
-        public int MaChiTiet { get; set; }
-        public string MaDonHang { get; set; }
-        public string MaSanPham { get; set; }
-        public int SoLuong { get; set; }
-        public decimal GiaBan { get; set; }
-        public decimal ThanhTien { get; set; }
-    
-        public virtual DON_HANG DON_HANG { get; set; }
-        public virtual SAN_PHAM SAN_PHAM { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

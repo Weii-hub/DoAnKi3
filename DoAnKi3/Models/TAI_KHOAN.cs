@@ -18,18 +18,27 @@ namespace DoAnKi3.Models
         public TAI_KHOAN()
         {
             this.KHACH_HANG = new HashSet<KHACH_HANG>();
+            this.LOG_HOAT_DONG = new HashSet<LOG_HOAT_DONG>();
             this.NHAN_VIEN = new HashSet<NHAN_VIEN>();
+            this.TIN_NHAN_CHAT = new HashSet<TIN_NHAN_CHAT>();
+            this.TIN_NHAN_CHAT1 = new HashSet<TIN_NHAN_CHAT>();
         }
     
-        public int MaTaiKhoan { get; set; }
+        public string MaTaiKhoan { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string VaiTro { get; set; }
-        public string TrangThai { get; set; }
+        public Nullable<bool> TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KHACH_HANG> KHACH_HANG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LOG_HOAT_DONG> LOG_HOAT_DONG { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NHAN_VIEN> NHAN_VIEN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TIN_NHAN_CHAT> TIN_NHAN_CHAT { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TIN_NHAN_CHAT> TIN_NHAN_CHAT1 { get; set; }
     }
 }

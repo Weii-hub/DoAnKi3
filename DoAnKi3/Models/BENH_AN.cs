@@ -14,14 +14,14 @@ namespace DoAnKi3.Models
     
     public partial class BENH_AN
     {
-        public int MaBenhAn { get; set; }
+        public string MaBenhAn { get; set; }
         public Nullable<System.DateTime> NgayKham { get; set; }
         public string TrieuChung { get; set; }
         public string ChanDoan { get; set; }
         public string DonThuoc { get; set; }
         public Nullable<System.DateTime> NgayTaiKham { get; set; }
-        public int MaPet { get; set; }
-        public int MaBacSi { get; set; }
+        public string MaPet { get; set; }
+        public string MaBacSi { get; set; }
     
         public virtual NHAN_VIEN NHAN_VIEN { get; set; }
         public virtual THU_CUNG THU_CUNG { get; set; }

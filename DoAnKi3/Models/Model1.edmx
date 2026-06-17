@@ -4,134 +4,241 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WebPetCareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WebPetCareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BENH_AN">
           <Key>
             <PropertyRef Name="MaBenhAn" />
           </Key>
-          <Property Name="MaBenhAn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NgayKham" Type="date" />
-          <Property Name="TrieuChung" Type="nvarchar" MaxLength="255" />
-          <Property Name="ChanDoan" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="MaBenhAn" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="NgayKham" Type="datetime" />
+          <Property Name="TrieuChung" Type="nvarchar(max)" />
+          <Property Name="ChanDoan" Type="nvarchar(max)" />
           <Property Name="DonThuoc" Type="nvarchar(max)" />
-          <Property Name="NgayTaiKham" Type="date" />
-          <Property Name="MaPet" Type="int" Nullable="false" />
-          <Property Name="MaBacSi" Type="int" Nullable="false" />
+          <Property Name="NgayTaiKham" Type="datetime" />
+          <Property Name="MaPet" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaBacSi" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="CHI_TIET_DON_HANG">
           <Key>
             <PropertyRef Name="MaChiTiet" />
           </Key>
           <Property Name="MaChiTiet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MaDonHang" Type="int" Nullable="false" />
-          <Property Name="MaSanPham" Type="int" Nullable="false" />
+          <Property Name="MaDonHang" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaSanPham" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="SoLuong" Type="int" Nullable="false" />
           <Property Name="GiaBan" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="ThanhTien" Type="decimal" Precision="29" Scale="2" StoreGeneratedPattern="Computed" />
+          <Property Name="ThanhTien" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="CHI_TIET_LICH_HEN">
           <Key>
-            <PropertyRef Name="MaLichHen" />
-            <PropertyRef Name="MaDV" />
+            <PropertyRef Name="MaChiTietLH" />
           </Key>
-          <Property Name="MaLichHen" Type="int" Nullable="false" />
-          <Property Name="MaDV" Type="int" Nullable="false" />
+          <Property Name="MaChiTietLH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaLichHen" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="GhiChu" Type="nvarchar(max)" />
+          <Property Name="MaDV" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="CHI_TIET_PHIEU_KHO">
+          <Key>
+            <PropertyRef Name="MaChiTietPhieu" />
+          </Key>
+          <Property Name="MaChiTietPhieu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaPhieu" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaSanPham" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SoLuong" Type="int" Nullable="false" />
+          <Property Name="DonGia" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DANG_KY_GOI">
+          <Key>
+            <PropertyRef Name="MaDangKy" />
+          </Key>
+          <Property Name="MaDangKy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaKH" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaGoi" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="NgayDangKy" Type="datetime" />
+          <Property Name="NgayHetHan" Type="datetime" Nullable="false" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DICH_VU">
           <Key>
             <PropertyRef Name="MaDV" />
           </Key>
-          <Property Name="MaDV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaDV" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="TenDichVu" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="LoaiDichVu" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LoaiDichVu" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="DonGia" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrangThai" Type="bit" />
         </EntityType>
         <EntityType Name="DON_HANG">
           <Key>
             <PropertyRef Name="MaDonHang" />
           </Key>
-          <Property Name="MaDonHang" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaDonHang" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="NgayDat" Type="datetime" />
           <Property Name="TongTien" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="PhuongThucThanhToan" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhuongThucThanhToan" Type="nvarchar" MaxLength="100" />
           <Property Name="TrangThaiDonHang" Type="nvarchar" MaxLength="50" />
-          <Property Name="MaKH" Type="int" Nullable="false" />
+          <Property Name="MaKH" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaGiamGia" Type="varchar" MaxLength="20" />
+          <Property Name="SoDiemDaDung" Type="int" />
+        </EntityType>
+        <EntityType Name="GOI_DINH_KY">
+          <Key>
+            <PropertyRef Name="MaGoi" />
+          </Key>
+          <Property Name="MaGoi" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TenGoi" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ThoiHanThang" Type="int" Nullable="false" />
+          <Property Name="GiaTien" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="KHACH_HANG">
           <Key>
             <PropertyRef Name="MaKH" />
           </Key>
-          <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaKH" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="HoTen" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="SDT" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SDT" Type="varchar" MaxLength="15" />
           <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
           <Property Name="HangThanhVien" Type="nvarchar" MaxLength="50" />
           <Property Name="DiemTichLuy" Type="int" />
-          <Property Name="MaTaiKhoan" Type="int" />
+          <Property Name="MaTaiKhoan" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="LICH_HEN">
           <Key>
             <PropertyRef Name="MaLichHen" />
           </Key>
-          <Property Name="MaLichHen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="HoTen" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="SoDienThoai" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="MaLichHen" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="100" />
+          <Property Name="SoDienThoai" Type="varchar" MaxLength="15" />
           <Property Name="Email" Type="varchar" MaxLength="100" />
-          <Property Name="ChiNhanh" Type="nvarchar" MaxLength="100" />
-          <Property Name="NgayHen" Type="date" Nullable="false" />
-          <Property Name="GioHen" Type="time" Precision="7" Nullable="false" />
+          <Property Name="ChiNhanH" Type="nvarchar" MaxLength="100" />
+          <Property Name="NgayHen" Type="datetime" Nullable="false" />
+          <Property Name="GioHen" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
-          <Property Name="LyDoTuChoi" Type="nvarchar" MaxLength="250" />
-          <Property Name="MaKH" Type="int" />
-          <Property Name="MaPet" Type="int" />
-          <Property Name="MaNV" Type="int" />
+          <Property Name="LyDoTuChoi" Type="nvarchar" MaxLength="255" />
+          <Property Name="MaKH" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaPet" Type="varchar" MaxLength="10" />
+          <Property Name="MaNV" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="LIEN_HE">
+          <Key>
+            <PropertyRef Name="MaLienHe" />
+          </Key>
+          <Property Name="MaLienHe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SoDienThoai" Type="varchar" MaxLength="15" />
+          <Property Name="TieuDe" Type="nvarchar" MaxLength="200" />
+          <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="NgayGui" Type="datetime" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LOG_HOAT_DONG">
+          <Key>
+            <PropertyRef Name="MaLog" />
+          </Key>
+          <Property Name="MaLog" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaTaiKhoan" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="HanhDong" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ChiTiet" Type="nvarchar(max)" />
+          <Property Name="ThoiGian" Type="datetime" />
+          <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MA_GIAM_GIA">
+          <Key>
+            <PropertyRef Name="MaGiamGia" />
+          </Key>
+          <Property Name="MaGiamGia" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TenChuongTrinh" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="PhanTramGiam" Type="int" />
+          <Property Name="NgayBatDau" Type="datetime" Nullable="false" />
+          <Property Name="NgayHetHan" Type="datetime" Nullable="false" />
+          <Property Name="TrangThai" Type="bit" />
         </EntityType>
         <EntityType Name="NHAN_VIEN">
           <Key>
             <PropertyRef Name="MaNV" />
           </Key>
-          <Property Name="MaNV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaNV" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="HoTen" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="SDT" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SDT" Type="varchar" MaxLength="15" />
           <Property Name="ChucVu" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="MaTaiKhoan" Type="int" />
+          <Property Name="MaTaiKhoan" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="PHIEU_KHO">
+          <Key>
+            <PropertyRef Name="MaPhieu" />
+          </Key>
+          <Property Name="MaPhieu" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="LoaiPhieu" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="NgayLap" Type="datetime" />
+          <Property Name="MaNV" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PHONG_LUU_TRU">
+          <Key>
+            <PropertyRef Name="MaPhong" />
+          </Key>
+          <Property Name="MaPhong" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TenPhong" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LoaiPhong" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GiaTheoNgay" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SAN_PHAM">
           <Key>
             <PropertyRef Name="MaSanPham" />
           </Key>
-          <Property Name="MaSanPham" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaSanPham" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="TenSanPham" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="DanhMuc" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DanhMuc" Type="nvarchar" MaxLength="100" />
           <Property Name="DonGia" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="SoLuongTon" Type="int" Nullable="false" />
+          <Property Name="SoLuongTon" Type="int" />
           <Property Name="HinhAnh" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TAI_KHOAN">
           <Key>
             <PropertyRef Name="MaTaiKhoan" />
           </Key>
-          <Property Name="MaTaiKhoan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaTaiKhoan" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="VaiTro" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrangThai" Type="bit" />
+        </EntityType>
+        <EntityType Name="TIN_NHAN_CHAT">
+          <Key>
+            <PropertyRef Name="MaTinNhan" />
+          </Key>
+          <Property Name="MaTinNhan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaTaiKhoanGui" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="MaTaiKhoanNhan" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ThoiGianGui" Type="datetime" />
         </EntityType>
         <EntityType Name="THU_CUNG">
           <Key>
             <PropertyRef Name="MaPet" />
           </Key>
-          <Property Name="MaPet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenPet" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MaPet" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TenPet" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ChungLoai" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="GiongPet" Type="nvarchar" MaxLength="100" />
+          <Property Name="GiongPet" Type="nvarchar" MaxLength="50" />
           <Property Name="Tuoi" Type="int" />
           <Property Name="CanNang" Type="float" />
-          <Property Name="MaKH" Type="int" Nullable="false" />
+          <Property Name="MaKH" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
-        <Association Name="FK__BENH_AN__MaBacSi__5535A963">
+        <Association Name="FK_BENHAN_BACSI">
           <End Role="NHAN_VIEN" Type="Self.NHAN_VIEN" Multiplicity="1" />
           <End Role="BENH_AN" Type="Self.BENH_AN" Multiplicity="*" />
           <ReferentialConstraint>
@@ -143,10 +250,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BENH_AN__MaPet__5441852A">
-          <End Role="THU_CUNG" Type="Self.THU_CUNG" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK_BENHAN_THUCUNG">
+          <End Role="THU_CUNG" Type="Self.THU_CUNG" Multiplicity="1" />
           <End Role="BENH_AN" Type="Self.BENH_AN" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="THU_CUNG">
@@ -157,7 +262,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CHI_TIET___MaDon__60A75C0F">
+        <Association Name="FK_CTDH_DONHANG">
           <End Role="DON_HANG" Type="Self.DON_HANG" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -171,7 +276,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CHI_TIET___MaLic__72C60C4A">
+        <Association Name="FK_CTDH_SANPHAM">
+          <End Role="SAN_PHAM" Type="Self.SAN_PHAM" Multiplicity="1" />
+          <End Role="CHI_TIET_DON_HANG" Type="Self.CHI_TIET_DON_HANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SAN_PHAM">
+              <PropertyRef Name="MaSanPham" />
+            </Principal>
+            <Dependent Role="CHI_TIET_DON_HANG">
+              <PropertyRef Name="MaSanPham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CTKHO_PHIEU">
+          <End Role="PHIEU_KHO" Type="Self.PHIEU_KHO" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CHI_TIET_PHIEU_KHO" Type="Self.CHI_TIET_PHIEU_KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_KHO">
+              <PropertyRef Name="MaPhieu" />
+            </Principal>
+            <Dependent Role="CHI_TIET_PHIEU_KHO">
+              <PropertyRef Name="MaPhieu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CTKHO_SANPHAM">
+          <End Role="SAN_PHAM" Type="Self.SAN_PHAM" Multiplicity="1" />
+          <End Role="CHI_TIET_PHIEU_KHO" Type="Self.CHI_TIET_PHIEU_KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SAN_PHAM">
+              <PropertyRef Name="MaSanPham" />
+            </Principal>
+            <Dependent Role="CHI_TIET_PHIEU_KHO">
+              <PropertyRef Name="MaSanPham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CTLH_LICHHEN">
           <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -185,22 +328,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CHI_TIET___MaSan__619B8048">
-          <End Role="SAN_PHAM" Type="Self.SAN_PHAM" Multiplicity="1" />
-          <End Role="CHI_TIET_DON_HANG" Type="Self.CHI_TIET_DON_HANG" Multiplicity="*" />
+        <Association Name="FK_CHAT_TKGUI">
+          <End Role="TAI_KHOAN" Type="Self.TAI_KHOAN" Multiplicity="1" />
+          <End Role="TIN_NHAN_CHAT" Type="Self.TIN_NHAN_CHAT" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SAN_PHAM">
-              <PropertyRef Name="MaSanPham" />
+            <Principal Role="TAI_KHOAN">
+              <PropertyRef Name="MaTaiKhoan" />
             </Principal>
-            <Dependent Role="CHI_TIET_DON_HANG">
-              <PropertyRef Name="MaSanPham" />
+            <Dependent Role="TIN_NHAN_CHAT">
+              <PropertyRef Name="MaTaiKhoanGui" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CHI_TIET_L__MaDV__73BA3083">
-          <End Role="DICH_VU" Type="Self.DICH_VU" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK_CHAT_TKNHAN">
+          <End Role="TAI_KHOAN" Type="Self.TAI_KHOAN" Multiplicity="1" />
+          <End Role="TIN_NHAN_CHAT" Type="Self.TIN_NHAN_CHAT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAI_KHOAN">
+              <PropertyRef Name="MaTaiKhoan" />
+            </Principal>
+            <Dependent Role="TIN_NHAN_CHAT">
+              <PropertyRef Name="MaTaiKhoanNhan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChiTietLH_DichVu">
+          <End Role="DICH_VU" Type="Self.DICH_VU" Multiplicity="0..1" />
           <End Role="CHI_TIET_LICH_HEN" Type="Self.CHI_TIET_LICH_HEN" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DICH_VU">
@@ -211,7 +364,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DON_HANG__MaKH__5DCAEF64">
+        <Association Name="FK_DKGOI_GOI">
+          <End Role="GOI_DINH_KY" Type="Self.GOI_DINH_KY" Multiplicity="1" />
+          <End Role="DANG_KY_GOI" Type="Self.DANG_KY_GOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GOI_DINH_KY">
+              <PropertyRef Name="MaGoi" />
+            </Principal>
+            <Dependent Role="DANG_KY_GOI">
+              <PropertyRef Name="MaGoi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DKGOI_KHACHHANG">
+          <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="1" />
+          <End Role="DANG_KY_GOI" Type="Self.DANG_KY_GOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACH_HANG">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="DANG_KY_GOI">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DONHANG_KHACHHANG">
           <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="1" />
           <End Role="DON_HANG" Type="Self.DON_HANG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -223,7 +400,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__KHACH_HAN__MaTai__403A8C7D">
+        <Association Name="FK_DONHANG_MAGIAMGIA">
+          <End Role="MA_GIAM_GIA" Type="Self.MA_GIAM_GIA" Multiplicity="0..1" />
+          <End Role="DON_HANG" Type="Self.DON_HANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MA_GIAM_GIA">
+              <PropertyRef Name="MaGiamGia" />
+            </Principal>
+            <Dependent Role="DON_HANG">
+              <PropertyRef Name="MaGiamGia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KH_TAIKHOAN">
           <End Role="TAI_KHOAN" Type="Self.TAI_KHOAN" Multiplicity="0..1" />
           <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -235,7 +424,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NHAN_VIEN__MaTai__440B1D61">
+        <Association Name="FK_LICHHEN_KHACHHANG">
+          <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="1" />
+          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACH_HANG">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="LICH_HEN">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LICHHEN_KHACHHANG_BACSI">
+          <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="0..1" />
+          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACH_HANG">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="LICH_HEN">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LICHHEN_THUCUNG">
+          <End Role="THU_CUNG" Type="Self.THU_CUNG" Multiplicity="0..1" />
+          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THU_CUNG">
+              <PropertyRef Name="MaPet" />
+            </Principal>
+            <Dependent Role="LICH_HEN">
+              <PropertyRef Name="MaPet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LOG_TAIKHOAN">
+          <End Role="TAI_KHOAN" Type="Self.TAI_KHOAN" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LOG_HOAT_DONG" Type="Self.LOG_HOAT_DONG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAI_KHOAN">
+              <PropertyRef Name="MaTaiKhoan" />
+            </Principal>
+            <Dependent Role="LOG_HOAT_DONG">
+              <PropertyRef Name="MaTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NV_TAIKHOAN">
           <End Role="TAI_KHOAN" Type="Self.TAI_KHOAN" Multiplicity="0..1" />
           <End Role="NHAN_VIEN" Type="Self.NHAN_VIEN" Multiplicity="*" />
           <ReferentialConstraint>
@@ -247,7 +486,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__THU_CUNG__MaKH__46E78A0C">
+        <Association Name="FK_PHIEUKHO_NHANVIEN">
+          <End Role="NHAN_VIEN" Type="Self.NHAN_VIEN" Multiplicity="1" />
+          <End Role="PHIEU_KHO" Type="Self.PHIEU_KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHAN_VIEN">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="PHIEU_KHO">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THUCUNG_KHACHHANG">
           <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -265,199 +516,514 @@
           <EntitySet Name="BENH_AN" EntityType="Self.BENH_AN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHI_TIET_DON_HANG" EntityType="Self.CHI_TIET_DON_HANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHI_TIET_LICH_HEN" EntityType="Self.CHI_TIET_LICH_HEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHI_TIET_PHIEU_KHO" EntityType="Self.CHI_TIET_PHIEU_KHO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DANG_KY_GOI" EntityType="Self.DANG_KY_GOI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DICH_VU" EntityType="Self.DICH_VU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DON_HANG" EntityType="Self.DON_HANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GOI_DINH_KY" EntityType="Self.GOI_DINH_KY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KHACH_HANG" EntityType="Self.KHACH_HANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LICH_HEN" EntityType="Self.LICH_HEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LIEN_HE" EntityType="Self.LIEN_HE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOG_HOAT_DONG" EntityType="Self.LOG_HOAT_DONG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MA_GIAM_GIA" EntityType="Self.MA_GIAM_GIA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NHAN_VIEN" EntityType="Self.NHAN_VIEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHIEU_KHO" EntityType="Self.PHIEU_KHO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHONG_LUU_TRU" EntityType="Self.PHONG_LUU_TRU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SAN_PHAM" EntityType="Self.SAN_PHAM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAI_KHOAN" EntityType="Self.TAI_KHOAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIN_NHAN_CHAT" EntityType="Self.TIN_NHAN_CHAT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="THU_CUNG" EntityType="Self.THU_CUNG" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__BENH_AN__MaBacSi__5535A963" Association="Self.FK__BENH_AN__MaBacSi__5535A963">
+          <AssociationSet Name="FK_BENHAN_BACSI" Association="Self.FK_BENHAN_BACSI">
             <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
             <End Role="BENH_AN" EntitySet="BENH_AN" />
           </AssociationSet>
-          <AssociationSet Name="FK__BENH_AN__MaPet__5441852A" Association="Self.FK__BENH_AN__MaPet__5441852A">
+          <AssociationSet Name="FK_BENHAN_THUCUNG" Association="Self.FK_BENHAN_THUCUNG">
             <End Role="THU_CUNG" EntitySet="THU_CUNG" />
             <End Role="BENH_AN" EntitySet="BENH_AN" />
           </AssociationSet>
-          <AssociationSet Name="FK__CHI_TIET___MaDon__60A75C0F" Association="Self.FK__CHI_TIET___MaDon__60A75C0F">
+          <AssociationSet Name="FK_CTDH_DONHANG" Association="Self.FK_CTDH_DONHANG">
             <End Role="DON_HANG" EntitySet="DON_HANG" />
             <End Role="CHI_TIET_DON_HANG" EntitySet="CHI_TIET_DON_HANG" />
           </AssociationSet>
-          <AssociationSet Name="FK__CHI_TIET___MaLic__72C60C4A" Association="Self.FK__CHI_TIET___MaLic__72C60C4A">
-            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
-            <End Role="CHI_TIET_LICH_HEN" EntitySet="CHI_TIET_LICH_HEN" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CHI_TIET___MaSan__619B8048" Association="Self.FK__CHI_TIET___MaSan__619B8048">
+          <AssociationSet Name="FK_CTDH_SANPHAM" Association="Self.FK_CTDH_SANPHAM">
             <End Role="SAN_PHAM" EntitySet="SAN_PHAM" />
             <End Role="CHI_TIET_DON_HANG" EntitySet="CHI_TIET_DON_HANG" />
           </AssociationSet>
-          <AssociationSet Name="FK__CHI_TIET_L__MaDV__73BA3083" Association="Self.FK__CHI_TIET_L__MaDV__73BA3083">
+          <AssociationSet Name="FK_CTKHO_PHIEU" Association="Self.FK_CTKHO_PHIEU">
+            <End Role="PHIEU_KHO" EntitySet="PHIEU_KHO" />
+            <End Role="CHI_TIET_PHIEU_KHO" EntitySet="CHI_TIET_PHIEU_KHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTKHO_SANPHAM" Association="Self.FK_CTKHO_SANPHAM">
+            <End Role="SAN_PHAM" EntitySet="SAN_PHAM" />
+            <End Role="CHI_TIET_PHIEU_KHO" EntitySet="CHI_TIET_PHIEU_KHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTLH_LICHHEN" Association="Self.FK_CTLH_LICHHEN">
+            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
+            <End Role="CHI_TIET_LICH_HEN" EntitySet="CHI_TIET_LICH_HEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHAT_TKGUI" Association="Self.FK_CHAT_TKGUI">
+            <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
+            <End Role="TIN_NHAN_CHAT" EntitySet="TIN_NHAN_CHAT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHAT_TKNHAN" Association="Self.FK_CHAT_TKNHAN">
+            <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
+            <End Role="TIN_NHAN_CHAT" EntitySet="TIN_NHAN_CHAT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChiTietLH_DichVu" Association="Self.FK_ChiTietLH_DichVu">
             <End Role="DICH_VU" EntitySet="DICH_VU" />
             <End Role="CHI_TIET_LICH_HEN" EntitySet="CHI_TIET_LICH_HEN" />
           </AssociationSet>
-          <AssociationSet Name="FK__DON_HANG__MaKH__5DCAEF64" Association="Self.FK__DON_HANG__MaKH__5DCAEF64">
+          <AssociationSet Name="FK_DKGOI_GOI" Association="Self.FK_DKGOI_GOI">
+            <End Role="GOI_DINH_KY" EntitySet="GOI_DINH_KY" />
+            <End Role="DANG_KY_GOI" EntitySet="DANG_KY_GOI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DKGOI_KHACHHANG" Association="Self.FK_DKGOI_KHACHHANG">
+            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
+            <End Role="DANG_KY_GOI" EntitySet="DANG_KY_GOI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DONHANG_KHACHHANG" Association="Self.FK_DONHANG_KHACHHANG">
             <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
             <End Role="DON_HANG" EntitySet="DON_HANG" />
           </AssociationSet>
-          <AssociationSet Name="FK__KHACH_HAN__MaTai__403A8C7D" Association="Self.FK__KHACH_HAN__MaTai__403A8C7D">
+          <AssociationSet Name="FK_DONHANG_MAGIAMGIA" Association="Self.FK_DONHANG_MAGIAMGIA">
+            <End Role="MA_GIAM_GIA" EntitySet="MA_GIAM_GIA" />
+            <End Role="DON_HANG" EntitySet="DON_HANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KH_TAIKHOAN" Association="Self.FK_KH_TAIKHOAN">
             <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
             <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
           </AssociationSet>
-          <AssociationSet Name="FK__NHAN_VIEN__MaTai__440B1D61" Association="Self.FK__NHAN_VIEN__MaTai__440B1D61">
+          <AssociationSet Name="FK_LICHHEN_KHACHHANG" Association="Self.FK_LICHHEN_KHACHHANG">
+            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
+            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LICHHEN_KHACHHANG_BACSI" Association="Self.FK_LICHHEN_KHACHHANG_BACSI">
+            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
+            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LICHHEN_THUCUNG" Association="Self.FK_LICHHEN_THUCUNG">
+            <End Role="THU_CUNG" EntitySet="THU_CUNG" />
+            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LOG_TAIKHOAN" Association="Self.FK_LOG_TAIKHOAN">
+            <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
+            <End Role="LOG_HOAT_DONG" EntitySet="LOG_HOAT_DONG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NV_TAIKHOAN" Association="Self.FK_NV_TAIKHOAN">
             <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
             <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
           </AssociationSet>
-          <AssociationSet Name="FK__THU_CUNG__MaKH__46E78A0C" Association="Self.FK__THU_CUNG__MaKH__46E78A0C">
+          <AssociationSet Name="FK_PHIEUKHO_NHANVIEN" Association="Self.FK_PHIEUKHO_NHANVIEN">
+            <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
+            <End Role="PHIEU_KHO" EntitySet="PHIEU_KHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THUCUNG_KHACHHANG" Association="Self.FK_THUCUNG_KHACHHANG">
             <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
             <End Role="THU_CUNG" EntitySet="THU_CUNG" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WebPetCareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WebPetCareEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BENH_AN" EntityType="WebPetCareModel.BENH_AN" />
+          <EntitySet Name="CHI_TIET_DON_HANG" EntityType="WebPetCareModel.CHI_TIET_DON_HANG" />
+          <EntitySet Name="CHI_TIET_LICH_HEN" EntityType="WebPetCareModel.CHI_TIET_LICH_HEN" />
+          <EntitySet Name="CHI_TIET_PHIEU_KHO" EntityType="WebPetCareModel.CHI_TIET_PHIEU_KHO" />
+          <EntitySet Name="DANG_KY_GOI" EntityType="WebPetCareModel.DANG_KY_GOI" />
+          <EntitySet Name="DICH_VU" EntityType="WebPetCareModel.DICH_VU" />
+          <EntitySet Name="DON_HANG" EntityType="WebPetCareModel.DON_HANG" />
+          <EntitySet Name="GOI_DINH_KY" EntityType="WebPetCareModel.GOI_DINH_KY" />
+          <EntitySet Name="KHACH_HANG" EntityType="WebPetCareModel.KHACH_HANG" />
+          <EntitySet Name="LICH_HEN" EntityType="WebPetCareModel.LICH_HEN" />
+          <EntitySet Name="LIEN_HE" EntityType="WebPetCareModel.LIEN_HE" />
+          <EntitySet Name="LOG_HOAT_DONG" EntityType="WebPetCareModel.LOG_HOAT_DONG" />
+          <EntitySet Name="MA_GIAM_GIA" EntityType="WebPetCareModel.MA_GIAM_GIA" />
+          <EntitySet Name="NHAN_VIEN" EntityType="WebPetCareModel.NHAN_VIEN" />
+          <EntitySet Name="PHIEU_KHO" EntityType="WebPetCareModel.PHIEU_KHO" />
+          <EntitySet Name="PHONG_LUU_TRU" EntityType="WebPetCareModel.PHONG_LUU_TRU" />
+          <EntitySet Name="SAN_PHAM" EntityType="WebPetCareModel.SAN_PHAM" />
+          <EntitySet Name="sysdiagrams" EntityType="WebPetCareModel.sysdiagrams" />
+          <EntitySet Name="TAI_KHOAN" EntityType="WebPetCareModel.TAI_KHOAN" />
+          <EntitySet Name="TIN_NHAN_CHAT" EntityType="WebPetCareModel.TIN_NHAN_CHAT" />
+          <EntitySet Name="THU_CUNG" EntityType="WebPetCareModel.THU_CUNG" />
+          <AssociationSet Name="FK_BENHAN_BACSI" Association="WebPetCareModel.FK_BENHAN_BACSI">
+            <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
+            <End Role="BENH_AN" EntitySet="BENH_AN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BENHAN_THUCUNG" Association="WebPetCareModel.FK_BENHAN_THUCUNG">
+            <End Role="THU_CUNG" EntitySet="THU_CUNG" />
+            <End Role="BENH_AN" EntitySet="BENH_AN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTDH_DONHANG" Association="WebPetCareModel.FK_CTDH_DONHANG">
+            <End Role="DON_HANG" EntitySet="DON_HANG" />
+            <End Role="CHI_TIET_DON_HANG" EntitySet="CHI_TIET_DON_HANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTDH_SANPHAM" Association="WebPetCareModel.FK_CTDH_SANPHAM">
+            <End Role="SAN_PHAM" EntitySet="SAN_PHAM" />
+            <End Role="CHI_TIET_DON_HANG" EntitySet="CHI_TIET_DON_HANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTLH_LICHHEN" Association="WebPetCareModel.FK_CTLH_LICHHEN">
+            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
+            <End Role="CHI_TIET_LICH_HEN" EntitySet="CHI_TIET_LICH_HEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChiTietLH_DichVu" Association="WebPetCareModel.FK_ChiTietLH_DichVu">
+            <End Role="DICH_VU" EntitySet="DICH_VU" />
+            <End Role="CHI_TIET_LICH_HEN" EntitySet="CHI_TIET_LICH_HEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTKHO_PHIEU" Association="WebPetCareModel.FK_CTKHO_PHIEU">
+            <End Role="PHIEU_KHO" EntitySet="PHIEU_KHO" />
+            <End Role="CHI_TIET_PHIEU_KHO" EntitySet="CHI_TIET_PHIEU_KHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTKHO_SANPHAM" Association="WebPetCareModel.FK_CTKHO_SANPHAM">
+            <End Role="SAN_PHAM" EntitySet="SAN_PHAM" />
+            <End Role="CHI_TIET_PHIEU_KHO" EntitySet="CHI_TIET_PHIEU_KHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DKGOI_GOI" Association="WebPetCareModel.FK_DKGOI_GOI">
+            <End Role="GOI_DINH_KY" EntitySet="GOI_DINH_KY" />
+            <End Role="DANG_KY_GOI" EntitySet="DANG_KY_GOI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DKGOI_KHACHHANG" Association="WebPetCareModel.FK_DKGOI_KHACHHANG">
+            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
+            <End Role="DANG_KY_GOI" EntitySet="DANG_KY_GOI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DONHANG_KHACHHANG" Association="WebPetCareModel.FK_DONHANG_KHACHHANG">
+            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
+            <End Role="DON_HANG" EntitySet="DON_HANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DONHANG_MAGIAMGIA" Association="WebPetCareModel.FK_DONHANG_MAGIAMGIA">
+            <End Role="MA_GIAM_GIA" EntitySet="MA_GIAM_GIA" />
+            <End Role="DON_HANG" EntitySet="DON_HANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KH_TAIKHOAN" Association="WebPetCareModel.FK_KH_TAIKHOAN">
+            <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
+            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LICHHEN_KHACHHANG" Association="WebPetCareModel.FK_LICHHEN_KHACHHANG">
+            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
+            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THUCUNG_KHACHHANG" Association="WebPetCareModel.FK_THUCUNG_KHACHHANG">
+            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
+            <End Role="THU_CUNG" EntitySet="THU_CUNG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LICHHEN_NHANVIEN" Association="WebPetCareModel.FK_LICHHEN_NHANVIEN">
+            <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
+            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LICHHEN_THUCUNG" Association="WebPetCareModel.FK_LICHHEN_THUCUNG">
+            <End Role="THU_CUNG" EntitySet="THU_CUNG" />
+            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LOG_TAIKHOAN" Association="WebPetCareModel.FK_LOG_TAIKHOAN">
+            <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
+            <End Role="LOG_HOAT_DONG" EntitySet="LOG_HOAT_DONG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NV_TAIKHOAN" Association="WebPetCareModel.FK_NV_TAIKHOAN">
+            <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
+            <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUKHO_NHANVIEN" Association="WebPetCareModel.FK_PHIEUKHO_NHANVIEN">
+            <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
+            <End Role="PHIEU_KHO" EntitySet="PHIEU_KHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHAT_TKGUI" Association="WebPetCareModel.FK_CHAT_TKGUI">
+            <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
+            <End Role="TIN_NHAN_CHAT" EntitySet="TIN_NHAN_CHAT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHAT_TKNHAN" Association="WebPetCareModel.FK_CHAT_TKNHAN">
+            <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
+            <End Role="TIN_NHAN_CHAT" EntitySet="TIN_NHAN_CHAT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LICHHEN_KHACHHANG_BACSI" Association="WebPetCareModel.FK_LICHHEN_KHACHHANG_BACSI">
+            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
+            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="BENH_AN">
           <Key>
             <PropertyRef Name="MaBenhAn" />
           </Key>
-          <Property Name="MaBenhAn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NgayKham" Type="DateTime" Precision="0" />
-          <Property Name="TrieuChung" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ChanDoan" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaBenhAn" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NgayKham" Type="DateTime" Precision="3" />
+          <Property Name="TrieuChung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChanDoan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DonThuoc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NgayTaiKham" Type="DateTime" Precision="0" />
-          <Property Name="MaPet" Type="Int32" Nullable="false" />
-          <Property Name="MaBacSi" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="NHAN_VIEN" Relationship="Self.FK__BENH_AN__MaBacSi__5535A963" FromRole="BENH_AN" ToRole="NHAN_VIEN" />
-          <NavigationProperty Name="THU_CUNG" Relationship="Self.FK__BENH_AN__MaPet__5441852A" FromRole="BENH_AN" ToRole="THU_CUNG" />
+          <Property Name="NgayTaiKham" Type="DateTime" Precision="3" />
+          <Property Name="MaPet" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaBacSi" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="NHAN_VIEN" Relationship="WebPetCareModel.FK_BENHAN_BACSI" FromRole="BENH_AN" ToRole="NHAN_VIEN" />
+          <NavigationProperty Name="THU_CUNG" Relationship="WebPetCareModel.FK_BENHAN_THUCUNG" FromRole="BENH_AN" ToRole="THU_CUNG" />
         </EntityType>
         <EntityType Name="CHI_TIET_DON_HANG">
           <Key>
             <PropertyRef Name="MaChiTiet" />
           </Key>
           <Property Name="MaChiTiet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaDonHang" Type="Int32" Nullable="false" />
-          <Property Name="MaSanPham" Type="Int32" Nullable="false" />
+          <Property Name="MaDonHang" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaSanPham" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="SoLuong" Type="Int32" Nullable="false" />
-          <Property Name="GiaBan" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="ThanhTien" Type="Decimal" Precision="29" Scale="2" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="DON_HANG" Relationship="Self.FK__CHI_TIET___MaDon__60A75C0F" FromRole="CHI_TIET_DON_HANG" ToRole="DON_HANG" />
-          <NavigationProperty Name="SAN_PHAM" Relationship="Self.FK__CHI_TIET___MaSan__619B8048" FromRole="CHI_TIET_DON_HANG" ToRole="SAN_PHAM" />
+          <Property Name="GiaBan" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ThanhTien" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="DON_HANG" Relationship="WebPetCareModel.FK_CTDH_DONHANG" FromRole="CHI_TIET_DON_HANG" ToRole="DON_HANG" />
+          <NavigationProperty Name="SAN_PHAM" Relationship="WebPetCareModel.FK_CTDH_SANPHAM" FromRole="CHI_TIET_DON_HANG" ToRole="SAN_PHAM" />
+        </EntityType>
+        <EntityType Name="CHI_TIET_LICH_HEN">
+          <Key>
+            <PropertyRef Name="MaChiTietLH" />
+          </Key>
+          <Property Name="MaChiTietLH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaLichHen" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MaDV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LICH_HEN" Relationship="WebPetCareModel.FK_CTLH_LICHHEN" FromRole="CHI_TIET_LICH_HEN" ToRole="LICH_HEN" />
+          <NavigationProperty Name="DICH_VU" Relationship="WebPetCareModel.FK_ChiTietLH_DichVu" FromRole="CHI_TIET_LICH_HEN" ToRole="DICH_VU" />
+        </EntityType>
+        <EntityType Name="CHI_TIET_PHIEU_KHO">
+          <Key>
+            <PropertyRef Name="MaChiTietPhieu" />
+          </Key>
+          <Property Name="MaChiTietPhieu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaPhieu" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaSanPham" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SoLuong" Type="Int32" Nullable="false" />
+          <Property Name="DonGia" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="PHIEU_KHO" Relationship="WebPetCareModel.FK_CTKHO_PHIEU" FromRole="CHI_TIET_PHIEU_KHO" ToRole="PHIEU_KHO" />
+          <NavigationProperty Name="SAN_PHAM" Relationship="WebPetCareModel.FK_CTKHO_SANPHAM" FromRole="CHI_TIET_PHIEU_KHO" ToRole="SAN_PHAM" />
+        </EntityType>
+        <EntityType Name="DANG_KY_GOI">
+          <Key>
+            <PropertyRef Name="MaDangKy" />
+          </Key>
+          <Property Name="MaDangKy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaKH" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaGoi" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NgayDangKy" Type="DateTime" Precision="3" />
+          <Property Name="NgayHetHan" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GOI_DINH_KY" Relationship="WebPetCareModel.FK_DKGOI_GOI" FromRole="DANG_KY_GOI" ToRole="GOI_DINH_KY" />
+          <NavigationProperty Name="KHACH_HANG" Relationship="WebPetCareModel.FK_DKGOI_KHACHHANG" FromRole="DANG_KY_GOI" ToRole="KHACH_HANG" />
         </EntityType>
         <EntityType Name="DICH_VU">
           <Key>
             <PropertyRef Name="MaDV" />
           </Key>
-          <Property Name="MaDV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenDichVu" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LoaiDichVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DonGia" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LICH_HEN" Relationship="Self.CHI_TIET_LICH_HEN" FromRole="DICH_VU" ToRole="LICH_HEN" />
+          <Property Name="MaDV" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TenDichVu" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LoaiDichVu" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DonGia" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TrangThai" Type="Boolean" />
+          <NavigationProperty Name="CHI_TIET_LICH_HEN" Relationship="WebPetCareModel.FK_ChiTietLH_DichVu" FromRole="DICH_VU" ToRole="CHI_TIET_LICH_HEN" />
         </EntityType>
         <EntityType Name="DON_HANG">
           <Key>
             <PropertyRef Name="MaDonHang" />
           </Key>
-          <Property Name="MaDonHang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaDonHang" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="NgayDat" Type="DateTime" Precision="3" />
-          <Property Name="TongTien" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="PhuongThucThanhToan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TongTien" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PhuongThucThanhToan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="TrangThaiDonHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MaKH" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CHI_TIET_DON_HANG" Relationship="Self.FK__CHI_TIET___MaDon__60A75C0F" FromRole="DON_HANG" ToRole="CHI_TIET_DON_HANG" />
-          <NavigationProperty Name="KHACH_HANG" Relationship="Self.FK__DON_HANG__MaKH__5DCAEF64" FromRole="DON_HANG" ToRole="KHACH_HANG" />
+          <Property Name="MaKH" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaGiamGia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SoDiemDaDung" Type="Int32" />
+          <NavigationProperty Name="CHI_TIET_DON_HANG" Relationship="WebPetCareModel.FK_CTDH_DONHANG" FromRole="DON_HANG" ToRole="CHI_TIET_DON_HANG" />
+          <NavigationProperty Name="KHACH_HANG" Relationship="WebPetCareModel.FK_DONHANG_KHACHHANG" FromRole="DON_HANG" ToRole="KHACH_HANG" />
+          <NavigationProperty Name="MA_GIAM_GIA" Relationship="WebPetCareModel.FK_DONHANG_MAGIAMGIA" FromRole="DON_HANG" ToRole="MA_GIAM_GIA" />
+        </EntityType>
+        <EntityType Name="GOI_DINH_KY">
+          <Key>
+            <PropertyRef Name="MaGoi" />
+          </Key>
+          <Property Name="MaGoi" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TenGoi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ThoiHanThang" Type="Int32" Nullable="false" />
+          <Property Name="GiaTien" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="DANG_KY_GOI" Relationship="WebPetCareModel.FK_DKGOI_GOI" FromRole="GOI_DINH_KY" ToRole="DANG_KY_GOI" />
         </EntityType>
         <EntityType Name="KHACH_HANG">
           <Key>
             <PropertyRef Name="MaKH" />
           </Key>
-          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SDT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaKH" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HoTen" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="HangThanhVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DiemTichLuy" Type="Int32" />
-          <Property Name="MaTaiKhoan" Type="Int32" />
-          <NavigationProperty Name="DON_HANG" Relationship="Self.FK__DON_HANG__MaKH__5DCAEF64" FromRole="KHACH_HANG" ToRole="DON_HANG" />
-          <NavigationProperty Name="TAI_KHOAN" Relationship="Self.FK__KHACH_HAN__MaTai__403A8C7D" FromRole="KHACH_HANG" ToRole="TAI_KHOAN" />
-          <NavigationProperty Name="THU_CUNG" Relationship="Self.FK__THU_CUNG__MaKH__46E78A0C" FromRole="KHACH_HANG" ToRole="THU_CUNG" />
+          <Property Name="MaTaiKhoan" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DANG_KY_GOI" Relationship="WebPetCareModel.FK_DKGOI_KHACHHANG" FromRole="KHACH_HANG" ToRole="DANG_KY_GOI" />
+          <NavigationProperty Name="DON_HANG" Relationship="WebPetCareModel.FK_DONHANG_KHACHHANG" FromRole="KHACH_HANG" ToRole="DON_HANG" />
+          <NavigationProperty Name="TAI_KHOAN" Relationship="WebPetCareModel.FK_KH_TAIKHOAN" FromRole="KHACH_HANG" ToRole="TAI_KHOAN" />
+          <NavigationProperty Name="LICH_HEN" Relationship="WebPetCareModel.FK_LICHHEN_KHACHHANG" FromRole="KHACH_HANG" ToRole="LICH_HEN" />
+          <NavigationProperty Name="THU_CUNG" Relationship="WebPetCareModel.FK_THUCUNG_KHACHHANG" FromRole="KHACH_HANG" ToRole="THU_CUNG" />
+          <NavigationProperty Name="LICH_HEN1" Relationship="WebPetCareModel.FK_LICHHEN_KHACHHANG_BACSI" FromRole="KHACH_HANG" ToRole="LICH_HEN" />
         </EntityType>
         <EntityType Name="LICH_HEN">
           <Key>
             <PropertyRef Name="MaLichHen" />
           </Key>
-          <Property Name="MaLichHen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SoDienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaLichHen" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ChiNhanh" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="NgayHen" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="GioHen" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="ChiNhanH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NgayHen" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GioHen" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LyDoTuChoi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="MaKH" Type="Int32" />
-          <Property Name="MaPet" Type="Int32" />
-          <Property Name="MaNV" Type="Int32" />
-          <NavigationProperty Name="DICH_VU" Relationship="Self.CHI_TIET_LICH_HEN" FromRole="LICH_HEN" ToRole="DICH_VU" />
+          <Property Name="LyDoTuChoi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MaKH" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaPet" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaNV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CHI_TIET_LICH_HEN" Relationship="WebPetCareModel.FK_CTLH_LICHHEN" FromRole="LICH_HEN" ToRole="CHI_TIET_LICH_HEN" />
+          <NavigationProperty Name="KHACH_HANG" Relationship="WebPetCareModel.FK_LICHHEN_KHACHHANG" FromRole="LICH_HEN" ToRole="KHACH_HANG" />
+          <NavigationProperty Name="NHAN_VIEN" Relationship="WebPetCareModel.FK_LICHHEN_NHANVIEN" FromRole="LICH_HEN" ToRole="NHAN_VIEN" />
+          <NavigationProperty Name="THU_CUNG" Relationship="WebPetCareModel.FK_LICHHEN_THUCUNG" FromRole="LICH_HEN" ToRole="THU_CUNG" />
+          <NavigationProperty Name="KHACH_HANG1" Relationship="WebPetCareModel.FK_LICHHEN_KHACHHANG_BACSI" FromRole="LICH_HEN" ToRole="KHACH_HANG" />
+        </EntityType>
+        <EntityType Name="LIEN_HE">
+          <Key>
+            <PropertyRef Name="MaLienHe" />
+          </Key>
+          <Property Name="MaLienHe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoTen" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TieuDe" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NoiDung" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NgayGui" Type="DateTime" Precision="3" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LOG_HOAT_DONG">
+          <Key>
+            <PropertyRef Name="MaLog" />
+          </Key>
+          <Property Name="MaLog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaTaiKhoan" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HanhDong" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ChiTiet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ThoiGian" Type="DateTime" Precision="3" />
+          <Property Name="IpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TAI_KHOAN" Relationship="WebPetCareModel.FK_LOG_TAIKHOAN" FromRole="LOG_HOAT_DONG" ToRole="TAI_KHOAN" />
+        </EntityType>
+        <EntityType Name="MA_GIAM_GIA">
+          <Key>
+            <PropertyRef Name="MaGiamGia" />
+          </Key>
+          <Property Name="MaGiamGia" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TenChuongTrinh" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PhanTramGiam" Type="Int32" />
+          <Property Name="NgayBatDau" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NgayHetHan" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TrangThai" Type="Boolean" />
+          <NavigationProperty Name="DON_HANG" Relationship="WebPetCareModel.FK_DONHANG_MAGIAMGIA" FromRole="MA_GIAM_GIA" ToRole="DON_HANG" />
         </EntityType>
         <EntityType Name="NHAN_VIEN">
           <Key>
             <PropertyRef Name="MaNV" />
           </Key>
-          <Property Name="MaNV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SDT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ChucVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MaTaiKhoan" Type="Int32" />
-          <NavigationProperty Name="BENH_AN" Relationship="Self.FK__BENH_AN__MaBacSi__5535A963" FromRole="NHAN_VIEN" ToRole="BENH_AN" />
-          <NavigationProperty Name="TAI_KHOAN" Relationship="Self.FK__NHAN_VIEN__MaTai__440B1D61" FromRole="NHAN_VIEN" ToRole="TAI_KHOAN" />
+          <Property Name="MaNV" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HoTen" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ChucVu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaTaiKhoan" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BENH_AN" Relationship="WebPetCareModel.FK_BENHAN_BACSI" FromRole="NHAN_VIEN" ToRole="BENH_AN" />
+          <NavigationProperty Name="LICH_HEN" Relationship="WebPetCareModel.FK_LICHHEN_NHANVIEN" FromRole="NHAN_VIEN" ToRole="LICH_HEN" />
+          <NavigationProperty Name="TAI_KHOAN" Relationship="WebPetCareModel.FK_NV_TAIKHOAN" FromRole="NHAN_VIEN" ToRole="TAI_KHOAN" />
+          <NavigationProperty Name="PHIEU_KHO" Relationship="WebPetCareModel.FK_PHIEUKHO_NHANVIEN" FromRole="NHAN_VIEN" ToRole="PHIEU_KHO" />
+        </EntityType>
+        <EntityType Name="PHIEU_KHO">
+          <Key>
+            <PropertyRef Name="MaPhieu" />
+          </Key>
+          <Property Name="MaPhieu" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LoaiPhieu" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NgayLap" Type="DateTime" Precision="3" />
+          <Property Name="MaNV" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CHI_TIET_PHIEU_KHO" Relationship="WebPetCareModel.FK_CTKHO_PHIEU" FromRole="PHIEU_KHO" ToRole="CHI_TIET_PHIEU_KHO" />
+          <NavigationProperty Name="NHAN_VIEN" Relationship="WebPetCareModel.FK_PHIEUKHO_NHANVIEN" FromRole="PHIEU_KHO" ToRole="NHAN_VIEN" />
+        </EntityType>
+        <EntityType Name="PHONG_LUU_TRU">
+          <Key>
+            <PropertyRef Name="MaPhong" />
+          </Key>
+          <Property Name="MaPhong" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TenPhong" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LoaiPhong" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GiaTheoNgay" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SAN_PHAM">
           <Key>
             <PropertyRef Name="MaSanPham" />
           </Key>
-          <Property Name="MaSanPham" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenSanPham" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DanhMuc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DonGia" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="SoLuongTon" Type="Int32" Nullable="false" />
+          <Property Name="MaSanPham" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TenSanPham" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DanhMuc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DonGia" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="SoLuongTon" Type="Int32" />
           <Property Name="HinhAnh" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CHI_TIET_DON_HANG" Relationship="Self.FK__CHI_TIET___MaSan__619B8048" FromRole="SAN_PHAM" ToRole="CHI_TIET_DON_HANG" />
+          <NavigationProperty Name="CHI_TIET_DON_HANG" Relationship="WebPetCareModel.FK_CTDH_SANPHAM" FromRole="SAN_PHAM" ToRole="CHI_TIET_DON_HANG" />
+          <NavigationProperty Name="CHI_TIET_PHIEU_KHO" Relationship="WebPetCareModel.FK_CTKHO_SANPHAM" FromRole="SAN_PHAM" ToRole="CHI_TIET_PHIEU_KHO" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="TAI_KHOAN">
           <Key>
             <PropertyRef Name="MaTaiKhoan" />
           </Key>
-          <Property Name="MaTaiKhoan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="VaiTro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="KHACH_HANG" Relationship="Self.FK__KHACH_HAN__MaTai__403A8C7D" FromRole="TAI_KHOAN" ToRole="KHACH_HANG" />
-          <NavigationProperty Name="NHAN_VIEN" Relationship="Self.FK__NHAN_VIEN__MaTai__440B1D61" FromRole="TAI_KHOAN" ToRole="NHAN_VIEN" />
+          <Property Name="MaTaiKhoan" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="VaiTro" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrangThai" Type="Boolean" />
+          <NavigationProperty Name="KHACH_HANG" Relationship="WebPetCareModel.FK_KH_TAIKHOAN" FromRole="TAI_KHOAN" ToRole="KHACH_HANG" />
+          <NavigationProperty Name="LOG_HOAT_DONG" Relationship="WebPetCareModel.FK_LOG_TAIKHOAN" FromRole="TAI_KHOAN" ToRole="LOG_HOAT_DONG" />
+          <NavigationProperty Name="NHAN_VIEN" Relationship="WebPetCareModel.FK_NV_TAIKHOAN" FromRole="TAI_KHOAN" ToRole="NHAN_VIEN" />
+          <NavigationProperty Name="TIN_NHAN_CHAT" Relationship="WebPetCareModel.FK_CHAT_TKGUI" FromRole="TAI_KHOAN" ToRole="TIN_NHAN_CHAT" />
+          <NavigationProperty Name="TIN_NHAN_CHAT1" Relationship="WebPetCareModel.FK_CHAT_TKNHAN" FromRole="TAI_KHOAN" ToRole="TIN_NHAN_CHAT" />
+        </EntityType>
+        <EntityType Name="TIN_NHAN_CHAT">
+          <Key>
+            <PropertyRef Name="MaTinNhan" />
+          </Key>
+          <Property Name="MaTinNhan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaTaiKhoanGui" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MaTaiKhoanNhan" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NoiDung" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ThoiGianGui" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TAI_KHOAN" Relationship="WebPetCareModel.FK_CHAT_TKGUI" FromRole="TIN_NHAN_CHAT" ToRole="TAI_KHOAN" />
+          <NavigationProperty Name="TAI_KHOAN1" Relationship="WebPetCareModel.FK_CHAT_TKNHAN" FromRole="TIN_NHAN_CHAT" ToRole="TAI_KHOAN" />
         </EntityType>
         <EntityType Name="THU_CUNG">
           <Key>
             <PropertyRef Name="MaPet" />
           </Key>
-          <Property Name="MaPet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenPet" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ChungLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GiongPet" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MaPet" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TenPet" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChungLoai" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GiongPet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Tuoi" Type="Int32" />
           <Property Name="CanNang" Type="Double" />
-          <Property Name="MaKH" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="BENH_AN" Relationship="Self.FK__BENH_AN__MaPet__5441852A" FromRole="THU_CUNG" ToRole="BENH_AN" />
-          <NavigationProperty Name="KHACH_HANG" Relationship="Self.FK__THU_CUNG__MaKH__46E78A0C" FromRole="THU_CUNG" ToRole="KHACH_HANG" />
+          <Property Name="MaKH" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BENH_AN" Relationship="WebPetCareModel.FK_BENHAN_THUCUNG" FromRole="THU_CUNG" ToRole="BENH_AN" />
+          <NavigationProperty Name="KHACH_HANG" Relationship="WebPetCareModel.FK_THUCUNG_KHACHHANG" FromRole="THU_CUNG" ToRole="KHACH_HANG" />
+          <NavigationProperty Name="LICH_HEN" Relationship="WebPetCareModel.FK_LICHHEN_THUCUNG" FromRole="THU_CUNG" ToRole="LICH_HEN" />
         </EntityType>
-        <Association Name="FK__BENH_AN__MaBacSi__5535A963">
-          <End Role="NHAN_VIEN" Type="Self.NHAN_VIEN" Multiplicity="1" />
-          <End Role="BENH_AN" Type="Self.BENH_AN" Multiplicity="*" />
+        <Association Name="FK_BENHAN_BACSI">
+          <End Type="WebPetCareModel.NHAN_VIEN" Role="NHAN_VIEN" Multiplicity="1" />
+          <End Type="WebPetCareModel.BENH_AN" Role="BENH_AN" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NHAN_VIEN">
               <PropertyRef Name="MaNV" />
@@ -467,11 +1033,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BENH_AN__MaPet__5441852A">
-          <End Role="THU_CUNG" Type="Self.THU_CUNG" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="BENH_AN" Type="Self.BENH_AN" Multiplicity="*" />
+        <Association Name="FK_BENHAN_THUCUNG">
+          <End Type="WebPetCareModel.THU_CUNG" Role="THU_CUNG" Multiplicity="1" />
+          <End Type="WebPetCareModel.BENH_AN" Role="BENH_AN" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="THU_CUNG">
               <PropertyRef Name="MaPet" />
@@ -481,11 +1045,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CHI_TIET___MaDon__60A75C0F">
-          <End Role="DON_HANG" Type="Self.DON_HANG" Multiplicity="1">
+        <Association Name="FK_CTDH_DONHANG">
+          <End Type="WebPetCareModel.DON_HANG" Role="DON_HANG" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="CHI_TIET_DON_HANG" Type="Self.CHI_TIET_DON_HANG" Multiplicity="*" />
+          <End Type="WebPetCareModel.CHI_TIET_DON_HANG" Role="CHI_TIET_DON_HANG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DON_HANG">
               <PropertyRef Name="MaDonHang" />
@@ -495,9 +1059,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CHI_TIET___MaSan__619B8048">
-          <End Role="SAN_PHAM" Type="Self.SAN_PHAM" Multiplicity="1" />
-          <End Role="CHI_TIET_DON_HANG" Type="Self.CHI_TIET_DON_HANG" Multiplicity="*" />
+        <Association Name="FK_CTDH_SANPHAM">
+          <End Type="WebPetCareModel.SAN_PHAM" Role="SAN_PHAM" Multiplicity="1" />
+          <End Type="WebPetCareModel.CHI_TIET_DON_HANG" Role="CHI_TIET_DON_HANG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SAN_PHAM">
               <PropertyRef Name="MaSanPham" />
@@ -507,9 +1071,85 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DON_HANG__MaKH__5DCAEF64">
-          <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="1" />
-          <End Role="DON_HANG" Type="Self.DON_HANG" Multiplicity="*" />
+        <Association Name="FK_CTLH_LICHHEN">
+          <End Type="WebPetCareModel.LICH_HEN" Role="LICH_HEN" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WebPetCareModel.CHI_TIET_LICH_HEN" Role="CHI_TIET_LICH_HEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LICH_HEN">
+              <PropertyRef Name="MaLichHen" />
+            </Principal>
+            <Dependent Role="CHI_TIET_LICH_HEN">
+              <PropertyRef Name="MaLichHen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChiTietLH_DichVu">
+          <End Type="WebPetCareModel.DICH_VU" Role="DICH_VU" Multiplicity="0..1" />
+          <End Type="WebPetCareModel.CHI_TIET_LICH_HEN" Role="CHI_TIET_LICH_HEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DICH_VU">
+              <PropertyRef Name="MaDV" />
+            </Principal>
+            <Dependent Role="CHI_TIET_LICH_HEN">
+              <PropertyRef Name="MaDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CTKHO_PHIEU">
+          <End Type="WebPetCareModel.PHIEU_KHO" Role="PHIEU_KHO" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WebPetCareModel.CHI_TIET_PHIEU_KHO" Role="CHI_TIET_PHIEU_KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_KHO">
+              <PropertyRef Name="MaPhieu" />
+            </Principal>
+            <Dependent Role="CHI_TIET_PHIEU_KHO">
+              <PropertyRef Name="MaPhieu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CTKHO_SANPHAM">
+          <End Type="WebPetCareModel.SAN_PHAM" Role="SAN_PHAM" Multiplicity="1" />
+          <End Type="WebPetCareModel.CHI_TIET_PHIEU_KHO" Role="CHI_TIET_PHIEU_KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SAN_PHAM">
+              <PropertyRef Name="MaSanPham" />
+            </Principal>
+            <Dependent Role="CHI_TIET_PHIEU_KHO">
+              <PropertyRef Name="MaSanPham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DKGOI_GOI">
+          <End Type="WebPetCareModel.GOI_DINH_KY" Role="GOI_DINH_KY" Multiplicity="1" />
+          <End Type="WebPetCareModel.DANG_KY_GOI" Role="DANG_KY_GOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GOI_DINH_KY">
+              <PropertyRef Name="MaGoi" />
+            </Principal>
+            <Dependent Role="DANG_KY_GOI">
+              <PropertyRef Name="MaGoi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DKGOI_KHACHHANG">
+          <End Type="WebPetCareModel.KHACH_HANG" Role="KHACH_HANG" Multiplicity="1" />
+          <End Type="WebPetCareModel.DANG_KY_GOI" Role="DANG_KY_GOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACH_HANG">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="DANG_KY_GOI">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DONHANG_KHACHHANG">
+          <End Type="WebPetCareModel.KHACH_HANG" Role="KHACH_HANG" Multiplicity="1" />
+          <End Type="WebPetCareModel.DON_HANG" Role="DON_HANG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KHACH_HANG">
               <PropertyRef Name="MaKH" />
@@ -519,9 +1159,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__KHACH_HAN__MaTai__403A8C7D">
-          <End Role="TAI_KHOAN" Type="Self.TAI_KHOAN" Multiplicity="0..1" />
-          <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="*" />
+        <Association Name="FK_DONHANG_MAGIAMGIA">
+          <End Type="WebPetCareModel.MA_GIAM_GIA" Role="MA_GIAM_GIA" Multiplicity="0..1" />
+          <End Type="WebPetCareModel.DON_HANG" Role="DON_HANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MA_GIAM_GIA">
+              <PropertyRef Name="MaGiamGia" />
+            </Principal>
+            <Dependent Role="DON_HANG">
+              <PropertyRef Name="MaGiamGia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KH_TAIKHOAN">
+          <End Type="WebPetCareModel.TAI_KHOAN" Role="TAI_KHOAN" Multiplicity="0..1" />
+          <End Type="WebPetCareModel.KHACH_HANG" Role="KHACH_HANG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TAI_KHOAN">
               <PropertyRef Name="MaTaiKhoan" />
@@ -531,11 +1183,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__THU_CUNG__MaKH__46E78A0C">
-          <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="1">
+        <Association Name="FK_LICHHEN_KHACHHANG">
+          <End Type="WebPetCareModel.KHACH_HANG" Role="KHACH_HANG" Multiplicity="1" />
+          <End Type="WebPetCareModel.LICH_HEN" Role="LICH_HEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACH_HANG">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="LICH_HEN">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THUCUNG_KHACHHANG">
+          <End Type="WebPetCareModel.KHACH_HANG" Role="KHACH_HANG" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="THU_CUNG" Type="Self.THU_CUNG" Multiplicity="*" />
+          <End Type="WebPetCareModel.THU_CUNG" Role="THU_CUNG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KHACH_HANG">
               <PropertyRef Name="MaKH" />
@@ -545,9 +1209,47 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NHAN_VIEN__MaTai__440B1D61">
-          <End Role="TAI_KHOAN" Type="Self.TAI_KHOAN" Multiplicity="0..1" />
-          <End Role="NHAN_VIEN" Type="Self.NHAN_VIEN" Multiplicity="*" />
+        <Association Name="FK_LICHHEN_NHANVIEN">
+          <End Type="WebPetCareModel.NHAN_VIEN" Role="NHAN_VIEN" Multiplicity="0..1" />
+          <End Type="WebPetCareModel.LICH_HEN" Role="LICH_HEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHAN_VIEN">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="LICH_HEN">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LICHHEN_THUCUNG">
+          <End Type="WebPetCareModel.THU_CUNG" Role="THU_CUNG" Multiplicity="0..1" />
+          <End Type="WebPetCareModel.LICH_HEN" Role="LICH_HEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THU_CUNG">
+              <PropertyRef Name="MaPet" />
+            </Principal>
+            <Dependent Role="LICH_HEN">
+              <PropertyRef Name="MaPet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LOG_TAIKHOAN">
+          <End Type="WebPetCareModel.TAI_KHOAN" Role="TAI_KHOAN" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WebPetCareModel.LOG_HOAT_DONG" Role="LOG_HOAT_DONG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAI_KHOAN">
+              <PropertyRef Name="MaTaiKhoan" />
+            </Principal>
+            <Dependent Role="LOG_HOAT_DONG">
+              <PropertyRef Name="MaTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NV_TAIKHOAN">
+          <End Type="WebPetCareModel.TAI_KHOAN" Role="TAI_KHOAN" Multiplicity="0..1" />
+          <End Type="WebPetCareModel.NHAN_VIEN" Role="NHAN_VIEN" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TAI_KHOAN">
               <PropertyRef Name="MaTaiKhoan" />
@@ -557,59 +1259,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="CHI_TIET_LICH_HEN">
-          <End Role="LICH_HEN" Type="Self.LICH_HEN" Multiplicity="*" />
-          <End Role="DICH_VU" Type="Self.DICH_VU" Multiplicity="*" />
+        <Association Name="FK_PHIEUKHO_NHANVIEN">
+          <End Type="WebPetCareModel.NHAN_VIEN" Role="NHAN_VIEN" Multiplicity="1" />
+          <End Type="WebPetCareModel.PHIEU_KHO" Role="PHIEU_KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHAN_VIEN">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="PHIEU_KHO">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="WebPetCareEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="BENH_AN" EntityType="Self.BENH_AN" />
-          <EntitySet Name="CHI_TIET_DON_HANG" EntityType="Self.CHI_TIET_DON_HANG" />
-          <EntitySet Name="DICH_VU" EntityType="Self.DICH_VU" />
-          <EntitySet Name="DON_HANG" EntityType="Self.DON_HANG" />
-          <EntitySet Name="KHACH_HANG" EntityType="Self.KHACH_HANG" />
-          <EntitySet Name="LICH_HEN" EntityType="Self.LICH_HEN" />
-          <EntitySet Name="NHAN_VIEN" EntityType="Self.NHAN_VIEN" />
-          <EntitySet Name="SAN_PHAM" EntityType="Self.SAN_PHAM" />
-          <EntitySet Name="TAI_KHOAN" EntityType="Self.TAI_KHOAN" />
-          <EntitySet Name="THU_CUNG" EntityType="Self.THU_CUNG" />
-          <AssociationSet Name="FK__BENH_AN__MaBacSi__5535A963" Association="Self.FK__BENH_AN__MaBacSi__5535A963">
-            <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
-            <End Role="BENH_AN" EntitySet="BENH_AN" />
-          </AssociationSet>
-          <AssociationSet Name="FK__BENH_AN__MaPet__5441852A" Association="Self.FK__BENH_AN__MaPet__5441852A">
-            <End Role="THU_CUNG" EntitySet="THU_CUNG" />
-            <End Role="BENH_AN" EntitySet="BENH_AN" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CHI_TIET___MaDon__60A75C0F" Association="Self.FK__CHI_TIET___MaDon__60A75C0F">
-            <End Role="DON_HANG" EntitySet="DON_HANG" />
-            <End Role="CHI_TIET_DON_HANG" EntitySet="CHI_TIET_DON_HANG" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CHI_TIET___MaSan__619B8048" Association="Self.FK__CHI_TIET___MaSan__619B8048">
-            <End Role="SAN_PHAM" EntitySet="SAN_PHAM" />
-            <End Role="CHI_TIET_DON_HANG" EntitySet="CHI_TIET_DON_HANG" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DON_HANG__MaKH__5DCAEF64" Association="Self.FK__DON_HANG__MaKH__5DCAEF64">
-            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
-            <End Role="DON_HANG" EntitySet="DON_HANG" />
-          </AssociationSet>
-          <AssociationSet Name="FK__KHACH_HAN__MaTai__403A8C7D" Association="Self.FK__KHACH_HAN__MaTai__403A8C7D">
-            <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
-            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
-          </AssociationSet>
-          <AssociationSet Name="FK__THU_CUNG__MaKH__46E78A0C" Association="Self.FK__THU_CUNG__MaKH__46E78A0C">
-            <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
-            <End Role="THU_CUNG" EntitySet="THU_CUNG" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NHAN_VIEN__MaTai__440B1D61" Association="Self.FK__NHAN_VIEN__MaTai__440B1D61">
-            <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
-            <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
-          </AssociationSet>
-          <AssociationSet Name="CHI_TIET_LICH_HEN" Association="Self.CHI_TIET_LICH_HEN">
-            <End Role="LICH_HEN" EntitySet="LICH_HEN" />
-            <End Role="DICH_VU" EntitySet="DICH_VU" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        <Association Name="FK_CHAT_TKGUI">
+          <End Type="WebPetCareModel.TAI_KHOAN" Role="TAI_KHOAN" Multiplicity="1" />
+          <End Type="WebPetCareModel.TIN_NHAN_CHAT" Role="TIN_NHAN_CHAT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAI_KHOAN">
+              <PropertyRef Name="MaTaiKhoan" />
+            </Principal>
+            <Dependent Role="TIN_NHAN_CHAT">
+              <PropertyRef Name="MaTaiKhoanGui" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHAT_TKNHAN">
+          <End Type="WebPetCareModel.TAI_KHOAN" Role="TAI_KHOAN" Multiplicity="1" />
+          <End Type="WebPetCareModel.TIN_NHAN_CHAT" Role="TIN_NHAN_CHAT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAI_KHOAN">
+              <PropertyRef Name="MaTaiKhoan" />
+            </Principal>
+            <Dependent Role="TIN_NHAN_CHAT">
+              <PropertyRef Name="MaTaiKhoanNhan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LICHHEN_KHACHHANG_BACSI">
+          <End Type="WebPetCareModel.KHACH_HANG" Role="KHACH_HANG" Multiplicity="0..1" />
+          <End Type="WebPetCareModel.LICH_HEN" Role="LICH_HEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACH_HANG">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="LICH_HEN">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -618,139 +1316,257 @@
           <EntitySetMapping Name="BENH_AN">
             <EntityTypeMapping TypeName="WebPetCareModel.BENH_AN">
               <MappingFragment StoreEntitySet="BENH_AN">
-                <ScalarProperty Name="MaBenhAn" ColumnName="MaBenhAn" />
-                <ScalarProperty Name="NgayKham" ColumnName="NgayKham" />
-                <ScalarProperty Name="TrieuChung" ColumnName="TrieuChung" />
-                <ScalarProperty Name="ChanDoan" ColumnName="ChanDoan" />
-                <ScalarProperty Name="DonThuoc" ColumnName="DonThuoc" />
-                <ScalarProperty Name="NgayTaiKham" ColumnName="NgayTaiKham" />
-                <ScalarProperty Name="MaPet" ColumnName="MaPet" />
                 <ScalarProperty Name="MaBacSi" ColumnName="MaBacSi" />
+                <ScalarProperty Name="MaPet" ColumnName="MaPet" />
+                <ScalarProperty Name="NgayTaiKham" ColumnName="NgayTaiKham" />
+                <ScalarProperty Name="DonThuoc" ColumnName="DonThuoc" />
+                <ScalarProperty Name="ChanDoan" ColumnName="ChanDoan" />
+                <ScalarProperty Name="TrieuChung" ColumnName="TrieuChung" />
+                <ScalarProperty Name="NgayKham" ColumnName="NgayKham" />
+                <ScalarProperty Name="MaBenhAn" ColumnName="MaBenhAn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CHI_TIET_DON_HANG">
             <EntityTypeMapping TypeName="WebPetCareModel.CHI_TIET_DON_HANG">
               <MappingFragment StoreEntitySet="CHI_TIET_DON_HANG">
-                <ScalarProperty Name="MaChiTiet" ColumnName="MaChiTiet" />
-                <ScalarProperty Name="MaDonHang" ColumnName="MaDonHang" />
-                <ScalarProperty Name="MaSanPham" ColumnName="MaSanPham" />
-                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
                 <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="MaSanPham" ColumnName="MaSanPham" />
+                <ScalarProperty Name="MaDonHang" ColumnName="MaDonHang" />
+                <ScalarProperty Name="MaChiTiet" ColumnName="MaChiTiet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHI_TIET_LICH_HEN">
+            <EntityTypeMapping TypeName="WebPetCareModel.CHI_TIET_LICH_HEN">
+              <MappingFragment StoreEntitySet="CHI_TIET_LICH_HEN">
+                <ScalarProperty Name="MaDV" ColumnName="MaDV" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="MaLichHen" ColumnName="MaLichHen" />
+                <ScalarProperty Name="MaChiTietLH" ColumnName="MaChiTietLH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHI_TIET_PHIEU_KHO">
+            <EntityTypeMapping TypeName="WebPetCareModel.CHI_TIET_PHIEU_KHO">
+              <MappingFragment StoreEntitySet="CHI_TIET_PHIEU_KHO">
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="MaSanPham" ColumnName="MaSanPham" />
+                <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
+                <ScalarProperty Name="MaChiTietPhieu" ColumnName="MaChiTietPhieu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DANG_KY_GOI">
+            <EntityTypeMapping TypeName="WebPetCareModel.DANG_KY_GOI">
+              <MappingFragment StoreEntitySet="DANG_KY_GOI">
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="NgayHetHan" ColumnName="NgayHetHan" />
+                <ScalarProperty Name="NgayDangKy" ColumnName="NgayDangKy" />
+                <ScalarProperty Name="MaGoi" ColumnName="MaGoi" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="MaDangKy" ColumnName="MaDangKy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DICH_VU">
             <EntityTypeMapping TypeName="WebPetCareModel.DICH_VU">
               <MappingFragment StoreEntitySet="DICH_VU">
-                <ScalarProperty Name="MaDV" ColumnName="MaDV" />
-                <ScalarProperty Name="TenDichVu" ColumnName="TenDichVu" />
-                <ScalarProperty Name="LoaiDichVu" ColumnName="LoaiDichVu" />
-                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="LoaiDichVu" ColumnName="LoaiDichVu" />
+                <ScalarProperty Name="TenDichVu" ColumnName="TenDichVu" />
+                <ScalarProperty Name="MaDV" ColumnName="MaDV" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DON_HANG">
             <EntityTypeMapping TypeName="WebPetCareModel.DON_HANG">
               <MappingFragment StoreEntitySet="DON_HANG">
-                <ScalarProperty Name="MaDonHang" ColumnName="MaDonHang" />
-                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
-                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-                <ScalarProperty Name="PhuongThucThanhToan" ColumnName="PhuongThucThanhToan" />
-                <ScalarProperty Name="TrangThaiDonHang" ColumnName="TrangThaiDonHang" />
+                <ScalarProperty Name="SoDiemDaDung" ColumnName="SoDiemDaDung" />
+                <ScalarProperty Name="MaGiamGia" ColumnName="MaGiamGia" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="TrangThaiDonHang" ColumnName="TrangThaiDonHang" />
+                <ScalarProperty Name="PhuongThucThanhToan" ColumnName="PhuongThucThanhToan" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+                <ScalarProperty Name="MaDonHang" ColumnName="MaDonHang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GOI_DINH_KY">
+            <EntityTypeMapping TypeName="WebPetCareModel.GOI_DINH_KY">
+              <MappingFragment StoreEntitySet="GOI_DINH_KY">
+                <ScalarProperty Name="GiaTien" ColumnName="GiaTien" />
+                <ScalarProperty Name="ThoiHanThang" ColumnName="ThoiHanThang" />
+                <ScalarProperty Name="TenGoi" ColumnName="TenGoi" />
+                <ScalarProperty Name="MaGoi" ColumnName="MaGoi" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KHACH_HANG">
             <EntityTypeMapping TypeName="WebPetCareModel.KHACH_HANG">
               <MappingFragment StoreEntitySet="KHACH_HANG">
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="HangThanhVien" ColumnName="HangThanhVien" />
-                <ScalarProperty Name="DiemTichLuy" ColumnName="DiemTichLuy" />
                 <ScalarProperty Name="MaTaiKhoan" ColumnName="MaTaiKhoan" />
+                <ScalarProperty Name="DiemTichLuy" ColumnName="DiemTichLuy" />
+                <ScalarProperty Name="HangThanhVien" ColumnName="HangThanhVien" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LICH_HEN">
             <EntityTypeMapping TypeName="WebPetCareModel.LICH_HEN">
               <MappingFragment StoreEntitySet="LICH_HEN">
-                <ScalarProperty Name="MaLichHen" ColumnName="MaLichHen" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="MaPet" ColumnName="MaPet" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="LyDoTuChoi" ColumnName="LyDoTuChoi" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="GioHen" ColumnName="GioHen" />
+                <ScalarProperty Name="NgayHen" ColumnName="NgayHen" />
+                <ScalarProperty Name="ChiNhanH" ColumnName="ChiNhanH" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="MaLichHen" ColumnName="MaLichHen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LIEN_HE">
+            <EntityTypeMapping TypeName="WebPetCareModel.LIEN_HE">
+              <MappingFragment StoreEntitySet="LIEN_HE">
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="NgayGui" ColumnName="NgayGui" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
                 <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="ChiNhanh" ColumnName="ChiNhanh" />
-                <ScalarProperty Name="NgayHen" ColumnName="NgayHen" />
-                <ScalarProperty Name="GioHen" ColumnName="GioHen" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="MaLienHe" ColumnName="MaLienHe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOG_HOAT_DONG">
+            <EntityTypeMapping TypeName="WebPetCareModel.LOG_HOAT_DONG">
+              <MappingFragment StoreEntitySet="LOG_HOAT_DONG">
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
+                <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
+                <ScalarProperty Name="HanhDong" ColumnName="HanhDong" />
+                <ScalarProperty Name="MaTaiKhoan" ColumnName="MaTaiKhoan" />
+                <ScalarProperty Name="MaLog" ColumnName="MaLog" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MA_GIAM_GIA">
+            <EntityTypeMapping TypeName="WebPetCareModel.MA_GIAM_GIA">
+              <MappingFragment StoreEntitySet="MA_GIAM_GIA">
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-                <ScalarProperty Name="LyDoTuChoi" ColumnName="LyDoTuChoi" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="MaPet" ColumnName="MaPet" />
-                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="NgayHetHan" ColumnName="NgayHetHan" />
+                <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
+                <ScalarProperty Name="PhanTramGiam" ColumnName="PhanTramGiam" />
+                <ScalarProperty Name="TenChuongTrinh" ColumnName="TenChuongTrinh" />
+                <ScalarProperty Name="MaGiamGia" ColumnName="MaGiamGia" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NHAN_VIEN">
             <EntityTypeMapping TypeName="WebPetCareModel.NHAN_VIEN">
               <MappingFragment StoreEntitySet="NHAN_VIEN">
-                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
-                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="ChucVu" ColumnName="ChucVu" />
                 <ScalarProperty Name="MaTaiKhoan" ColumnName="MaTaiKhoan" />
+                <ScalarProperty Name="ChucVu" ColumnName="ChucVu" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHIEU_KHO">
+            <EntityTypeMapping TypeName="WebPetCareModel.PHIEU_KHO">
+              <MappingFragment StoreEntitySet="PHIEU_KHO">
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="NgayLap" ColumnName="NgayLap" />
+                <ScalarProperty Name="LoaiPhieu" ColumnName="LoaiPhieu" />
+                <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHONG_LUU_TRU">
+            <EntityTypeMapping TypeName="WebPetCareModel.PHONG_LUU_TRU">
+              <MappingFragment StoreEntitySet="PHONG_LUU_TRU">
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="GiaTheoNgay" ColumnName="GiaTheoNgay" />
+                <ScalarProperty Name="LoaiPhong" ColumnName="LoaiPhong" />
+                <ScalarProperty Name="TenPhong" ColumnName="TenPhong" />
+                <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SAN_PHAM">
             <EntityTypeMapping TypeName="WebPetCareModel.SAN_PHAM">
               <MappingFragment StoreEntitySet="SAN_PHAM">
-                <ScalarProperty Name="MaSanPham" ColumnName="MaSanPham" />
-                <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
-                <ScalarProperty Name="DanhMuc" ColumnName="DanhMuc" />
-                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
-                <ScalarProperty Name="SoLuongTon" ColumnName="SoLuongTon" />
                 <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="SoLuongTon" ColumnName="SoLuongTon" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="DanhMuc" ColumnName="DanhMuc" />
+                <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
+                <ScalarProperty Name="MaSanPham" ColumnName="MaSanPham" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="WebPetCareModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TAI_KHOAN">
             <EntityTypeMapping TypeName="WebPetCareModel.TAI_KHOAN">
               <MappingFragment StoreEntitySet="TAI_KHOAN">
-                <ScalarProperty Name="MaTaiKhoan" ColumnName="MaTaiKhoan" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="VaiTro" ColumnName="VaiTro" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="VaiTro" ColumnName="VaiTro" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="MaTaiKhoan" ColumnName="MaTaiKhoan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIN_NHAN_CHAT">
+            <EntityTypeMapping TypeName="WebPetCareModel.TIN_NHAN_CHAT">
+              <MappingFragment StoreEntitySet="TIN_NHAN_CHAT">
+                <ScalarProperty Name="ThoiGianGui" ColumnName="ThoiGianGui" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="MaTaiKhoanNhan" ColumnName="MaTaiKhoanNhan" />
+                <ScalarProperty Name="MaTaiKhoanGui" ColumnName="MaTaiKhoanGui" />
+                <ScalarProperty Name="MaTinNhan" ColumnName="MaTinNhan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="THU_CUNG">
             <EntityTypeMapping TypeName="WebPetCareModel.THU_CUNG">
               <MappingFragment StoreEntitySet="THU_CUNG">
-                <ScalarProperty Name="MaPet" ColumnName="MaPet" />
-                <ScalarProperty Name="TenPet" ColumnName="TenPet" />
-                <ScalarProperty Name="ChungLoai" ColumnName="ChungLoai" />
-                <ScalarProperty Name="GiongPet" ColumnName="GiongPet" />
-                <ScalarProperty Name="Tuoi" ColumnName="Tuoi" />
-                <ScalarProperty Name="CanNang" ColumnName="CanNang" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="CanNang" ColumnName="CanNang" />
+                <ScalarProperty Name="Tuoi" ColumnName="Tuoi" />
+                <ScalarProperty Name="GiongPet" ColumnName="GiongPet" />
+                <ScalarProperty Name="ChungLoai" ColumnName="ChungLoai" />
+                <ScalarProperty Name="TenPet" ColumnName="TenPet" />
+                <ScalarProperty Name="MaPet" ColumnName="MaPet" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="CHI_TIET_LICH_HEN" TypeName="WebPetCareModel.CHI_TIET_LICH_HEN" StoreEntitySet="CHI_TIET_LICH_HEN">
-            <EndProperty Name="LICH_HEN">
-              <ScalarProperty Name="MaLichHen" ColumnName="MaLichHen" />
-            </EndProperty>
-            <EndProperty Name="DICH_VU">
-              <ScalarProperty Name="MaDV" ColumnName="MaDV" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

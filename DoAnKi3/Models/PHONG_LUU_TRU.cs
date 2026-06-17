@@ -12,16 +12,12 @@ namespace DoAnKi3.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CHI_TIET_DON_HANG
+    public partial class PHONG_LUU_TRU
     {
-        public int MaChiTiet { get; set; }
-        public string MaDonHang { get; set; }
-        public string MaSanPham { get; set; }
-        public int SoLuong { get; set; }
-        public decimal GiaBan { get; set; }
-        public decimal ThanhTien { get; set; }
-    
-        public virtual DON_HANG DON_HANG { get; set; }
-        public virtual SAN_PHAM SAN_PHAM { get; set; }
+        public string MaPhong { get; set; }
+        public string TenPhong { get; set; }
+        public string LoaiPhong { get; set; }
+        public decimal GiaTheoNgay { get; set; }
+        public string TrangThai { get; set; }
     }
 }

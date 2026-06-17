@@ -21,50 +21,75 @@ namespace DoAnKi3.Controllers
         }
 
         // POST: Account/Login
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // Truy vấn dữ liệu từ bảng TAI_KHOAN thông qua đối tượng model
-                var account = db.TAI_KHOAN.FirstOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+                // 1. Kiểm tra tài khoản trong bảng TAI_KHOAN
+                var user = db.TAI_KHOAN.SingleOrDefault(tk => tk.Username == model.Username && tk.Password == model.Password);
 
-                if (account != null)
+                if (user != null)
                 {
-                    if (account.TrangThai != "Hoạt động")
+                    // 2. Gán các thông tin cấu hình tài khoản cốt lõi vào Session
+                    Session["Username"] = user.Username;
+                    Session["VaiTro"] = user.VaiTro; // "Admin", "BacSi", "NhanVien", "KhachHang"
+                    Session["MaTaiKhoan"] = user.MaTaiKhoan;
+
+                    // 3. ĐỒNG BỘ: Vì đã gộp chung nên bất kể Role nào cũng tìm thông tin ở bảng KHACH_HANG
+                    var profile = db.KHACH_HANG.SingleOrDefault(k => k.MaTaiKhoan == user.MaTaiKhoan);
+
+                    if (profile != null)
                     {
-                        ModelState.AddModelError("", "Tài khoản của bạn hiện đang bị khóa!");
-                        return View(model);
+                        Session["TenNguoiDung"] = profile.HoTen;
+                        Session["EmailNguoiDung"] = profile.Email; // Lưu thêm để hiển thị nếu cần
+                        Session["MaNguoiDung"] = profile.MaKH; // Đây chính là mã định danh hồ sơ
+                    }
+                    else
+                    {
+                        // Phòng trường hợp tài khoản mới tạo chưa kịp đồng bộ dòng dữ liệu ở bảng KHACH_HANG
+                        Session["TenNguoiDung"] = user.Username;
                     }
 
-                    // Lưu dữ liệu phiên làm việc (Session)
-                    Session["MaTaiKhoan"] = account.MaTaiKhoan;
-                    Session["Username"] = account.Username;
-                    Session["VaiTro"] = account.VaiTro;
-
-                    // Điều hướng phân quyền nghiệp vụ
-                    if (account.VaiTro == "Admin") return RedirectToAction("RevenueReport", "Admin");
-                    if (account.VaiTro == "BacSi") return RedirectToAction("DoctorSchedule", "AppointmentStaff");
-                    if (account.VaiTro == "NhanVien") return RedirectToAction("Index", "AppointmentStaff");
-
-                    // Đối với Khách hàng, lấy thêm thông tin cá nhân để hiển thị lời chào công việc
-                    var khachHang = db.KHACH_HANG.FirstOrDefault(x => x.MaTaiKhoan == account.MaTaiKhoan);
-                    if (khachHang != null)
-                    {
-                        Session["MaKH"] = khachHang.MaKH;
-                        Session["TenNguoiDung"] = khachHang.HoTen;
-                    }
+                    // 4. Điều hướng tất cả mọi người về chung một trang chủ
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không chính xác.");
+                    ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
                 }
             }
             return View(model);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(KHACH_HANG model)
+        {
+            if (Session["MaTaiKhoan"] == null) return RedirectToAction("Login", "Account");
 
+            string maTK = Session["MaTaiKhoan"].ToString();
+
+            // Tìm bản ghi chuẩn từ database dựa trên mã tài khoản đang đăng nhập
+            var profile = db.KHACH_HANG.SingleOrDefault(k => k.MaTaiKhoan == maTK);
+
+            if (profile != null)
+            {
+                // CHỈ CẬP NHẬT các trường thông tin cơ bản
+                profile.HoTen = model.HoTen;
+                profile.SDT = model.SDT;
+                profile.Email = model.Email;
+                profile.DiaChi = model.DiaChi;
+
+                // KHÔNG chạm vào profile.DiemTichLuy hay profile.HangThanhVien ở đây!
+
+                db.SaveChanges();
+                TempData["Msg"] = "Cập nhật thông tin cá nhân thành công!";
+            }
+
+            return RedirectToAction("EditProfile");
+        }
         // ==========================================
         // ── CHỨC NĂNG ĐĂNG KÝ (REGISTER)
         // ==========================================
@@ -83,7 +108,6 @@ namespace DoAnKi3.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Kiểm tra trùng lặp tài khoản và số điện thoại dưới cơ sở dữ liệu local
                 if (db.TAI_KHOAN.Any(x => x.Username == model.Username))
                 {
                     ModelState.AddModelError("Username", "Tên đăng nhập này đã tồn tại trên hệ thống.");
@@ -103,22 +127,25 @@ namespace DoAnKi3.Controllers
                         // 1. Ghi dữ liệu vào bảng TAI_KHOAN
                         TAI_KHOAN newAcc = new TAI_KHOAN
                         {
+                            MaTaiKhoan = "TK" + DateTime.Now.Ticks.ToString().Substring(10), // Đảm bảo sinh mã nếu không để Identity
                             Username = model.Username,
                             Password = model.Password,
                             VaiTro = "KhachHang",
-                            TrangThai = "Hoạt động"
+                            TrangThai = true // CHỈNH SỬA: Gán kiểu bool (true) thay vì "Hoạt động"
                         };
                         db.TAI_KHOAN.Add(newAcc);
                         db.SaveChanges();
 
-                        // 2. Ghi dữ liệu vào bảng KHACH_HANG kết nối qua MaTaiKhoan vừa sinh tự động
+                        // 2. Ghi dữ liệu vào bảng KHACH_HANG
+                        // 2. Ghi dữ liệu vào bảng KHACH_HANG
                         KHACH_HANG newKh = new KHACH_HANG
                         {
+                            MaKH = "KH" + DateTime.Now.Ticks.ToString().Substring(11),
                             HoTen = model.HoTen,
                             SDT = model.Sdt,
                             Email = model.Email,
                             DiaChi = model.DiaChi,
-                            HangThanhVien = "Bạc",
+                            HangThanhVien = "Đồng", // CHỈNH SỬA: Xóa chữ N ở đây đi
                             DiemTichLuy = 0,
                             MaTaiKhoan = newAcc.MaTaiKhoan
                         };
@@ -131,7 +158,7 @@ namespace DoAnKi3.Controllers
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        ModelState.AddModelError("", "Lỗi hệ thống khi lưu trữ dữ liệu: " + ex.Message);
+                        ModelState.AddModelError("", "Lỗi hệ thống khi lưu trữ dữ liệu: " + ex.InnerException?.Message ?? ex.Message);
                     }
                 }
             }

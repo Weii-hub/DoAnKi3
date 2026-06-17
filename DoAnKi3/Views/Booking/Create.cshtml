@@ -1,77 +1,237 @@
 ﻿@model DoAnKi3.Models.LICH_HEN
-
 @{
-    ViewBag.Title = "Đăng Ký Đặt Lịch";
+    ViewBag.Title = "Đăng ký đặt lịch hẹn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link rel="stylesheet" href="~/css/pages/booking.css" />
+<style>
+    /* Không gian nền và phông chữ */
+    .booking-section-wrapper {
+        background: radial-gradient(circle at 10% 20%, #f4f8f7 0%, #e1ebe9 90%);
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        padding: 50px 0;
+        min-height: 100dvh;
+    }
 
-<div class="booking-wrapper">
-    <div class="booking-card">
-        <h2 class="text-center booking-title">ĐĂNG KÝ ĐẶT LỊCH</h2>
+    /* Card bọc ngoài phong cách Glassmorphism nhẹ */
+    .custom-booking-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 20px;
+        padding: 45px;
+        box-shadow: 0 15px 35px rgba(154, 180, 175, 0.3);
+        max-width: 900px;
+        margin: 0 auto;
+    }
 
-        @using (Html.BeginForm("Create", "Booking", FormMethod.Post, new { @class = "booking-form" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+    /* Thiết kế Khu vực Tiêu đề */
+    .booking-header-zone {
+        margin-bottom: 35px;
+    }
 
-            <div class="row">
-                <div class="col-md-6 mb-3 d-flex flex-column">
-                    <label class="form-group-label">Họ tên</label>
-                    <input type="text" name="TenKH" class="booking-input" placeholder="Nhập họ tên của bạn..." required />
-                </div>
+    .badge-icon-clinic {
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+    }
 
-                <div class="col-md-6 mb-3 d-flex flex-column">
-                    <label class="form-group-label">Số điện thoại</label>
-                    <input type="tel" name="SoDienThoai" class="booking-input" placeholder="Số điện thoại..." required />
-                </div>
-            </div>
+    .main-booking-title {
+        color: #163a35;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        font-size: 1.8rem;
+        margin: 0 0 8px 0;
+    }
 
-            <div class="row">
-                <div class="col-md-6 mb-3 d-flex flex-column">
-                    <label class="form-group-label">Email</label>
-                    <input type="email" name="Email" class="booking-input" placeholder="Email..." required />
-                </div>
+    .sub-booking-desc {
+        color: #5c7571;
+        font-size: 0.95rem;
+        margin: 0;
+    }
 
-                <div class="col-md-6 mb-3 d-flex flex-column">
-                    <label class="form-group-label">Tên thú cưng</label>
-                    <input type="text" name="TenPet" class="booking-input" placeholder="Nhập tên thú cưng (Chó, Mèo...)" required />
-                </div>
-            </div>
+    /* Phân nhóm các vùng nhập liệu thành các khối hộp trắng tinh tế */
+    .grid-section {
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        border: 1px solid #ebf2f0;
+    }
 
-            <div class="row">
-                <div class="col-md-6 mb-3 d-flex flex-column">
-                    <label class="form-group-label">Dịch vụ</label>
-                    @Html.DropDownList("MaDV", null, "Chọn dịch vụ", new { @class = "booking-input", required = "required" })
-                    @Html.ValidationMessage("MaDV", "", new { @class = "text-danger small mt-1" })
-                </div>
+    .section-form-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #1a4d46;
+        margin-top: 0;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #e2ece9;
+        padding-bottom: 8px;
+    }
 
-                <div class="col-md-6 mb-3 d-flex flex-column">
-                    <label class="form-group-label">Bác sĩ</label>
-                    @Html.DropDownList("MaNV", null, "Chọn bác sĩ", new { @class = "booking-input" })
-                    @Html.ValidationMessageFor(m => m.MaNV, "", new { @class = "text-danger small mt-1" })
-                </div>
-            </div>
+    /* Custom lại toàn bộ TextBox và DropDownList bị thô */
+    .creative-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #3f5451;
+        margin-bottom: 6px;
+        display: block;
+    }
 
-            <div class="row">
-                <div class="col-md-6 mb-3 d-flex flex-column">
-                    <label class="form-group-label">Ngày</label>
-                    @Html.TextBoxFor(m => m.NgayHen, "{0:yyyy-MM-dd}", new { @class = "booking-input", type = "date", required = "required" })
-                    @Html.ValidationMessageFor(m => m.NgayHen, "", new { @class = "text-danger small mt-1" })
-                </div>
+    .creative-form-control {
+        width: 100%;
+        padding: 10px 14px;
+        font-size: 0.95rem;
+        color: #243331;
+        background-color: #f5f9f8;
+        border: 1px solid #ccd9d6;
+        border-radius: 10px;
+        box-sizing: border-box;
+        transition: all 0.2s ease-in-out;
+    }
 
-                <div class="col-md-6 mb-4 d-flex flex-column">
-                    <label class="form-group-label">Giờ</label>
-                    @Html.TextBoxFor(m => m.GioHen, new { @class = "booking-input", type = "time", required = "required" })
-                    @Html.ValidationMessageFor(m => m.GioHen, "", new { @class = "text-danger small mt-1" })
-                </div>
-            </div>
-
-            <div class="text-center mt-3">
-                <button type="submit" class="btn-submit-booking">
-                    ĐẶT LỊCH NGAY <span class="arrow-icon">➔</span>
-                </button>
-            </div>
+        .creative-form-control:focus {
+            background-color: #ffffff;
+            border-color: #2e8b7f;
+            box-shadow: 0 0 0 3px rgba(46, 139, 127, 0.15);
+            outline: none;
         }
+
+    /* Định dạng riêng cho ô chọn Select mũi tên xổ xuống */
+    .creative-select {
+        height: 43px;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%232e8b7f' viewBox='0 0 256 256'%3E%3Cpath d='M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80a8,8,0,0,1,11.32-11.32L128,164.69l74.34-74.34a8,8,0,0,1,11.32,11.32Z'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        background-size: 14px;
+        padding-right: 35px;
+    }
+
+    .creative-textarea {
+        resize: none;
+    }
+
+    /* Thiết kế lại nút Submit Đặt lịch Premium vượt trội ảnh cũ */
+    .premium-booking-btn {
+        background: linear-gradient(135deg, #2a786e 0%, #1a544c 100%);
+        border: none;
+        color: #ffffff;
+        padding: 14px 40px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        border-radius: 30px;
+        cursor: pointer;
+        box-shadow: 0 6px 18px rgba(26, 84, 76, 0.25);
+        transition: all 0.25s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+        .premium-booking-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(26, 84, 76, 0.35);
+            background: linear-gradient(135deg, #328f83 0%, #1e6359 100%);
+        }
+
+        .premium-booking-btn:active {
+            transform: translateY(1px);
+        }
+
+    /* Hộp thông báo thành công mượt mà */
+    .alert-creative-success {
+        background-color: #e3f7f4;
+        border: 1px solid #9ee2d6;
+        color: #124d42;
+        border-radius: 10px;
+        padding: 12px 18px;
+        font-weight: 600;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+</style>
+
+<div class="booking-section-wrapper">
+    <div class="container">
+        <div class="custom-booking-card">
+
+            <div class="booking-header-zone text-center">
+                <div class="badge-icon-clinic">🐾</div>
+                <h2 class="main-booking-title">ĐĂNG KÝ ĐẶT LỊCH KHÁM</h2>
+                <p class="sub-booking-desc">Chăm sóc thú cưng của bạn bằng dịch vụ y tế chuyên nghiệp hàng đầu</p>
+            </div>
+
+            @using (Html.BeginForm("Create", "Booking", FormMethod.Post, new { @class = "interactive-booking-form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-creative-success">
+                        <span>✨</span> @TempData["SuccessMessage"]
+                    </div>
+                }
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+                <div class="form-grid-layout">
+                    <div class="grid-section">
+                        <h3 class="section-form-title">1. Thông tin liên hệ</h3>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label class="creative-label">Họ tên chủ nuôi</label>
+                                @Html.TextBoxFor(m => m.HoTen, new { @class = "creative-form-control", placeholder = "Ví dụ: Nguyễn Văn A", required = "required" })
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="creative-label">Số điện thoại</label>
+                                @Html.TextBoxFor(m => m.SoDienThoai, new { @class = "creative-form-control", type = "tel", placeholder = "Nhập số điện thoại liên lạc...", required = "required" })
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="creative-label">Địa chỉ Email</label>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "creative-form-control", type = "email", placeholder = "name@example.com", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-section">
+                        <h3 class="section-form-title">2. Chi tiết cuộc hẹn</h3>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="creative-label">Chi nhánh phòng khám</label>
+                                @Html.DropDownListFor(m => m.ChiNhanH, new SelectList(new[] { "Chi nhánh 1 - Sư Vạn Hạnh, Q.10", "Chi nhánh 2 - Điện Biên Phủ, Bình Thạnh" }), "Vui lòng chọn chi nhánh gần bạn...", new { @class = "creative-form-control creative-select", required = "required" })
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="creative-label">Dịch vụ yêu cầu</label>
+                                @Html.DropDownList("MaDV", null, "Chọn giải pháp chăm sóc...", new { @class = "creative-form-control creative-select", required = "required" })
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="creative-label">Bác sĩ chuyên trách</label>
+                                @Html.DropDownList("MaNV", null, "Chọn bác sĩ đã được cấp quyền...", new { @class = "creative-form-control creative-select", required = "required" })
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <label class="creative-label">Ngày hẹn</label>
+                                @Html.TextBoxFor(m => m.NgayHen, "{0:yyyy-MM-dd}", new { @class = "creative-form-control", type = "date", required = "required" })
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <label class="creative-label">Giờ hẹn</label>
+                                @Html.TextBoxFor(m => m.GioHen, new { @class = "creative-form-control", type = "time", required = "required" })
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <label class="creative-label">Yêu cầu đặc biệt hoặc Triệu chứng bệnh của bé (Ghi chú)</label>
+                                <textarea name="GhiChu" class="creative-form-control creative-textarea" rows="2" placeholder="Nhập ghi chú chi tiết tại đây nếu có..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4" style="text-align: center;">
+                    <button type="submit" class="premium-booking-btn">
+                        XÁC NHẬN ĐẶT LỊCH NGAY
+                    </button>
+                </div>
+            }
+        </div>
     </div>
 </div>

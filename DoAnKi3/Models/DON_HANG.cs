@@ -20,15 +20,18 @@ namespace DoAnKi3.Models
             this.CHI_TIET_DON_HANG = new HashSet<CHI_TIET_DON_HANG>();
         }
     
-        public int MaDonHang { get; set; }
+        public string MaDonHang { get; set; }
         public Nullable<System.DateTime> NgayDat { get; set; }
         public decimal TongTien { get; set; }
         public string PhuongThucThanhToan { get; set; }
         public string TrangThaiDonHang { get; set; }
-        public int MaKH { get; set; }
+        public string MaKH { get; set; }
+        public string MaGiamGia { get; set; }
+        public Nullable<int> SoDiemDaDung { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHI_TIET_DON_HANG> CHI_TIET_DON_HANG { get; set; }
         public virtual KHACH_HANG KHACH_HANG { get; set; }
+        public virtual MA_GIAM_GIA MA_GIAM_GIA { get; set; }
     }
 }

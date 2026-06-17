@@ -17,23 +17,27 @@ namespace DoAnKi3.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LICH_HEN()
         {
-            this.DICH_VU = new HashSet<DICH_VU>();
+            this.CHI_TIET_LICH_HEN = new HashSet<CHI_TIET_LICH_HEN>();
         }
     
-        public int MaLichHen { get; set; }
+        public string MaLichHen { get; set; }
         public string HoTen { get; set; }
         public string SoDienThoai { get; set; }
         public string Email { get; set; }
-        public string ChiNhanh { get; set; }
+        public string ChiNhanH { get; set; }
         public System.DateTime NgayHen { get; set; }
-        public System.TimeSpan GioHen { get; set; }
+        public string GioHen { get; set; }
         public string TrangThai { get; set; }
         public string LyDoTuChoi { get; set; }
-        public Nullable<int> MaKH { get; set; }
-        public Nullable<int> MaPet { get; set; }
-        public Nullable<int> MaNV { get; set; }
+        public string MaKH { get; set; }
+        public string MaPet { get; set; }
+        public string MaNV { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DICH_VU> DICH_VU { get; set; }
+        public virtual ICollection<CHI_TIET_LICH_HEN> CHI_TIET_LICH_HEN { get; set; }
+        public virtual KHACH_HANG KHACH_HANG { get; set; }
+        public virtual NHAN_VIEN NHAN_VIEN { get; set; }
+        public virtual THU_CUNG THU_CUNG { get; set; }
+        public virtual KHACH_HANG KHACH_HANG1 { get; set; }
     }
 }

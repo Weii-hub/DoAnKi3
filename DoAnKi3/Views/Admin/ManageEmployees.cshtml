@@ -1,0 +1,71 @@
+﻿@model IEnumerable<DoAnKi3.Models.TAI_KHOAN>
+@{
+    ViewBag.Title = "Quản Lý Phân Quyền Nhân Sự";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="fa-solid fa-users-gear me-2"></i>Quản lý phân quyền tài khoản</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Mã Tài Khoản</th>
+                        <th>Tên Đăng Nhập (Username)</th>
+                        <th>Vai Trò Hiện Tại</th>
+                        <th>Hành Động Cấp Quyền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><strong>@item.MaTaiKhoan</strong></td>
+                            <td>@item.Username</td>
+                            <td>
+                                @if (item.VaiTro == "Admin")
+                                {
+                                    <span class="badge bg-danger">Admin</span>
+                                }
+                                else if (item.VaiTro == "BacSi")
+                                {
+                                    <span class="badge bg-primary">Bác sĩ</span>
+                                }
+                                else if (item.VaiTro == "NhanVien")
+                                {
+                                    <span class="badge bg-warning text-dark">Nhân viên</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">Khách hàng</span>
+                                }
+                            </td>
+                            <td>
+                                @* Form gửi nhanh bằng AJAX hoặc Submit truyền thống *@
+                                <form action="@Url.Action("UpdateRole", "Admin")" method="post" class="d-flex gap-2">
+                                    <input type="hidden" name="maTaiKhoan" value="@item.MaTaiKhoan" />
+
+                                    <select name="vaiTroMoi" class="form-select form-select-sm" style="width: 140px;">
+                                        <option value="KhachHang" @(item.VaiTro == "KhachHang" ? "selected" : "")>Khách Hàng</option>
+                                        <option value="NhanVien" @(item.VaiTro == "NhanVien" ? "selected" : "")>Nhân Viên</option>
+                                        <option value="BacSi" @(item.VaiTro == "BacSi" ? "selected" : "")>Bác Sĩ</option>
+                                        <option value="Admin" @(item.VaiTro == "Admin" ? "selected" : "")>Admin</option>
+                                    </select>
+
+                                    <input type="text" name="hoTen" placeholder="Họ tên NV" class="form-control form-control-sm" style="width: 130px;" />
+                                    <input type="text" name="chucVu" placeholder="Chức vụ/Chuyên khoa" class="form-control form-control-sm" style="width: 150px;" />
+
+                                    <button type="submit" class="btn btn-sm btn-outline-dark">
+                                        <i class="fa-solid fa-floppy-disk"></i> Lưu
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

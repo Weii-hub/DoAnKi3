@@ -1,98 +1,114 @@
-﻿using DoAnKi3.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
+using DoAnKi3.Models;
 
-namespace DoAnKi3.Controllers
+namespace DoAnKi3.Models
 {
     public class BookingController : Controller
     {
-        // Khởi tạo đối tượng Database Context dựa trên chuỗi kết nối đã lưu trong Web.config
-        private WebPetCareEntities1 db = new WebPetCareEntities1();
+        private WebPetCareEntities1 db = new WebPetCareEntities1(); // Thay bằng tên Entity chính xác của bạn nếu khác
 
-        // ==========================================
         // GET: Booking/Create
-        // Màn hình hiển thị Form đăng ký đặt lịch
-        // ==========================================
-        [HttpGet]
+
+
+        // GET: Booking/Create
         public ActionResult Create()
         {
-            // Nạp danh sách Khách hàng vào ViewBag để DropDownList hiển thị (Hiển thị HoTen, gán giá trị MaKH)
-            ViewBag.MaKH = new SelectList(db.KHACH_HANG, "MaKH", "TenKH");
+            // Lọc danh sách nhân viên: Chỉ lấy người có tài khoản mang VaiTro là "BacSi"
+            var danhSachBacSi = db.NHAN_VIEN
+                .Where(nv => nv.TAI_KHOAN.VaiTro == "BacSi") // Kết nối sang bảng TAI_KHOAN để check vai trò
+                .Select(nv => new {
+                    MaNV = nv.MaNV,
+                    TenNV = nv.HoTen
+                }).ToList();
 
-            // Nạp danh sách Thú cưng vào ViewBag để DropDownList hiển thị (Hiển thị TenPet, gán giá trị MaPet)
-            ViewBag.MaPet = new SelectList(db.THU_CUNG, "MaPet", "TenPet");
-
-            // Nạp danh sách Nhân viên/Bác sĩ vào ViewBag (Hiển thị TenNV, gán giá trị MaNV)
-            ViewBag.MaNV = new SelectList(db.NHAN_VIEN, "MaNV", "TenNV");
-
-            // Nạp danh sách Dịch vụ vào ViewBag (Đáp ứng ô chọn dịch vụ độc lập trên giao diện của bạn)
-            ViewBag.MaDV = new SelectList(db.DICH_VU, "MaDV", "TenDV");
+            ViewBag.MaNV = new SelectList(danhSachBacSi, "MaNV", "TenNV");
+            ViewBag.MaDV = new SelectList(db.DICH_VU.Where(d => d.TrangThai == true || d.TrangThai == null), "MaDV", "TenDichVu");
 
             return View();
         }
-
-        // ==========================================
         // POST: Booking/Create
-        // Tiếp nhận dữ liệu từ Form gửi lên để xử lý lưu vào Database
-        // ==========================================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaLichHen,NgayHen,GioHen,TrangThai,LyDoTuChoi,MaKH,MaPet,MaNV")] LICH_HEN lichHen, int? MaDV)
+        public ActionResult Create([Bind(Include = "HoTen,SoDienThoai,Email,ChiNhanH,NgayHen,GioHen,MaNV")] LICH_HEN lichHen, string MaDV, string GhiChu)
         {
             if (ModelState.IsValid)
             {
-                try
+                using (var transaction = db.Database.BeginTransaction())
                 {
-                    // 1. Gán trạng thái ban đầu mặc định cho lịch hẹn khi khách vừa bấm đặt
-                    lichHen.TrangThai = "Chờ duyệt";
-                    lichHen.LyDoTuChoi = null;
-
-                    // 2. Thêm thực thể lịch hẹn mới vào ngữ cảnh dữ liệu
-                    db.LICH_HEN.Add(lichHen);
-
-                    // 3. Thực thi lưu thay đổi xuống SQL Server để sinh ra MaLichHen
-                    db.SaveChanges();
-
-                    // 4. LOGIC XỬ LÝ BẢNG TRUNG GIAN (Nếu bạn dùng bảng CHI_TIET_LICH_HEN để lưu dịch vụ)
-                    if (MaDV.HasValue)
+                    try
                     {
-                        // Kiểm tra xem hệ thống đã nhận diện thực thể CHI_TIET_LICH_HEN chưa
-                        // Nếu bạn lưu Many-to-Many qua bảng trung gian, code xử lý sẽ nằm ở đây:
-                        /*
-                        var chiTiet = new CHI_TIET_LICH_HEN
-                        {
-                            MaLichHen = lichHen.MaLichHen,
-                            MaDV = MaDV.Value
-                        };
-                        db.CHI_TIET_LICH_HEN.Add(chiTiet);
-                        db.SaveChanges();
-                        */
-                    }
+                        // 1. Khởi tạo khóa chính chuỗi ngẫu nhiên tránh trùng lặp hệ thống
+                        lichHen.MaLichHen = "LH" + Guid.NewGuid().ToString().Substring(0, 8).ToUpper();
+                        lichHen.TrangThai = "Chờ duyệt";
 
-                    // Sau khi đặt lịch thành công, chuyển hướng người dùng về trang thông báo hoặc danh sách
-                    return RedirectToAction("Create");
-                }
-                catch (Exception ex)
-                {
-                    // Nếu xảy ra lỗi trong quá trình lưu, thông báo lỗi ra giao diện
-                    ModelState.AddModelError("", "Có lỗi xảy ra trong quá trình lưu dữ liệu: " + ex.Message);
+                        // 2. Kiểm tra nếu tài khoản đang đăng nhập thì gắn MaKH tự động
+                        if (Session["MaTaiKhoan"] != null)
+                        {
+                            string maTK = Session["MaTaiKhoan"].ToString();
+                            var khachHang = db.KHACH_HANG.FirstOrDefault(k => k.MaTaiKhoan == maTK);
+                            if (khachHang != null)
+                            {
+                                lichHen.MaKH = khachHang.MaKH;
+                            }
+                        }
+
+                        db.LICH_HEN.Add(lichHen);
+                        db.SaveChanges(); // Lưu bảng cha trước để sinh dữ liệu nhất quán
+
+                        // 3. Lưu thông tin dịch vụ vào bảng CHI_TIET_LICH_HEN
+                        if (!string.IsNullOrEmpty(MaDV))
+                        {
+                            var chiTiet = new CHI_TIET_LICH_HEN
+                            {
+                                MaLichHen = lichHen.MaLichHen,
+                                MaDV = MaDV,
+                                GhiChu = !string.IsNullOrEmpty(GhiChu) ? GhiChu : "Khách hàng đặt trực tuyến"
+                            };
+                            db.CHI_TIET_LICH_HEN.Add(chiTiet);
+                            db.SaveChanges();
+                        }
+
+                        transaction.Commit();
+                        TempData["SuccessMessage"] = "Đặt lịch khám thành công! Hệ thống sẽ liên hệ bạn sớm nhất.";
+                        return RedirectToAction("Create");
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        ModelState.AddModelError("", "Quá trình lưu dữ liệu thất bại: " + ex.Message);
+                    }
                 }
             }
 
-            // Nếu dữ liệu form bị lỗi hoặc lưu thất bại, nạp lại toàn bộ SelectList để người dùng không bị mất dữ liệu trên Form
-            ViewBag.MaKH = new SelectList(db.KHACH_HANG, "MaKH", "TenKH", lichHen.MaKH);
-            ViewBag.MaPet = new SelectList(db.THU_CUNG, "MaPet", "TenPet", lichHen.MaPet);
-            ViewBag.MaNV = new SelectList(db.NHAN_VIEN, "MaNV", "TenNV", lichHen.MaNV);
-            ViewBag.MaDV = new SelectList(db.DICH_VU, "MaDV", "TenDV", MaDV);
+            // Thay thế đoạn lọc bác sĩ cũ bằng đoạn code tối giản này:
+            // --- ĐOẠN CODE SỬA LẠI TRONG CONTROLLER ---
 
+            // Truy vấn trực tiếp từ bảng KHACH_HANG, lọc theo VaiTro của TAI_KHOAN liên kết
+            var danhSachBacSi = db.KHACH_HANG
+                .Where(kh => kh.TAI_KHOAN != null && kh.TAI_KHOAN.VaiTro == "BacSi")
+                .Select(kh => new {
+                    MaBS = kh.MaKH,   // Dùng MaKH của bác sĩ để lưu vào cột MaNV (hoặc khóa ngoại phụ trách) trên LICH_HEN
+                    TenBS = kh.HoTen  // Lấy Họ Tên thực tế từ bảng KHACH_HANG để hiển thị lên UI
+                }).ToList();
+
+            // Nếu DB chưa có tài khoản nào được phân quyền BacSi, mồi 1 dòng mặc định tránh lỗi trống Dropdown
+            if (danhSachBacSi.Count == 0)
+            {
+                danhSachBacSi.Add(new { MaBS = "", TenBS = "Bác sĩ trực ban hệ thống" });
+            }
+
+            // Đẩy dữ liệu ra ngoài View qua đúng tên biến ViewBag.MaNV
+            ViewBag.MaNV = new SelectList(danhSachBacSi, "MaBS", "TenBS");
+
+            // Nạp danh sách dịch vụ (khớp với model DICH_VU của bạn)
+            ViewBag.MaDV = new SelectList(db.DICH_VU.Where(d => d.TrangThai == true), "MaDV", "TenDichVu");
             return View(lichHen);
         }
 
-        // ==========================================
-        // Giải phóng tài nguyên kết nối khi không sử dụng
-        // ==========================================
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -102,5 +118,4 @@ namespace DoAnKi3.Controllers
             base.Dispose(disposing);
         }
     }
-
 }
