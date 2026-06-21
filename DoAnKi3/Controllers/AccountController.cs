@@ -63,29 +63,44 @@ namespace DoAnKi3.Controllers
             }
             return View(model);
         }
+        public ActionResult EditProfile()
+        {
+            if (Session["MaTaiKhoan"] == null)
+                return RedirectToAction("Login", "Account");
+
+            string maTK = Session["MaTaiKhoan"].ToString().Trim(); // Trim phòng khoảng trắng
+
+            var profile = db.KHACH_HANG.SingleOrDefault(k => k.MaTaiKhoan == maTK);
+
+            // Thêm dòng này để debug tạm
+            ViewBag.DebugMaTK = maTK;
+            ViewBag.DebugFound = (profile != null) ? "Tìm thấy: " + profile.HoTen : "KHÔNG tìm thấy";
+
+            ViewBag.IsNhanVien = Session["VaiTro"]?.ToString() != "KhachHang";
+            return View(profile ?? new KHACH_HANG());
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditProfile(KHACH_HANG model)
         {
-            if (Session["MaTaiKhoan"] == null) return RedirectToAction("Login", "Account");
+            if (Session["MaTaiKhoan"] == null)
+                return RedirectToAction("Login", "Account");
 
-            string maTK = Session["MaTaiKhoan"].ToString();
+            string maTK = Session["MaTaiKhoan"].ToString().Trim(); // Lấy từ Session, không từ model
 
-            // Tìm bản ghi chuẩn từ database dựa trên mã tài khoản đang đăng nhập
             var profile = db.KHACH_HANG.SingleOrDefault(k => k.MaTaiKhoan == maTK);
 
             if (profile != null)
             {
-                // CHỈ CẬP NHẬT các trường thông tin cơ bản
                 profile.HoTen = model.HoTen;
                 profile.SDT = model.SDT;
                 profile.Email = model.Email;
                 profile.DiaChi = model.DiaChi;
-
-                // KHÔNG chạm vào profile.DiemTichLuy hay profile.HangThanhVien ở đây!
+                // KHÔNG sửa DiemTichLuy, HangThanhVien, MaKH, MaTaiKhoan
 
                 db.SaveChanges();
-                TempData["Msg"] = "Cập nhật thông tin cá nhân thành công!";
+                TempData["Msg"] = "Cập nhật thành công!";
             }
 
             return RedirectToAction("EditProfile");
@@ -95,11 +110,7 @@ namespace DoAnKi3.Controllers
         // ==========================================
 
         // GET: Account/Register
-        public ActionResult Register()
-        {
-            if (Session["Username"] != null) return RedirectToAction("Index", "Home");
-            return View(new RegisterViewModel());
-        }
+
 
         // POST: Account/Register
         [HttpPost]

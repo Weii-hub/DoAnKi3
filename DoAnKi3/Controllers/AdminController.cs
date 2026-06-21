@@ -33,55 +33,55 @@ namespace DoAnKi3.Controllers
         public ActionResult UpdateRole(string maTaiKhoan, string vaiTroMoi, string hoTen, string sdt, string chucVu)
         {
             if (Session["Username"] == null || Session["VaiTro"]?.ToString() != "Admin")
-            {
                 return Json(new { success = false, message = "Không có quyền truy cập!" });
-            }
 
             using (var transaction = db.Database.BeginTransaction())
             {
                 try
                 {
-                    // 1. Tìm tài khoản cần phân quyền
+                    // 1. Tìm tài khoản
                     var taiKhoan = db.TAI_KHOAN.SingleOrDefault(tk => tk.MaTaiKhoan == maTaiKhoan);
                     if (taiKhoan == null)
-                    {
                         return Json(new { success = false, message = "Tài khoản không tồn tại." });
-                    }
 
-                    string vaiTroCu = taiKhoan.VaiTro;
-                    taiKhoan.VaiTro = vaiTroMoi; // Cập nhật vai trò mới (BacSi, NhanVien, Admin)
+                    taiKhoan.VaiTro = vaiTroMoi;
 
-                    // 2. Đồng bộ hóa sang bảng NHAN_VIEN nếu vai trò mới thuộc nhóm nhân sự
+                    // 2. Đồng bộ NHAN_VIEN nếu là nhân sự
                     if (vaiTroMoi == "BacSi" || vaiTroMoi == "NhanVien" || vaiTroMoi == "Admin")
                     {
+                        // ✅ Khai báo biến đúng chỗ
                         var nhanVien = db.NHAN_VIEN.SingleOrDefault(nv => nv.MaTaiKhoan == maTaiKhoan);
+                        var khachHang = db.KHACH_HANG.FirstOrDefault(kh => kh.MaTaiKhoan == maTaiKhoan);
+
+                        string tenHienThi = !string.IsNullOrWhiteSpace(hoTen)
+                                            ? hoTen
+                                            : khachHang?.HoTen ?? "Chưa cập nhật";
 
                         if (nhanVien == null)
                         {
-                            // Nếu trước đây là Khách hàng, giờ phân quyền làm nhân sự thì tạo mới thông tin nhân viên
+                            // ✅ Tạo mới
                             nhanVien = new NHAN_VIEN
                             {
                                 MaNV = "NV" + DateTime.Now.Ticks.ToString().Substring(11),
-                                HoTen = hoTen ?? "Nhân viên mới",
-                                SDT = sdt ?? "",
-                                ChucVu = chucVu ?? vaiTroMoi,
+                                HoTen = tenHienThi,
+                                SDT = !string.IsNullOrWhiteSpace(sdt) ? sdt : khachHang?.SDT ?? "",
+                                ChucVu = !string.IsNullOrWhiteSpace(chucVu) ? chucVu : vaiTroMoi,
                                 MaTaiKhoan = maTaiKhoan
                             };
                             db.NHAN_VIEN.Add(nhanVien);
-
-                            // Tùy chọn: Bạn có thể xóa hoặc giữ lại bản ghi bên bảng KHACH_HANG 
-                            // tùy thuộc vào việc tài khoản đó có tiếp tục nuôi thú cưng hay không.
                         }
                         else
                         {
-                            // Nếu đã có thông tin nhân viên từ trước thì chỉ cập nhật chức vụ
-                            nhanVien.ChucVu = chucVu ?? vaiTroMoi;
+                            // ✅ Cập nhật nếu đã tồn tại
+                            nhanVien.HoTen = tenHienThi;
+                            nhanVien.ChucVu = !string.IsNullOrWhiteSpace(chucVu) ? chucVu : vaiTroMoi;
+                            if (!string.IsNullOrWhiteSpace(sdt))
+                                nhanVien.SDT = sdt;
                         }
                     }
 
                     db.SaveChanges();
                     transaction.Commit();
-
                     return RedirectToAction("ManageEmployees", "Admin");
                 }
                 catch (Exception ex)
@@ -92,4 +92,4 @@ namespace DoAnKi3.Controllers
             }
         }
     }
-}
+    }

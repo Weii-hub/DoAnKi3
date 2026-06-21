@@ -3,7 +3,8 @@
     ViewBag.Title = "Thông tin cá nhân";
     Layout = "~/Views/Shared/_Layout.cshtml"; // Hoặc _AdminLayout.cshtml tùy Session
 }
-
+@Html.HiddenFor(m => m.MaKH)       
+@Html.HiddenFor(m => m.MaTaiKhoan)  
 <div class="container mt-5">
     <div class="card shadow-sm border-0 max-w-2xl mx-auto">
         <div class="card-header bg-dark text-white py-3">
@@ -46,7 +47,14 @@
 
                         <div class="col-6 mb-2">
                             <label class="form-label small text-muted mb-1">Hạng thành viên</label>
-                            @Html.TextBoxFor(m => m.HangThanhVien, new { @class = "form-control form-control-sm bg-white", @readonly = "readonly" })
+                            @if (Session["VaiTro"]?.ToString() == "Admin" || Session["VaiTro"]?.ToString() == "NhanVien")
+                            {
+                                <input type="text" class="form-control form-control-sm bg-white" value="N/A (Chỉ dành cho KH)" readonly />
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.HangThanhVien, new { @class = "form-control form-control-sm bg-white", @readonly = "readonly" })
+                            }
                         </div>
 
                         <div class="col-12">

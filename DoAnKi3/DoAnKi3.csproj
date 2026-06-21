@@ -142,6 +142,7 @@
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\DichvuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LienheController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\StoreStaffController.cs" />
     <Compile Include="Global.asax.cs">
@@ -261,6 +262,7 @@
     <Content Include="css\layout\admin-sidebar.css" />
     <Content Include="css\layout\footer.css" />
     <Content Include="css\layout\navbar.css" />
+    <Content Include="css\LienHe.css" />
     <Content Include="css\pages\About.css" />
     <Content Include="css\pages\account.css" />
     <Content Include="css\pages\admin.css" />
@@ -330,6 +332,7 @@
     <Content Include="Views\Admin\ManageEmployees.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Booking\Create.cshtml" />
+    <Content Include="Views\Dichvu\Lienhe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

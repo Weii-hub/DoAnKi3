@@ -15,5 +15,9 @@ namespace DoAnKi3.Controllers
         {
             return View(); 
         }
+        public ActionResult Lienhe()
+        {
+            return View();
+        }
     }
 }
