@@ -28,32 +28,31 @@ namespace DoAnKi3.Controllers
         {
             if (ModelState.IsValid)
             {
-                // 1. Kiểm tra tài khoản trong bảng TAI_KHOAN
+           
                 var user = db.TAI_KHOAN.SingleOrDefault(tk => tk.Username == model.Username && tk.Password == model.Password);
 
                 if (user != null)
                 {
-                    // 2. Gán các thông tin cấu hình tài khoản cốt lõi vào Session
+                 
                     Session["Username"] = user.Username;
-                    Session["VaiTro"] = user.VaiTro; // "Admin", "BacSi", "NhanVien", "KhachHang"
+                    Session["VaiTro"] = user.VaiTro; 
                     Session["MaTaiKhoan"] = user.MaTaiKhoan;
 
-                    // 3. ĐỒNG BỘ: Vì đã gộp chung nên bất kể Role nào cũng tìm thông tin ở bảng KHACH_HANG
+                 
                     var profile = db.KHACH_HANG.SingleOrDefault(k => k.MaTaiKhoan == user.MaTaiKhoan);
 
                     if (profile != null)
                     {
                         Session["TenNguoiDung"] = profile.HoTen;
-                        Session["EmailNguoiDung"] = profile.Email; // Lưu thêm để hiển thị nếu cần
-                        Session["MaNguoiDung"] = profile.MaKH; // Đây chính là mã định danh hồ sơ
+                        Session["EmailNguoiDung"] = profile.Email; 
+                        Session["MaNguoiDung"] = profile.MaKH; 
                     }
                     else
                     {
-                        // Phòng trường hợp tài khoản mới tạo chưa kịp đồng bộ dòng dữ liệu ở bảng KHACH_HANG
+                        
                         Session["TenNguoiDung"] = user.Username;
                     }
 
-                    // 4. Điều hướng tất cả mọi người về chung một trang chủ
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -68,11 +67,10 @@ namespace DoAnKi3.Controllers
             if (Session["MaTaiKhoan"] == null)
                 return RedirectToAction("Login", "Account");
 
-            string maTK = Session["MaTaiKhoan"].ToString().Trim(); // Trim phòng khoảng trắng
+            string maTK = Session["MaTaiKhoan"].ToString().Trim(); 
 
             var profile = db.KHACH_HANG.SingleOrDefault(k => k.MaTaiKhoan == maTK);
 
-            // Thêm dòng này để debug tạm
             ViewBag.DebugMaTK = maTK;
             ViewBag.DebugFound = (profile != null) ? "Tìm thấy: " + profile.HoTen : "KHÔNG tìm thấy";
 
@@ -87,7 +85,7 @@ namespace DoAnKi3.Controllers
             if (Session["MaTaiKhoan"] == null)
                 return RedirectToAction("Login", "Account");
 
-            string maTK = Session["MaTaiKhoan"].ToString().Trim(); // Lấy từ Session, không từ model
+            string maTK = Session["MaTaiKhoan"].ToString().Trim(); 
 
             var profile = db.KHACH_HANG.SingleOrDefault(k => k.MaTaiKhoan == maTK);
 
@@ -97,7 +95,7 @@ namespace DoAnKi3.Controllers
                 profile.SDT = model.SDT;
                 profile.Email = model.Email;
                 profile.DiaChi = model.DiaChi;
-                // KHÔNG sửa DiemTichLuy, HangThanhVien, MaKH, MaTaiKhoan
+            
 
                 db.SaveChanges();
                 TempData["Msg"] = "Cập nhật thành công!";
@@ -105,14 +103,17 @@ namespace DoAnKi3.Controllers
 
             return RedirectToAction("EditProfile");
         }
-        // ==========================================
-        // ── CHỨC NĂNG ĐĂNG KÝ (REGISTER)
-        // ==========================================
+        public ActionResult Register()
+        {
+            // Nếu người dùng đã đăng nhập rồi thì đá về trang chủ, không cho đăng ký nữa
+            if (Session["Username"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-        // GET: Account/Register
-
-
-        // POST: Account/Register
+            // Trả về giao diện đăng ký trống
+            return View(new RegisterViewModel());
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel model)
@@ -135,20 +136,19 @@ namespace DoAnKi3.Controllers
                 {
                     try
                     {
-                        // 1. Ghi dữ liệu vào bảng TAI_KHOAN
+                    
                         TAI_KHOAN newAcc = new TAI_KHOAN
                         {
-                            MaTaiKhoan = "TK" + DateTime.Now.Ticks.ToString().Substring(10), // Đảm bảo sinh mã nếu không để Identity
+                            MaTaiKhoan = "TK" + DateTime.Now.Ticks.ToString().Substring(10), 
                             Username = model.Username,
                             Password = model.Password,
                             VaiTro = "KhachHang",
-                            TrangThai = true // CHỈNH SỬA: Gán kiểu bool (true) thay vì "Hoạt động"
+                            TrangThai = true 
                         };
                         db.TAI_KHOAN.Add(newAcc);
                         db.SaveChanges();
 
-                        // 2. Ghi dữ liệu vào bảng KHACH_HANG
-                        // 2. Ghi dữ liệu vào bảng KHACH_HANG
+                 
                         KHACH_HANG newKh = new KHACH_HANG
                         {
                             MaKH = "KH" + DateTime.Now.Ticks.ToString().Substring(11),
@@ -156,7 +156,7 @@ namespace DoAnKi3.Controllers
                             SDT = model.Sdt,
                             Email = model.Email,
                             DiaChi = model.DiaChi,
-                            HangThanhVien = "Đồng", // CHỈNH SỬA: Xóa chữ N ở đây đi
+                            HangThanhVien = "Đồng", 
                             DiemTichLuy = 0,
                             MaTaiKhoan = newAcc.MaTaiKhoan
                         };
@@ -176,7 +176,7 @@ namespace DoAnKi3.Controllers
             return View(model);
         }
 
-        // ĐĂNG XUẤT
+    
         public ActionResult Logout()
         {
             Session.Clear();

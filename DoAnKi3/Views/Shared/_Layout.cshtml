@@ -31,7 +31,7 @@
 
 <body>
 
-    <!-- NAVBAR -->
+
     <nav class="navbar navbar-expand-lg pc-navbar sticky-top">
 
         <div class="container">
@@ -121,9 +121,6 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow-sm" style="min-width: 240px;">
 
-                                @* ======================================================================= *@
-                                @* 1. PHÂN HỆ: ADMIN (Quản lý vĩ mô hệ thống)                               *@
-                                @* ======================================================================= *@
                                 @if (Session["VaiTro"]?.ToString() == "Admin")
                                 {
                                     <li class="dropdown-header text-danger fw-bold text-uppercase small"><i class="fa-solid fa-user-shield me-1"></i> Quản trị viên</li>
@@ -164,9 +161,7 @@
                                     </li>
                                 }
 
-                                @* ======================================================================= *@
-                                @* 2. PHÂN HỆ: BÁC SĨ (Điều trị & Quản lý lịch khám bệnh)                    *@
-                                @* ======================================================================= *@
+              
                                 else if (Session["VaiTro"]?.ToString() == "BacSi")
                                 {
                                     <li class="dropdown-header text-primary fw-bold text-uppercase small"><i class="fa-solid fa-user-doctor me-1"></i> Bác sĩ chuyên khoa</li>
@@ -198,9 +193,7 @@
 
                                 }
 
-                                @* ======================================================================= *@
-                                @* 3. PHÂN HỆ: NHÂN VIÊN (Tiếp tân & Vận hành kho StoreStaff)              *@
-                                @* ======================================================================= *@
+                
                                 else if (Session["VaiTro"]?.ToString() == "NhanVien")
                                 {
                                     <li class="dropdown-header text-warning fw-bold text-uppercase small"><i class="fa-solid fa-user-tie me-1"></i> Nhân viên vận hành</li>
@@ -226,9 +219,7 @@
                                     </li>
                                 }
 
-                                @* ======================================================================= *@
-                                @* 4. PHÂN HỆ: KHÁCH HÀNG (Mua sắm & Đặt lịch dịch vụ ngoài Client)         *@
-                                @* ======================================================================= *@
+                       
                                 else
                                 {
                                     <li class="dropdown-header text-success fw-bold text-uppercase small"><i class="fa-solid fa-crown me-1"></i> Khách hàng thành viên</li>
@@ -276,7 +267,7 @@
 
                                 <li><hr class="dropdown-divider"></li>
 
-                                @* ĐĂNG XUẤT CHUNG *@
+                          
                                 <li>
                                     <a class="dropdown-item text-danger fw-bold" href="@Url.Action("Logout", "Account")">
                                         <i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất
@@ -293,7 +284,7 @@
 
     </nav>
 
-    <!-- BODY -->
+
 
     <main>
 
@@ -302,7 +293,7 @@
     </main>
     <footer class="site-footer">
 
-        @* ---- Newsletter band ---- *@
+  
         <div class="footer-newsletter">
             <div class="inner">
                 <div class="newsletter-copy">
@@ -316,10 +307,10 @@
             </div>
         </div>
 
-        @* ---- Main grid ---- *@
+
         <div class="footer-body">
 
-            @* -- Col 1: Brand -- *@
+
             <div class="footer-col footer-brand">
                 <a href="/" class="brand-name">
                     <span class="paw-icon">🐾</span>
@@ -389,7 +380,7 @@
 
         </div>
 
-        @* ---- Bottom bar ---- *@
+
         <div class="footer-bottom">
             <div class="inner">
                 <p class="copy">

@@ -3,9 +3,7 @@
     ViewBag.Title = "Liên Hệ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <link rel="stylesheet" href="~/css/LienHe.css" />
-
 <div class="contact-page">
     <div class="container">
         <div class="contact-page-header">
@@ -28,10 +26,10 @@
             </div>
         }
 
-        @* ---- Main grid ---- *@
+
         <div class="contact-grid">
 
-            @* ======= LEFT: Info cards ======= *@
+
             <div class="contact-info-panel">
 
                 <div class="info-card">
@@ -66,7 +64,6 @@
                     </div>
                 </div>
 
-                @* Google Maps embed - Đã sửa lại đường dẫn nhúng chuẩn *@
                 <div class="map-card">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.954344838491!2d106.69115317583681!3d10.738002459898074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528b2747a81a3%3A0x334c77d01ecfb868!2zMTIzIMSQxrDhu51uZyBOZ3V54buFbiBWxINuIExpbmgsIFTDom4gUGhvbmcsIFF14bqtbiA3LCBI4buTIENow0gTWluaA!5e0!3m2!1svi!2s!4v1710000000000!5m2!1svi!2s"
                             width="100%"
@@ -81,7 +78,6 @@
 
             </div>
 
-            @* ======= RIGHT: Contact form ======= *@
             <div class="contact-form-card">
                 <h2>Gửi tin nhắn cho chúng tôi</h2>
                 <p class="form-subtitle">Chúng tôi sẽ phản hồi trong vòng 24 giờ làm việc.</p>
@@ -90,7 +86,6 @@
                 {
                     @Html.AntiForgeryToken()
 
-                    @* Họ tên + Email *@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Họ và tên <span class="required">*</span></label>
@@ -121,7 +116,7 @@
                         </div>
                     </div>
 
-                    @* Số điện thoại *@
+         
                     <div class="form-group">
                         <label>Số điện thoại</label>
                         @Html.TextBoxFor(m => m.SoDienThoai, new
@@ -133,7 +128,7 @@
                         })
                     </div>
 
-                    @* Tiêu đề *@
+              
                     <div class="form-group">
                         <label>Tiêu đề <span class="required">*</span></label>
                         @Html.TextBoxFor(m => m.TieuDe, new
@@ -148,7 +143,6 @@
                         }
                     </div>
 
-                    @* Nội dung *@
                     <div class="form-group">
                         <label>Nội dung <span class="required">*</span></label>
                         @Html.TextAreaFor(m => m.NoiDung, 6, 0, new
@@ -177,14 +171,13 @@
     </div>
 </div>
 
-@* ---- Char counter script ---- *@
+
 <script>
     (function () {
         var textarea = document.getElementById('noiDungTextarea');
         var counter  = document.getElementById('charCount');
         if (!textarea || !counter) return;
 
-        // Sử dụng @@ để ép kiểu mà không làm lỗi trình biên dịch Razor
         var ta  = /** @@type {HTMLTextAreaElement} */ (textarea);
         var cnt = /** @@type {HTMLElement} */ (counter);
 

@@ -8,13 +8,10 @@ namespace DoAnKi3.Controllers
     {
         private WebPetCareEntities1 db = new WebPetCareEntities1();
 
-        // GET: LienHe
         public ActionResult Lienhe()
         {
             return View();
         }
-
-        // POST: LienHe/GuiLienHe
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult GuiLienHe(LIEN_HE model)

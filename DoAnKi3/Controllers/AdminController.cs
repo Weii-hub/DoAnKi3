@@ -3,21 +3,17 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-// Thay bằng namespace chứa DbContext của bạn (Model1)
 using DoAnKi3.Models;
 
 namespace DoAnKi3.Controllers
 {
-    // Thêm Filter kiểm tra quyền truy cập nếu bạn đã viết Custom Authorize
     public class AdminController : Controller
     {
         private WebPetCareEntities1 db = new WebPetCareEntities1();
 
-        // GET: Admin/ManageEmployees
-        // Trang hiển thị danh sách tài khoản và nhân sự
+       
         public ActionResult ManageEmployees()
         {
-            // Kiểm tra bảo mật cứng nếu chưa làm Filter
             if (Session["Username"] == null || Session["VaiTro"]?.ToString() != "Admin")
             {
                 return RedirectToAction("Login", "Account");
@@ -27,8 +23,7 @@ namespace DoAnKi3.Controllers
             return View(danhSachTaiKhoan);
         }
 
-        // POST: Admin/UpdateRole
-        // Hàm xử lý phân quyền khi Admin bấm thay đổi quyền
+
         [HttpPost]
         public ActionResult UpdateRole(string maTaiKhoan, string vaiTroMoi, string hoTen, string sdt, string chucVu)
         {
@@ -39,27 +34,22 @@ namespace DoAnKi3.Controllers
             {
                 try
                 {
-                    // 1. Tìm tài khoản
                     var taiKhoan = db.TAI_KHOAN.SingleOrDefault(tk => tk.MaTaiKhoan == maTaiKhoan);
                     if (taiKhoan == null)
                         return Json(new { success = false, message = "Tài khoản không tồn tại." });
 
                     taiKhoan.VaiTro = vaiTroMoi;
 
-                    // 2. Đồng bộ NHAN_VIEN nếu là nhân sự
+       
                     if (vaiTroMoi == "BacSi" || vaiTroMoi == "NhanVien" || vaiTroMoi == "Admin")
                     {
-                        // ✅ Khai báo biến đúng chỗ
                         var nhanVien = db.NHAN_VIEN.SingleOrDefault(nv => nv.MaTaiKhoan == maTaiKhoan);
                         var khachHang = db.KHACH_HANG.FirstOrDefault(kh => kh.MaTaiKhoan == maTaiKhoan);
 
-                        string tenHienThi = !string.IsNullOrWhiteSpace(hoTen)
-                                            ? hoTen
-                                            : khachHang?.HoTen ?? "Chưa cập nhật";
+                        string tenHienThi = !string.IsNullOrWhiteSpace(hoTen) ? hoTen : khachHang?.HoTen ?? "Chưa cập nhật";
 
                         if (nhanVien == null)
                         {
-                            // ✅ Tạo mới
                             nhanVien = new NHAN_VIEN
                             {
                                 MaNV = "NV" + DateTime.Now.Ticks.ToString().Substring(11),
@@ -72,16 +62,26 @@ namespace DoAnKi3.Controllers
                         }
                         else
                         {
-                            // ✅ Cập nhật nếu đã tồn tại
                             nhanVien.HoTen = tenHienThi;
                             nhanVien.ChucVu = !string.IsNullOrWhiteSpace(chucVu) ? chucVu : vaiTroMoi;
-                            if (!string.IsNullOrWhiteSpace(sdt))
-                                nhanVien.SDT = sdt;
+                            if (!string.IsNullOrWhiteSpace(sdt)) nhanVien.SDT = sdt;
                         }
                     }
 
                     db.SaveChanges();
                     transaction.Commit();
+
+         
+                    if (Session["Username"]?.ToString() == taiKhoan.Username || Session["MaTaiKhoan"]?.ToString() == maTaiKhoan)
+                    {
+                        Session["VaiTro"] = vaiTroMoi;
+
+                        if (vaiTroMoi != "Admin")
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+
                     return RedirectToAction("ManageEmployees", "Admin");
                 }
                 catch (Exception ex)

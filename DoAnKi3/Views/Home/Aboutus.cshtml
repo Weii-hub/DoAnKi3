@@ -12,10 +12,10 @@
     <div class="container">
         <div class="about-hero__inner">
 
-            <!-- Left: Text -->
+        
             <div class="about-hero__content">
                 <span class="about-hero__label">
-                    <!-- paw icon -->
+                   
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                         <path d="M12 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm-6.5 3a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm13 0a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm16 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 1c-3.87 0-7 2.24-7 5v1h14v-1c0-2.76-3.13-5-7-5z" />
                     </svg>
@@ -42,7 +42,6 @@
                 </a>
             </div>
 
-            <!-- Right: Image + Badge -->
             <div class="about-hero__visual">
                 <div class="about-hero__image-wrap">
                     <img src="~/css/images/Doctor Gae.png"
@@ -63,9 +62,7 @@
     </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════
-     STATS STRIP
-════════════════════════════════════════════════ -->
+
 <section class="about-stats">
     <div class="container">
         <div class="about-stats__grid">
@@ -89,14 +86,11 @@
     </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════
-     MISSION + VALUES
-════════════════════════════════════════════════ -->
+
 <section class="about-mission">
     <div class="container">
         <div class="about-mission__inner">
 
-            <!-- Left -->
             <div>
                 <p class="about-mission__eyebrow">Sứ mệnh của chúng tôi</p>
                 <h2 class="about-mission__heading">
@@ -114,7 +108,6 @@
                 </p>
             </div>
 
-            <!-- Right: Value Bento -->
             <div class="about-mission__values">
                 <div class="value-card">
                     <div class="value-card__icon">❤️</div>
@@ -143,9 +136,6 @@
     </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════
-     SERVICES OVERVIEW
-════════════════════════════════════════════════ -->
 <section class="about-services">
     <div class="container">
         <div class="section-header">
@@ -185,9 +175,6 @@
     </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════
-     TEAM
-════════════════════════════════════════════════ -->
 <section class="about-team">
     <div class="container">
         <div class="section-header">
@@ -235,9 +222,7 @@
     </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════
-     CTA BANNER
-════════════════════════════════════════════════ -->
+
 <section class="about-cta">
     <div class="container">
         <h2 class="about-cta__heading">Bắt đầu hành trình<br>cùng PetCare hôm nay</h2>
@@ -256,12 +241,10 @@
 
 @section Scripts {
     <script>
-/* Animated counter – fires when element enters viewport */
 (function () {
     const counters = document.querySelectorAll('.js-count');
     if (!counters.length) return;
 
-    // Hỗ trợ prefers-reduced-motion để tối ưu khả năng tiếp cận (A11y)
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const animateCount = (el: HTMLElement) => {
@@ -281,7 +264,7 @@
        
         const step = (now:number) => {
             const progress = Math.min((now - start) / duration, 1);
-            const ease = 1 - Math.pow(1 - progress, 3); // hiệu ứng ease-out-cubic
+            const ease = 1 - Math.pow(1 - progress, 3); 
 
             el.textContent = Math.floor(ease * target).toLocaleString('vi-VN') + suffix;
 
@@ -292,22 +275,19 @@
         requestAnimationFrame(step);
     };
 
-    // Tạo bộ quan sát IntersectionObserver
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
             if (e.isIntersecting) {
-                // Sửa tại đây: Sử dụng kỹ thuật ép kiểu (Type Assertion) của TypeScript
                 const targetElement = e.target as HTMLElement;
 
                 if (targetElement) {
-                    animateCount(targetElement); // Không còn bị báo đỏ nữa!
+                    animateCount(targetElement); 
                     observer.unobserve(targetElement);
                 }
             }
         });
     }, { threshold: 0.4 });
 
-    // Đăng ký toàn bộ các thẻ đếm số vào bộ quan sát
     counters.forEach((el) => {
         if (el) observer.observe(el);
     });

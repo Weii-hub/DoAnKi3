@@ -23,5 +23,7 @@ namespace DoAnKi3.Controllers
         {
             return View();
         }
+     
+
     }
 }

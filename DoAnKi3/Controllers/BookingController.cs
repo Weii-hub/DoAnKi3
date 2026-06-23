@@ -9,20 +9,17 @@ namespace DoAnKi3.Models
 {
     public class BookingController : Controller
     {
-        private WebPetCareEntities1 db = new WebPetCareEntities1(); // Thay bằng tên Entity chính xác của bạn nếu khác
+        private WebPetCareEntities1 db = new WebPetCareEntities1(); 
 
-        // GET: Booking/Create
-
-
-        // GET: Booking/Create
+     
         public ActionResult Create()
         {
-            // ✅ Fix 1: Lấy bác sĩ từ NHAN_VIEN join TAI_KHOAN
+       
             var danhSachBacSi = db.NHAN_VIEN
            .Where(nv => nv.TAI_KHOAN != null && nv.TAI_KHOAN.VaiTro == "BacSi")
            .Select(nv => new {
                MaNV = nv.MaNV,
-               // ✅ Ưu tiên HoTen trong NHAN_VIEN → fallback sang HoTen trong KHACH_HANG
+           
                TenNV = nv.HoTen != null && nv.HoTen != ""
                        ? nv.HoTen
                        : db.KHACH_HANG
@@ -33,7 +30,6 @@ namespace DoAnKi3.Models
 
             ViewBag.MaNV = new SelectList(danhSachBacSi, "MaNV", "TenNV");
 
-            // ✅ Fix 2: Lấy dịch vụ, bỏ lọc TrangThai nếu dữ liệu đang null
             var danhSachDV = db.DICH_VU
                 .Where(d => d.TrangThai == true || d.TrangThai == null)
                 .Select(d => new {
@@ -43,7 +39,6 @@ namespace DoAnKi3.Models
 
             ViewBag.MaDV = new SelectList(danhSachDV, "MaDV", "TenDichVu");
 
-            // ✅ Tự động điền thông tin nếu đã đăng nhập
             var model = new LICH_HEN();
             if (Session["MaTaiKhoan"] != null)
             {
@@ -59,7 +54,6 @@ namespace DoAnKi3.Models
 
             return View(model);
         }
-        // POST: Booking/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "HoTen,SoDienThoai,Email,ChiNhanH,NgayHen,GioHen,MaNV")] LICH_HEN lichHen, string MaDV, string GhiChu)
@@ -107,7 +101,6 @@ namespace DoAnKi3.Models
                 }
             }
 
-            // ✅ Load lại dropdown nếu lỗi (dùng lại đúng nguồn NHAN_VIEN)
             var danhSachBacSi = db.NHAN_VIEN
                 .Where(nv => nv.TAI_KHOAN != null && nv.TAI_KHOAN.VaiTro == "BacSi")
                 .Select(nv => new { MaNV = nv.MaNV, TenNV = nv.HoTen }).ToList();

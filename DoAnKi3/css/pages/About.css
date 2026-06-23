@@ -79,7 +79,7 @@ body {
 
 .about-hero__heading {
     font-family: 'DM Sans', system-ui, sans-serif;
-    font-size: clamp(28px, 4vw, 52px); /* bớt size xuống */
+    font-size: clamp(28px, 4vw, 52px); 
     line-height: 1.1;
 
 }

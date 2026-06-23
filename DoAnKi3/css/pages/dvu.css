@@ -1,10 +1,8 @@
-﻿/* --- TRANG DANH SÁCH DỊCH VỤ PREMIUM --- */
-.pc-services-page {
+﻿.pc-services-page {
     background-color: var(--pc-bg);
     padding: 5rem 0;
 }
 
-/* Tiêu đề & Subtitle */
 .services-title {
     font-size: 2.5rem;
     font-weight: 800;
@@ -28,21 +26,18 @@
     border-radius: 2px;
 }
 
-/* --- BỐ CỤC LƯỚI KHÔNG GIAN (GRID) --- */
 .services-grid {
     display: grid;
-    /* Tự động tính toán số cột dựa trên kích thước màn hình mà không lo vỡ layout */
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem; /* Khoảng cách thở chuẩn giữa các thẻ */
+    gap: 1.5rem;
     margin-top: 3.5rem;
 }
 
-/* --- THẺ DỊCH VỤ (SERVICE CARD) --- */
 .service-card {
     position: relative;
     display: block;
-    aspect-ratio: 4/5; /* Khóa đồng bộ tỷ lệ ảnh dọc như file mẫu của bạn */
-    border-radius: 24px; /* Đồng bộ với cấu trúc bo góc lớn nghệ thuật */
+    aspect-ratio: 4/5;
+    border-radius: 24px;
     overflow: hidden;
     text-decoration: none;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
@@ -50,7 +45,6 @@
     z-index: 1;
 }
 
-/* Khung bọc ảnh */
 .card-img-wrapper {
     position: absolute;
     inset: 0;
@@ -67,7 +61,6 @@
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Lớp phủ dải màu Gradient để hỗ trợ tương phản cho chữ trắng */
 .card-overlay {
     position: absolute;
     inset: 0;
@@ -75,7 +68,6 @@
     transition: background 0.4s ease;
 }
 
-/* Khối nội dung chữ nằm trên thẻ */
 .card-content {
     position: absolute;
     bottom: 0;
@@ -88,7 +80,6 @@
     align-items: center;
 }
 
-/* Tên dịch vụ (Nút viền bo như ảnh mẫu nhưng bo chuẩn và mềm hơn) */
 .service-name {
     font-size: 0.95rem;
     font-weight: 700;
@@ -96,29 +87,27 @@
     margin: 0;
     padding: 0.65rem 1.25rem;
     border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 100px; /* Bo tròn dạng pill-box cao cấp */
+    border-radius: 100px;
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(4px); /* Tạo hiệu ứng kính mờ thời thượng */
+    backdrop-filter: blur(4px);
     width: 100%;
-    white-space: nowrap; /* Tuyệt đối không cho bẻ dòng chữ làm hỏng layout */
+    white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* --- HIỆU ỨNG TƯƠNG TÁC (HOVER EFFECT) --- */
 .service-card:hover {
-    transform: translateY(-6px); /* Thẻ nhấc nhẹ lên tạo độ sâu */
-    box-shadow: 0 20px 40px rgba(255, 145, 77, 0.15); /* Đổ bóng theo tông màu nhấn của bạn */
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(255, 145, 77, 0.15);
 }
 
     .service-card:hover .service-img {
-        transform: scale(1.06); /* Ảnh zoom nhẹ trơn tru */
+        transform: scale(1.06);
     }
 
     .service-card:hover .card-overlay {
-        background: linear-gradient(to top, rgba(255, 145, 77, 0.85) 0%, /* Đổi sang màu cam primary khi hover cực kỳ mượt mà */
-        rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 100%);
+        background: linear-gradient(to top, rgba(255, 145, 77, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 100%);
     }
 
     .service-card:hover .service-name {
@@ -128,7 +117,6 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
 
-/* --- TỐI ƯU ĐÁP ỨNG DARK MODE --- */
 [data-theme="dark"] .services-title {
     color: var(--pc-primary-light, #FFB380);
 }
